@@ -18,7 +18,7 @@ public class Main extends Application {
 
 		    Parent layout = FXMLLoader.load(getClass().getResource("vues/Main.fxml"));
 			
-			Scene scene = new Scene(layout,600,900);
+			Scene scene = new Scene(layout,600,920);
 			scene.getStylesheets().add(getClass().getResource("vues/application.css").toExternalForm());
 
 			primaryStage.setScene(scene);

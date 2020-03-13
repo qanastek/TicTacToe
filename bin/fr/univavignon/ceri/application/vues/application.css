@@ -1,6 +1,19 @@
 .refresh {          
     -fx-background-image: url("../ressources/images/refresh.png");
-    -fx-background-size: 18 18;
+    -fx-background-size: 60 60;
     -fx-background-repeat: no-repeat;
-    -fx-background-position:left;   
+    -fx-background-position: center;
+}
+
+.board {
+	-fx-background-color: #6648c4;
+	-fx-background-radius: 30;
+}
+
+.background {
+	-fx-background-color: linear-gradient(to top right, #1d0e4c, #442dad);
+}
+
+Label {
+	-fx-text-fill: white;
 }

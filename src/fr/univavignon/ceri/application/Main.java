@@ -38,8 +38,8 @@ public class Main extends Application {
 			
 			// Set the width of the window to the half of the monitor width
 			Main.widthApp = screenBounds.getWidth() * 0.3;
-			primaryStage.setMinWidth(Main.widthApp);
-			primaryStage.setMaxWidth(Main.widthApp);
+//			primaryStage.setMinWidth(Main.widthApp);
+//			primaryStage.setMaxWidth(Main.widthApp);
 			primaryStage.setWidth(Main.widthApp);
 
 			// Set the height of the window to the half of the monitor height

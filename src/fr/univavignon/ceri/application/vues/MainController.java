@@ -14,6 +14,8 @@ import java.util.ResourceBundle;
 import org.controlsfx.control.ToggleSwitch;
 
 import fr.univavignon.ceri.application.Main;
+import fr.univavignon.ceri.application.models.Game;
+import fr.univavignon.ceri.application.models.Tile;
 
 public class MainController implements Initializable {
 
@@ -24,9 +26,6 @@ public class MainController implements Initializable {
     private Pane gameScene;
 
     @FXML
-    private Button help;
-
-    @FXML
     private ImageView currentPlayerIcon;
 
     @FXML
@@ -35,9 +34,14 @@ public class MainController implements Initializable {
     @FXML
     private ToggleSwitch rival;
     
+    /**
+     * The {@code Game} instance
+     */
+    public static Game GAME = Game.getInstance();
+    
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		System.out.println("initialize ----------");
+		System.out.println("----Initialize------");
 		this.initGui();
 	}
 
@@ -54,15 +58,15 @@ public class MainController implements Initializable {
 			vboxPane.setPrefHeight(Main.widthApp);	
 			vboxPane.setPrefHeight(Main.widthApp);	
 		}
+		
+		/**
+		 * Add the Tile  on the Pane
+		 */;
+		this.gameScene.getChildren().addAll(MainController.GAME.board.tiles);
 	}
 
 	@FXML
     void switchRival(ActionEvent event) {
-
-    }
-
-    @FXML
-    void help(ActionEvent event) {
 
     }
 

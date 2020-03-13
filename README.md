@@ -49,3 +49,4 @@ The project relies on the following libraries:
     
 ## References
 * [TensorFlow 2.0 Crash Course](https://youtu.be/6g4O5UOH304) : He explain the basics of TensorFlow 2.0.
+* [Tic Tac Toe by Shashank Kumar](https://dribbble.com/shots/6187597-Tic-Tac-Toe/attachments) : Inspiration for the design

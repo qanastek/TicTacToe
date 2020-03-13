@@ -5,8 +5,12 @@
     -fx-background-position: center;
 }
 
-.board {
+.under_board {
 	-fx-background-color: #6648c4;
+	-fx-background-radius: 30;
+}
+
+.board {
 	-fx-background-radius: 30;
 }
 

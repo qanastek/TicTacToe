@@ -32,7 +32,16 @@
                <children>
                   <VBox fx:id="vboxPane" maxHeight="600.0" maxWidth="600.0" minHeight="600.0" minWidth="600.0" prefHeight="600.0" prefWidth="600.0" VBox.vgrow="ALWAYS">
                      <children>
-                        <Pane fx:id="gameScene" style="-fx-background-color: #6648c4; -fx-background-radius: 30;" styleClass="board" VBox.vgrow="ALWAYS" />
+                        <StackPane prefHeight="150.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                           <children>
+                              <Pane styleClass="under_board" />
+                              <Pane fx:id="gameScene" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="board">
+                                 <StackPane.margin>
+                                    <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                 </StackPane.margin>
+                              </Pane>
+                           </children>
+                        </StackPane>
                      </children>
                      <VBox.margin>
                         <Insets />

@@ -38,8 +38,8 @@ public class Tile extends StackPane {
 	 * Constructor
 	 */
 	public Tile() {
-		
-		this.content = new Text("x");
+				
+		this.content = new Text();
 		this.content.setFill(Color.WHITE);
 		this.content.setStyle("-fx-font: 60 arial;");
 		
@@ -67,11 +67,23 @@ public class Tile extends StackPane {
 		getChildren().addAll(shape, this.content);
 		
 		setOnMouseClicked(event -> {
+			
 			if (event.getButton() == MouseButton.PRIMARY) {
-				this.drawCross();
 				
-			} else if (event.getButton() == MouseButton.SECONDARY) {
-				this.drawCircle();
+				if (Game.CURRENT_PLAYER.equals("x")) {
+					
+					this.drawCross();
+					Game.CURRENT_PLAYER = "o";		
+					
+				} else {
+					
+					this.drawCircle();
+					Game.CURRENT_PLAYER = "x";						
+				}
+				
+				Game.HIT++;
+				
+				Game.checkWinner();
 			}
 		});
 	}

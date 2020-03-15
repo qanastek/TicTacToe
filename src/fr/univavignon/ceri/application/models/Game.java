@@ -3,24 +3,31 @@
  */
 package fr.univavignon.ceri.application.models;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import fr.univavignon.ceri.application.config.Settings;
-import javafx.geometry.Insets;
 
 /**
  * @author Yanis Labrak
- *
  */
 public class Game {
 	
+	/**
+	 * The game instance
+	 */
 	private static Game instance;
 	
+	/**
+	 * The board
+	 */
 	public Board board;
 	
+	/**
+	 * The current player
+	 */
 	public static String CURRENT_PLAYER = "x";
 	
+	/**
+	 * Total number of hits
+	 */
 	public static int HIT = 0;
 	
 	/**
@@ -77,7 +84,4 @@ public class Game {
 			// TODO: If yes draw a line
 		}
 	}
-	
-	
-
 }

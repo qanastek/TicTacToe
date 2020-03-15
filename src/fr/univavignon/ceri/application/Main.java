@@ -1,7 +1,5 @@
 package fr.univavignon.ceri.application;
 	
-import java.util.ResourceBundle;
-
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
@@ -10,6 +8,11 @@ import javafx.stage.Stage;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 
+/**
+ * Tic Tac Toe
+ * @author Yanis Labrak
+ * @author Valentin Vougeot
+ */
 public class Main extends Application {
 	
 	/**

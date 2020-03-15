@@ -3,17 +3,12 @@
  */
 package fr.univavignon.ceri.application.models;
 
-import java.io.InputStream;
-
-import fr.univavignon.ceri.application.Main;
 import fr.univavignon.ceri.application.config.Colors;
 import fr.univavignon.ceri.application.config.Settings;
 import javafx.geometry.Pos;
-import javafx.scene.image.Image;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
@@ -83,6 +78,7 @@ public class Tile extends StackPane {
 				
 				Game.HIT++;
 				
+				// Check if somebody win the game after this hit
 				Game.checkWinner();
 			}
 		});

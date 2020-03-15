@@ -3,8 +3,6 @@
  */
 package fr.univavignon.ceri.application.config;
 
-import fr.univavignon.ceri.application.Main;
-
 /**
  * @author Yanis Labrak
  *

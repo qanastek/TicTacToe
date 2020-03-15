@@ -15,7 +15,6 @@ import org.controlsfx.control.ToggleSwitch;
 
 import fr.univavignon.ceri.application.Main;
 import fr.univavignon.ceri.application.models.Game;
-import fr.univavignon.ceri.application.models.Tile;
 
 public class MainController implements Initializable {
 

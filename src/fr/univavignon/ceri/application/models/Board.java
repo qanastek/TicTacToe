@@ -34,9 +34,11 @@ public class Board {
 			return Board.instance = new Board();
 		}
 		else {
-			return Board.instance;			
-		}		
+			return Board.instance;
+		}
 	}
+	
+//	public ArrayList<Tile> get
 	
 	@Override
 	protected Object clone() throws CloneNotSupportedException {

@@ -68,7 +68,7 @@ public class Tile extends StackPane {
 			
 			if (event.getButton() == MouseButton.PRIMARY) {
 				
-				if (Game.CURRENT_PLAYER.equals("x")) {
+				if (Game.CURRENT_PLAYER.get().equals("x")) {
 					
 					this.drawCross();
 					Game.CURRENT_PLAYER.set("o");		

@@ -31,7 +31,7 @@ public class MainController implements Initializable {
     private ImageView currentPlayerIcon;
 
     @FXML
-    private Button refresh;
+    private Button restart;
 
     @FXML
     private Button rival;
@@ -74,32 +74,53 @@ public class MainController implements Initializable {
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
 				
 				System.out.println("run");
+
+				/**
+				 * Labels
+				 */
+				getLabelPlayer(oldValue).setVisible(false);
+				getLabelPlayer(newValue).setVisible(true);
 				
-				if (newValue.equals("x")) {
-					System.out.println("---- X");
-				}
-				else if (newValue.equals("o")) {
-					System.out.println("---- O");
-				}
+				/**
+				 * Vbox
+				 */
+				getVboxPlayer(oldValue).getStyleClass().remove("playerActive");
+				getVboxPlayer(newValue).getStyleClass().add("playerActive");
 			}
 		});
-		
-//		if (Main.widthApp != null && Main.widthApp.get() > 0) {
-//			
-//			System.out.println(Main.widthApp.get());
-//			System.out.println(Main.widthApp.get() *0.5);
-//			
-//			gameScene.setPrefWidth(Main.widthApp.get());
-//			gameScene.setPrefHeight(Main.widthApp.get());	
-//			
-//			vboxPane.setPrefHeight(Main.widthApp.get());	
-//			vboxPane.setPrefHeight(Main.widthApp.get());	
-//		}
-		
+				
 		/**
 		 * Add the Tile  on the Pane
 		 */;
 		this.gameScene.getChildren().addAll(MainController.GAME.board.tiles);
+	}
+	
+	/**
+	 * Return the {@code Vbox} of the current player
+	 * @param form {@code String}
+	 * @return {@code Label} The {@code Vbox}
+	 */
+	VBox getVboxPlayer(String form) {
+		
+		if (form.equals("x")) {
+			return player1Box;
+		}
+		
+		return player2Box;
+	}
+	
+	/**
+	 * Return the "Your Turn" {@code Label} of the current player
+	 * @param form {@code String}
+	 * @return {@code Label} The "Your Turn" label
+	 */
+	Label getLabelPlayer(String form) {
+		
+		if (form.equals("x")) {
+			return player1Turn;
+		}
+		
+		return player2Turn;
 	}
 
 	@FXML
@@ -108,7 +129,7 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    void refresh(ActionEvent event) {
-
+    void restart(ActionEvent event) {
+    	System.out.println("restart");
     }
 }

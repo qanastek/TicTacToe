@@ -23,6 +23,10 @@ public class Board {
 		this.tiles = new ArrayList<Tile>();
 	}
 	
+	/**
+	 * Get the {@code Board} instance
+	 * @return {@code Board}
+	 */
 	public static Board getInstance() {
 		
 		// If hasn't been created

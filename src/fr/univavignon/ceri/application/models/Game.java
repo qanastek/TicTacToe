@@ -27,7 +27,6 @@ public class Game {
 	/**
 	 * The current player
 	 */
-//	public static String CURRENT_PLAYER = "x";
 	public static StringProperty CURRENT_PLAYER = new SimpleStringProperty("x");
 	
 	/**

@@ -61,19 +61,22 @@ public class Tile extends StackPane {
 //		getChildren().addAll(shape);
 		getChildren().addAll(shape, this.content);
 		
-		setOnMouseClicked(event -> {
+		/**
+		 * When we click on the Tile
+		 */
+		this.setOnMouseClicked(event -> {
 			
 			if (event.getButton() == MouseButton.PRIMARY) {
 				
 				if (Game.CURRENT_PLAYER.equals("x")) {
 					
 					this.drawCross();
-					Game.CURRENT_PLAYER = "o";		
+					Game.CURRENT_PLAYER.set("o");		
 					
 				} else {
 					
 					this.drawCircle();
-					Game.CURRENT_PLAYER = "x";						
+					Game.CURRENT_PLAYER.set("x");				
 				}
 				
 				Game.HIT++;

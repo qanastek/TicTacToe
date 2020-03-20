@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import javafx.geometry.*?>
+<?import org.controlsfx.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="600.0" minHeight="960.0" minWidth="600.0" prefWidth="600.0" styleClass="background" stylesheets="@application.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.univavignon.ceri.application.vues.MainController">
+   <children>
+      <VBox prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <MenuBar VBox.vgrow="ALWAYS">
+              <menus>
+                <Menu mnemonicParsing="false" text="⚙ Paramètres">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="Inteligence Artificiel" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Aide ?">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="Règles" />
+                  </items>
+                </Menu>
+              </menus>
+            </MenuBar>
+            <VBox prefHeight="200.0" prefWidth="100.0" VBox.vgrow="ALWAYS">
+               <children>
+                  <VBox prefHeight="193.0" prefWidth="600.0" VBox.vgrow="ALWAYS">
+                     <children>
+                        <VBox prefHeight="200.0" prefWidth="100.0" VBox.vgrow="ALWAYS">
+                           <children>
+                              <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                                 <children>
+                                    <HBox prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+                                       <children>
+                                          <Label text="Tour :" HBox.hgrow="ALWAYS">
+                                             <font>
+                                                <Font size="50.0" />
+                                             </font>
+                                             <padding>
+                                                <Insets left="10.0" />
+                                             </padding>
+                                          </Label>
+                                          <ImageView fx:id="currentPlayerIcon" fitHeight="65.0" fitWidth="87.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
+                                             <image>
+                                                <Image url="@../ressources/images/player1.png" />
+                                             </image>
+                                             <HBox.margin>
+                                                <Insets left="10.0" top="5.0" />
+                                             </HBox.margin>
+                                          </ImageView>
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+                                       <children>
+                                          <Button fx:id="refresh" alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" onAction="#refresh" styleClass="refresh" stylesheets="@application.css" textAlignment="CENTER" HBox.hgrow="ALWAYS">
+                                             <font>
+                                                <Font size="44.0" />
+                                             </font>
+                                             <HBox.margin>
+                                                <Insets right="5.0" />
+                                             </HBox.margin>
+                                             <opaqueInsets>
+                                                <Insets />
+                                             </opaqueInsets>
+                                             <cursor>
+                                                <Cursor fx:constant="HAND" />
+                                             </cursor>
+                                          </Button>
+                                       </children>
+                                       <padding>
+                                          <Insets right="10.0" />
+                                       </padding>
+                                    </HBox>
+                                 </children>
+                              </HBox>
+                           </children>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                           <padding>
+                              <Insets top="10.0" />
+                           </padding>
+                        </VBox>
+                        <VBox prefHeight="200.0" prefWidth="100.0" VBox.vgrow="ALWAYS">
+                           <children>
+                              <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                                 <children>
+                                    <Label text="Adversaire :" HBox.hgrow="ALWAYS">
+                                       <font>
+                                          <Font size="50.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </HBox>
+                              <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                                 <children>
+                                    <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                                       <children>
+                                          <HBox VBox.vgrow="ALWAYS">
+                                             <children>
+                                                <ImageView fitHeight="124.0" fitWidth="126.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../ressources/images/bot_bis.png" />
+                                                   </image>
+                                                   <cursor>
+                                                      <Cursor fx:constant="NONE" />
+                                                   </cursor>
+                                                </ImageView>
+                                             </children>
+                                          </HBox>
+                                          <HBox alignment="CENTER" VBox.vgrow="ALWAYS">
+                                             <children>
+                                                <Label alignment="CENTER" contentDisplay="CENTER" text="Robot" textAlignment="CENTER" />
+                                             </children>
+                                          </HBox>
+                                          <HBox VBox.vgrow="ALWAYS">
+                                             <children>
+                                                <ImageView fitHeight="124.0" fitWidth="126.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
+                                                   <image>
+                                                      <Image url="@../ressources/images/cross.png" />
+                                                   </image>
+                                                   <cursor>
+                                                      <Cursor fx:constant="NONE" />
+                                                   </cursor>
+                                                </ImageView>
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                    </VBox>
+                                    <VBox alignment="CENTER" HBox.hgrow="ALWAYS">
+                                       <children>
+                                          <ToggleSwitch fx:id="rival" alignment="CENTER" contentDisplay="CENTER" onDragDetected="#switchRival" textAlignment="CENTER" VBox.vgrow="ALWAYS">
+                                             <font>
+                                                <Font size="25.0" />
+                                             </font>
+                                             <cursor>
+                                                <Cursor fx:constant="HAND" />
+                                             </cursor>
+                                          </ToggleSwitch>
+                                       </children>
+                                    </VBox>
+                                    <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                                       <children>
+                                          <HBox VBox.vgrow="ALWAYS">
+                                             <children>
+                                                <ImageView fitHeight="124.0" fitWidth="126.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../ressources/images/person.png" />
+                                                   </image>
+                                                   <cursor>
+                                                      <Cursor fx:constant="NONE" />
+                                                   </cursor>
+                                                </ImageView>
+                                             </children>
+                                          </HBox>
+                                          <HBox alignment="CENTER" VBox.vgrow="ALWAYS">
+                                             <children>
+                                                <Label alignment="CENTER" contentDisplay="CENTER" text="Ami(e)" HBox.hgrow="ALWAYS" />
+                                             </children>
+                                          </HBox>
+                                          <HBox VBox.vgrow="ALWAYS">
+                                             <children>
+                                                <ImageView fitHeight="124.0" fitWidth="126.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../ressources/images/circle.png" />
+                                                   </image>
+                                                   <cursor>
+                                                      <Cursor fx:constant="NONE" />
+                                                   </cursor>
+                                                </ImageView>
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets left="75.0" right="75.0" />
+                                 </VBox.margin>
+                              </HBox>
+                           </children>
+                           <padding>
+                              <Insets left="10.0" />
+                           </padding>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </VBox>
+                     </children>
+                  </VBox>
+                  <VBox fx:id="vboxPane" maxHeight="600.0" maxWidth="600.0" minHeight="600.0" minWidth="600.0" prefHeight="600.0" prefWidth="600.0" VBox.vgrow="ALWAYS">
+                     <children>
+                        <StackPane prefHeight="150.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                           <children>
+                              <Pane styleClass="under_board" />
+                              <Pane fx:id="gameScene" styleClass="board">
+                                 <StackPane.margin>
+                                    <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                 </StackPane.margin>
+                              </Pane>
+                           </children>
+                        </StackPane>
+                     </children>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </VBox>
+               </children>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </VBox>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

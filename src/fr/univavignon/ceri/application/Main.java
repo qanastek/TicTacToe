@@ -1,6 +1,9 @@
 package fr.univavignon.ceri.application;
 	
 import javafx.application.Application;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 import javafx.stage.Screen;
@@ -16,13 +19,24 @@ import javafx.scene.Scene;
 public class Main extends Application {
 	
 	/**
+	 * The scenes
+	 */
+	public static Scene scene;
+	
+	/**
 	 * Size of the screen
 	 */
 	public static Rectangle2D screenBounds;
 	
-	public static Double widthApp;
+	/**
+	 * App width
+	 */
+	public static SimpleDoubleProperty widthApp = new SimpleDoubleProperty();
 	
-	public static Double heigthApp;
+	/**
+	 * App height
+	 */
+	public static SimpleDoubleProperty heigthApp = new SimpleDoubleProperty();
 	
 	@Override
 	public void start(Stage primaryStage) {
@@ -36,23 +50,47 @@ public class Main extends Application {
 		    // Load the FXML
 		    Parent layout = FXMLLoader.load(getClass().getResource("vues/Main.fxml"));
 			
-			Scene scene = new Scene(layout,layout.getLayoutY(), layout.getLayoutX());
+			scene = new Scene(layout,layout.getLayoutY(), layout.getLayoutX());
 			scene.getStylesheets().add(getClass().getResource("vues/application.css").toExternalForm());
 			
 			// Set the width of the window to the half of the monitor width
-			Main.widthApp = screenBounds.getWidth() * 0.3;
+			Main.widthApp.set(screenBounds.getWidth() * 0.3);
+			primaryStage.setWidth(Main.widthApp.get());
 //			primaryStage.setMinWidth(Main.widthApp);
 //			primaryStage.setMaxWidth(Main.widthApp);
-			primaryStage.setWidth(Main.widthApp);
 
 			// Set the height of the window to the half of the monitor height
-			Main.heigthApp = screenBounds.getHeight() * 0.9;
+			Main.heigthApp.set(screenBounds.getHeight() * 0.9);
 //			primaryStage.setMinHeight(Main.heigthApp);
 //			primaryStage.setMaxHeight(Main.heigthApp);
-			primaryStage.setHeight(Main.heigthApp);
+			primaryStage.setHeight(Main.heigthApp.get());
 
 			primaryStage.setScene(scene);
 			primaryStage.show();
+			
+			/**
+			 * Observe width changes
+			 */
+			Main.scene.widthProperty().addListener(new ChangeListener<Object>() {
+				@Override
+				public void changed(ObservableValue<?> observable, Object oldValue, Object newValue) {
+					System.out.println("Old width: " + Main.widthApp);
+					Main.widthApp.set((double) newValue);
+					System.out.println("New width : " + Main.widthApp);
+				}			
+			});
+			
+			/**
+			 * Observe height changes
+			 */
+			Main.scene.heightProperty().addListener(new ChangeListener<Object>() {
+				@Override
+				public void changed(ObservableValue<?> observable, Object oldValue, Object newValue) {
+					System.out.println("Old height : " + Main.heigthApp);
+					Main.heigthApp.set((double) newValue);
+					System.out.println("New height : " + Main.heigthApp);
+				}			
+			});
 			
 		} catch(Exception e) {
 			e.printStackTrace();

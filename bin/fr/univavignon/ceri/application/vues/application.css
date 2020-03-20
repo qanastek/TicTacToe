@@ -1,8 +1,10 @@
 .refresh {          
-    -fx-background-image: url("../ressources/images/refresh.png");
-    -fx-background-size: 60 60;
+    -fx-background-image: url("../ressources/images/refresh_color.png");
+    -fx-background-color: #28175c;
+    -fx-background-size: 30 30;
     -fx-background-repeat: no-repeat;
     -fx-background-position: center;
+    -fx-background-radius: 30px;
 }
 
 .under_board {
@@ -16,6 +18,26 @@
 
 .background {
 	-fx-background-color: linear-gradient(to top right, #1d0e4c, #442dad);
+}
+
+.playerRound {
+    -fx-background-color: #28175c;
+    -fx-background-radius: 20px;
+	-fx-text-fill: white;
+}
+
+.playerSquare {
+    -fx-border-radius: 20px;
+    -fx-background-radius: 20px;
+    -fx-border-color: white;
+    -fx-border-width: 3 ; 
+    -fx-border-style: solid;	
+}
+
+.playFriend {
+    -fx-background-color: #3CB371;
+    -fx-background-radius: 5px;
+	-fx-text-fill: white;
 }
 
 Label {

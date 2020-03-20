@@ -4,6 +4,10 @@
 package fr.univavignon.ceri.application.models;
 
 import fr.univavignon.ceri.application.config.Settings;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+import javafx.beans.property.StringPropertyBase;
 
 /**
  * @author Yanis Labrak
@@ -23,7 +27,8 @@ public class Game {
 	/**
 	 * The current player
 	 */
-	public static String CURRENT_PLAYER = "x";
+//	public static String CURRENT_PLAYER = "x";
+	public static StringProperty CURRENT_PLAYER = new SimpleStringProperty("x");
 	
 	/**
 	 * Total number of hits

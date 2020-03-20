@@ -1,9 +1,12 @@
 package fr.univavignon.ceri.application.vues;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -31,7 +34,19 @@ public class MainController implements Initializable {
     private Button refresh;
 
     @FXML
-    private ToggleSwitch rival;
+    private Button rival;
+    
+    @FXML
+    private VBox player1Box;
+    
+    @FXML
+    private VBox player2Box;
+    
+    @FXML
+    private Label player1Turn;
+    
+    @FXML
+    private Label player2Turn;
     
     /**
      * The {@code Game} instance
@@ -40,7 +55,6 @@ public class MainController implements Initializable {
     
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		System.out.println("----Initialize------");
 		this.initGui();
 	}
 
@@ -49,14 +63,38 @@ public class MainController implements Initializable {
 	 */
 	private void initGui() {
 
-		if (Main.widthApp != null && Main.widthApp > 0) {
-			
-			gameScene.setPrefWidth(Main.widthApp);
-			gameScene.setPrefHeight(Main.widthApp);	
-			
-			vboxPane.setPrefHeight(Main.widthApp);	
-			vboxPane.setPrefHeight(Main.widthApp);	
-		}
+		System.out.println("init gui");
+		
+		/**
+		 * When the player change
+		 */
+		Game.CURRENT_PLAYER.addListener(new ChangeListener<String>() {
+
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				
+				System.out.println("run");
+				
+				if (newValue.equals("x")) {
+					System.out.println("---- X");
+				}
+				else if (newValue.equals("o")) {
+					System.out.println("---- O");
+				}
+			}
+		});
+		
+//		if (Main.widthApp != null && Main.widthApp.get() > 0) {
+//			
+//			System.out.println(Main.widthApp.get());
+//			System.out.println(Main.widthApp.get() *0.5);
+//			
+//			gameScene.setPrefWidth(Main.widthApp.get());
+//			gameScene.setPrefHeight(Main.widthApp.get());	
+//			
+//			vboxPane.setPrefHeight(Main.widthApp.get());	
+//			vboxPane.setPrefHeight(Main.widthApp.get());	
+//		}
 		
 		/**
 		 * Add the Tile  on the Pane
@@ -66,7 +104,7 @@ public class MainController implements Initializable {
 
 	@FXML
     void switchRival(ActionEvent event) {
-
+		System.out.println("Play with firends !");
     }
 
     @FXML

@@ -210,7 +210,7 @@ public class GenerateDataset {
 		
 		System.out.println(GenerateDataset.hasWinner(board));
 		
-		GenerateDataset.Generate(100);
+		GenerateDataset.Generate(1000);
 		
 	}
 	

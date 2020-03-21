@@ -1,5 +1,6 @@
 package fr.univavignon.ceri.application;
 	
+import fr.univavignon.ceri.application.config.Settings;
 import javafx.application.Application;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.value.ChangeListener;
@@ -10,6 +11,7 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 
 /**
  * Tic Tac Toe
@@ -27,22 +29,16 @@ public class Main extends Application {
 	 * Size of the screen
 	 */
 	public static Rectangle2D screenBounds;
-	
-	/**
-	 * App width
-	 */
-	public static SimpleDoubleProperty widthApp = new SimpleDoubleProperty();
-	
-	/**
-	 * App height
-	 */
-	public static SimpleDoubleProperty heigthApp = new SimpleDoubleProperty();
-	
+		
 	@Override
 	public void start(Stage primaryStage) {
 		try {
 
-			primaryStage.setTitle("Projet GUI V1.0");
+			// Set the title
+			primaryStage.setTitle("Tic-Tac-Toe");
+			
+			// Set a favicon to the window
+			primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("ressources/images/ttt1.png")));
 
 			// Get the dimensions of the monitor
 		    Main.screenBounds = Screen.getPrimary().getBounds();
@@ -54,43 +50,17 @@ public class Main extends Application {
 			scene.getStylesheets().add(getClass().getResource("vues/application.css").toExternalForm());
 			
 			// Set the width of the window to the half of the monitor width
-			Main.widthApp.set(screenBounds.getWidth() * 0.8);
-			primaryStage.setWidth(Main.widthApp.get());
+			Settings.WIDTH_BOARD.set(screenBounds.getWidth() * 0.8);
+			primaryStage.setWidth(Settings.WIDTH_BOARD.get());
 //			primaryStage.setMinWidth(Main.widthApp);
-//			primaryStage.setMaxWidth(Main.widthApp);
 
 			// Set the height of the window to the half of the monitor height
-			Main.heigthApp.set(screenBounds.getHeight() * 0.8);
+			Settings.HEIGHT_BOARD.set(screenBounds.getHeight() * 0.8);
 //			primaryStage.setMinHeight(Main.heigthApp);
-//			primaryStage.setMaxHeight(Main.heigthApp);
-			primaryStage.setHeight(Main.heigthApp.get());
+			primaryStage.setHeight(Settings.HEIGHT_BOARD.get());
 
 			primaryStage.setScene(scene);
 			primaryStage.show();
-			
-			/**
-			 * Observe width changes
-			 */
-			Main.scene.widthProperty().addListener(new ChangeListener<Object>() {
-				@Override
-				public void changed(ObservableValue<?> observable, Object oldValue, Object newValue) {
-					System.out.println("Old width: " + Main.widthApp);
-					Main.widthApp.set((double) newValue);
-					System.out.println("New width : " + Main.widthApp);
-				}			
-			});
-			
-			/**
-			 * Observe height changes
-			 */
-			Main.scene.heightProperty().addListener(new ChangeListener<Object>() {
-				@Override
-				public void changed(ObservableValue<?> observable, Object oldValue, Object newValue) {
-					System.out.println("Old height : " + Main.heigthApp);
-					Main.heigthApp.set((double) newValue);
-					System.out.println("New height : " + Main.heigthApp);
-				}			
-			});
 			
 		} catch(Exception e) {
 			e.printStackTrace();

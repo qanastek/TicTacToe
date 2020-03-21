@@ -48,8 +48,9 @@ public class Game {
 				
 				Tile tile = new Tile();
 				
-				tile.setTranslateY(i * Settings.getSize());
-				tile.setTranslateX(j * Settings.getSize());
+				tile.translateYProperty().bind(Settings.TILE_HEIGHT.multiply(i));
+				tile.translateXProperty().bind(Settings.TILE_WIDTH.multiply(j));
+				
 //				tile.setPadding(new Insets(10, 10, 10, 10));
 				
 				this.board.tiles.add(tile);
@@ -87,5 +88,20 @@ public class Game {
 			// TODO: Check if 3 same X/O in a row
 			// TODO: If yes draw a line
 		}
+	}
+	
+	/**
+	 * Clear the current game
+	 */
+	public void clear() {
+		
+    	// Clear the matrix
+    	Board.getInstance().clear(); 
+		
+		// Clear hit
+    	Game.HIT.set(0);
+		
+		// Reset current player to x
+    	Game.CURRENT_PLAYER.set("x");
 	}
 }

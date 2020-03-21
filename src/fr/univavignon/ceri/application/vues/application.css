@@ -39,6 +39,44 @@
 	-fx-text-fill: white;
 }
 
+.difficultyBtn:focused {
+    /* -fx-background-color: white !important; */
+    -fx-effect: dropshadow(gaussian, rgba(255, 34, 103, 0.5), 10, 0.5, 0.0, 0.0);
+}
+
+.easy {
+    -fx-background-color: #ff2267;
+	-fx-text-fill: white;
+	
+    -fx-background-radius: 5px 0px 0px 5px;
+    -fx-border-radius: 5px 0px 0px 5px;
+    -fx-border-color: #ccc;
+    -fx-border-width: 1; 
+    -fx-border-style: solid;
+}
+
+.medium {
+    -fx-background-color: #ff2267;
+	-fx-text-fill: white;
+	
+    -fx-background-radius: 0px 0px 0px 0px;
+    -fx-border-radius: 0px 0px 0px 0px;
+    -fx-border-color: #ccc;
+    -fx-border-width: 1; 
+    -fx-border-style: solid;
+}
+
+.hard {
+    -fx-background-color: #ff2267;
+	-fx-text-fill: white;
+	
+    -fx-background-radius: 0px 5px 5px 0px;
+    -fx-border-radius: 0px 5px 5px 0px;
+    -fx-border-color: #ccc;
+    -fx-border-width: 1; 
+    -fx-border-style: solid;
+}
+
 Label {
 	-fx-text-fill: white;
 }

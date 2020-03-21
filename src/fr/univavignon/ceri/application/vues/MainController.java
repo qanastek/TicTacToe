@@ -17,6 +17,7 @@ import java.util.ResourceBundle;
 import org.controlsfx.control.ToggleSwitch;
 
 import fr.univavignon.ceri.application.Main;
+import fr.univavignon.ceri.application.config.Settings;
 import fr.univavignon.ceri.application.models.Board;
 import fr.univavignon.ceri.application.models.Game;
 
@@ -36,6 +37,15 @@ public class MainController implements Initializable {
 
     @FXML
     private Button rival;
+    
+    @FXML
+    private Button easy;
+    
+    @FXML
+    private Button medium;
+    
+    @FXML
+    private Button hard;
     
     @FXML
     private VBox player1Box;
@@ -63,21 +73,65 @@ public class MainController implements Initializable {
 	}
 
     /**
-	 * Initialize the graphical user interface as we want
+	 * Initialize the GUI
 	 */
 	private void initGui() {
 
 		System.out.println("init gui");
 		
+		// Board width
+		this.observeBoardWidth();
+
+		// Board height
+		this.observeBoardHeight();
+
+		// Current player
+		this.observeCurrentPlayer();
+		
+		// Count hit
+		this.observeHit();
+						
 		/**
-		 * When the player change
-		 */
+		 * Add the Tile  on the Pane
+		 */;
+		this.gameScene.getChildren().addAll(MainController.GAME.board.tiles);
+	}
+	
+	/**
+	 * Observe the player hits
+	 */
+	private void observeHit() {
+
+		Game.HIT.addListener(new ChangeListener<Object>() {
+			
+	      @Override
+	      public void changed(ObservableValue<?> observableValue, Object oldValue, Object newValue) {
+	    	  
+    	  	int newHit = (int) newValue;
+	        
+    	  	// If it's possible to win
+			if (newHit >= 5) {
+				
+				// Check if we have a winner			
+				
+				System.out.println("Board");
+				Board.getInstance().displayAsMatrix();					
+			}			
+	      }	      
+	    });
+	}
+
+	/**
+	 * When the player change
+	 */
+	private void observeCurrentPlayer() {
+
 		Game.CURRENT_PLAYER.addListener(new ChangeListener<String>() {
 
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
 				
-				System.out.println("Play");
+				System.out.println("Player changed!");
 
 				/**
 				 * Labels
@@ -92,29 +146,34 @@ public class MainController implements Initializable {
 				getVboxPlayer(newValue).getStyleClass().add("playerActive");
 			}
 		});
-		
-		/**
-		 * When play
-		 */
-		final ChangeListener changeListener = new ChangeListener() {
-	      @Override
-	      public void changed(ObservableValue observableValue, Object oldValue, Object newValue) {
-	    	  
-	        System.out.println("oldValue:"+ oldValue + ", newValue = " + newValue);
-	        
-	    	System.out.println("Board");
-	    	Board.getInstance().displayAsMatrix();
-	      }
-	    };
-
-	    Game.HIT.addListener(changeListener);
-				
-		/**
-		 * Add the Tile  on the Pane
-		 */;
-		this.gameScene.getChildren().addAll(MainController.GAME.board.tiles);
 	}
-	
+
+	/**
+	 * Observe height changes of the board
+	 */
+	private void observeBoardHeight() {
+
+		this.gameScene.heightProperty().addListener(new ChangeListener<Object>() {
+			@Override
+			public void changed(ObservableValue<?> observable, Object oldValue, Object newValue) {
+				Settings.HEIGHT_BOARD.set((double) newValue);
+			}			
+		});
+	}
+
+	/**
+	 * Observe width changes of the board
+	 */
+	private void observeBoardWidth() {
+		
+		this.gameScene.widthProperty().addListener(new ChangeListener<Object>() {
+			@Override
+			public void changed(ObservableValue<?> observable, Object oldValue, Object newValue) {
+				Settings.WIDTH_BOARD.set((double) newValue);
+			}			
+		});
+	}
+
 	/**
 	 * Return the {@code Vbox} of the current player
 	 * @param form {@code String}
@@ -148,16 +207,25 @@ public class MainController implements Initializable {
 		
 		switch (this.rival.getText()) {
 		
-			case "Play with a friend":				
-				System.out.println("Play with a Bot !");
+			// Want to play with a friend
+			case "Play with a friend":
+				
+				// Change text
 				this.rival.setText("Play with a Bot");
-//				this.playWithImg.setImage(new Image("../ressources/images/bot_bis.png"));
+				
+				// Change image
+				this.playWithImg.setImage(new Image(getClass().getResourceAsStream("../ressources/images/bot_bis.png")));
 				break;
-	
-			case "Play with a Bot":				
-				System.out.println("Play with firend !");
+
+			// Want to play with a bot
+			case "Play with a Bot":
+
+				// Change text
 				this.rival.setText("Play with a friend");
-//				this.playWithImg.setImage(new Image(MainController.class.getResourceAsStream("/ressources/images/bot_bis.png")));
+				
+				// Change image
+				this.playWithImg.setImage(new Image(getClass().getResourceAsStream("../ressources/images/person.png")));
+				
 				break;
 		}
     }
@@ -165,7 +233,34 @@ public class MainController implements Initializable {
     @FXML
     void restart(ActionEvent event) {
     	
-    	// Clear the matrix
-    	Board.getInstance().clear();    	
+    	// Clear the game
+    	Game.getInstance().clear();    	
+    }
+    
+    @FXML
+    void easy(ActionEvent event) {
+    	
+    	System.out.println("easy");
+    	
+    	// Clear the game
+    	Game.getInstance().clear();   
+    }
+    
+    @FXML
+    void medium(ActionEvent event) {
+    	
+    	System.out.println("medium");
+
+    	// Clear the game
+    	Game.getInstance().clear();   
+    }
+    
+    @FXML
+    void hard(ActionEvent event) {
+    	
+    	System.out.println("hard");
+
+    	// Clear the game
+    	Game.getInstance().clear();   
     }
 }

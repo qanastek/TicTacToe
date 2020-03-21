@@ -3,6 +3,9 @@
  */
 package fr.univavignon.ceri.application.config;
 
+import javafx.beans.binding.NumberBinding;
+import javafx.beans.property.SimpleDoubleProperty;
+
 /**
  * @author Yanis Labrak
  *
@@ -25,17 +28,23 @@ public class Settings {
 	public static final double SIZE_TEXT_TILE = 60;
 	
 	/**
-	 * This is the size of the {@code Tile}s
+	 * App width
 	 */
-	public static Double getSize() {
-		
-		return 230.0-20.0;
-		
-//		if (Main.widthApp != null) {
-//			return Main.widthApp / 3;			
-//		} else {
-//			return 0.0;
-//		}
-	}
-
+	public static SimpleDoubleProperty WIDTH_BOARD = new SimpleDoubleProperty();
+	
+	/**
+	 * App height
+	 */
+	public static SimpleDoubleProperty HEIGHT_BOARD = new SimpleDoubleProperty();
+	
+	/**
+	 * Tile width
+	 */
+	public static final NumberBinding TILE_WIDTH = WIDTH_BOARD.divide(3);
+	
+	/**
+	 * Tile height
+	 */
+	public static final NumberBinding TILE_HEIGHT = HEIGHT_BOARD.divide(3);
+	
 }

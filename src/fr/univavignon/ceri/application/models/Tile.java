@@ -38,8 +38,12 @@ public class Tile extends StackPane {
 		this.content.setFill(Color.WHITE);
 		this.content.setStyle("-fx-font: 60 arial;");
 		
-		Rectangle shape = new Rectangle(Settings.getSize(),Settings.getSize());
-//				
+		Rectangle shape = new Rectangle();
+		shape.widthProperty().bind(Settings.TILE_WIDTH);
+		shape.heightProperty().bind(Settings.TILE_HEIGHT);
+		
+//		Rectangle shape = new Rectangle(Settings.getSize(),Settings.getSize());
+		
 //		InputStream input = this.getClass().getResourceAsStream("../ressources/images/circle.png");
 //        Image image = new Image(input);		
 //		ImagePattern imagePattern = new ImagePattern(image);

@@ -29,7 +29,7 @@ public class Settings {
 	 */
 	public static Double getSize() {
 		
-		return 200.0-20.0;
+		return 230.0-20.0;
 		
 //		if (Main.widthApp != null) {
 //			return Main.widthApp / 3;			

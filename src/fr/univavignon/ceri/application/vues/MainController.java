@@ -7,10 +7,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -48,6 +48,9 @@ public class MainController implements Initializable {
     
     @FXML
     private Label player2Turn;
+    
+    @FXML
+    private ImageView playWithImg;
     
     /**
      * The {@code Game} instance
@@ -143,16 +146,18 @@ public class MainController implements Initializable {
 	@FXML
     void switchRival(ActionEvent event) {
 		
-		System.out.println("Play with firends !");
-		
 		switch (this.rival.getText()) {
 		
-			case "Play with a friend":
-				this.rival.setText("Play with a Bot");				
+			case "Play with a friend":				
+				System.out.println("Play with a Bot !");
+				this.rival.setText("Play with a Bot");
+//				this.playWithImg.setImage(new Image("../ressources/images/bot_bis.png"));
 				break;
 	
-			case "Play with a Bot":
+			case "Play with a Bot":				
+				System.out.println("Play with firend !");
 				this.rival.setText("Play with a friend");
+//				this.playWithImg.setImage(new Image(MainController.class.getResourceAsStream("/ressources/images/bot_bis.png")));
 				break;
 		}
     }

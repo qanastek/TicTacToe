@@ -1,7 +1,5 @@
-.refresh {          
-    -fx-background-image: url("../ressources/images/refresh_color.png");
+.refresh {
     -fx-background-color: #28175c;
-    -fx-background-size: 30 30;
     -fx-background-repeat: no-repeat;
     -fx-background-position: center;
     -fx-background-radius: 30px;

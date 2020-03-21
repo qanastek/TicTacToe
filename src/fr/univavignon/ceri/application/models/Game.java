@@ -4,10 +4,10 @@
 package fr.univavignon.ceri.application.models;
 
 import fr.univavignon.ceri.application.config.Settings;
-import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javafx.beans.property.StringPropertyBase;
 
 /**
  * @author Yanis Labrak
@@ -17,7 +17,7 @@ public class Game {
 	/**
 	 * The game instance
 	 */
-	private static Game instance;
+	private static Game INSTANCE;
 	
 	/**
 	 * The board
@@ -32,7 +32,7 @@ public class Game {
 	/**
 	 * Total number of hits
 	 */
-	public static int HIT = 0;
+	public static IntegerProperty HIT = new SimpleIntegerProperty(0);
 	
 	/**
 	 * Constructor
@@ -64,11 +64,11 @@ public class Game {
 	public static Game getInstance() {
 		
 		// If hasn't been created
-		if (Game.instance == null) {			
-			return Game.instance = new Game();
+		if (Game.INSTANCE == null) {			
+			return Game.INSTANCE = new Game();
 		}
 		else {
-			return Game.instance;			
+			return Game.INSTANCE;			
 		}		
 	}
 	
@@ -83,7 +83,7 @@ public class Game {
 	public static void checkWinner() {
 		
 		// If the minimal number of hit as be done
-		if (Game.HIT >= 5) {
+		if (Game.HIT.get() >= 5) {
 			// TODO: Check if 3 same X/O in a row
 			// TODO: If yes draw a line
 		}

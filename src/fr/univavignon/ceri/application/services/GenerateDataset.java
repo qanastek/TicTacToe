@@ -1,7 +1,7 @@
 /**
  * 
  */
-package fr.univavignon.ceri.application.serivces;
+package fr.univavignon.ceri.application.services;
 
 /**
  * @author Yanis Labrak

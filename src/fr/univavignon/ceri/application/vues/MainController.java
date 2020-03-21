@@ -17,6 +17,7 @@ import java.util.ResourceBundle;
 import org.controlsfx.control.ToggleSwitch;
 
 import fr.univavignon.ceri.application.Main;
+import fr.univavignon.ceri.application.models.Board;
 import fr.univavignon.ceri.application.models.Game;
 
 public class MainController implements Initializable {
@@ -73,7 +74,7 @@ public class MainController implements Initializable {
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
 				
-				System.out.println("run");
+				System.out.println("Play");
 
 				/**
 				 * Labels
@@ -88,6 +89,22 @@ public class MainController implements Initializable {
 				getVboxPlayer(newValue).getStyleClass().add("playerActive");
 			}
 		});
+		
+		/**
+		 * When play
+		 */
+		final ChangeListener changeListener = new ChangeListener() {
+	      @Override
+	      public void changed(ObservableValue observableValue, Object oldValue, Object newValue) {
+	    	  
+	        System.out.println("oldValue:"+ oldValue + ", newValue = " + newValue);
+	        
+	    	System.out.println("Board");
+	    	Board.getInstance().displayAsMatrix();
+	      }
+	    };
+
+	    Game.HIT.addListener(changeListener);
 				
 		/**
 		 * Add the Tile  on the Pane
@@ -125,11 +142,25 @@ public class MainController implements Initializable {
 
 	@FXML
     void switchRival(ActionEvent event) {
+		
 		System.out.println("Play with firends !");
+		
+		switch (this.rival.getText()) {
+		
+			case "Play with a friend":
+				this.rival.setText("Play with a Bot");				
+				break;
+	
+			case "Play with a Bot":
+				this.rival.setText("Play with a friend");
+				break;
+		}
     }
 
     @FXML
     void restart(ActionEvent event) {
-    	System.out.println("restart");
+    	
+    	// Clear the matrix
+    	Board.getInstance().clear();    	
     }
 }

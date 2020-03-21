@@ -79,7 +79,8 @@ public class Tile extends StackPane {
 					Game.CURRENT_PLAYER.set("x");				
 				}
 				
-				Game.HIT++;
+				// Increment
+				Game.HIT.set(Game.HIT.get() + 1);
 				
 				// Check if somebody win the game after this hit
 				Game.checkWinner();
@@ -103,7 +104,14 @@ public class Tile extends StackPane {
 	
 	@Override
 	public String toString() {
-		return this.content.getText();
+		
+		String current = this.content.getText();
+		
+		if (current == null || current.equals("")) {
+			current = "b";
+		}
+		
+		return current;
 	}
 
 }

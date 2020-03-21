@@ -13,6 +13,21 @@ import javafx.beans.property.SimpleDoubleProperty;
 public class Settings {
 	
 	/**
+	 * The cross tile
+	 */
+	public static String CROSS = "x";
+	
+	/**
+	 * The circle tile
+	 */
+	public static String CIRCLE = "o";
+	
+	/**
+	 * The blank tile
+	 */
+	public static String BLANK = "b";
+	
+	/**
 	 * Number of {@code Tile}s on the board width
 	 */
 	public static int TILES_NBR_WIDTH = 3;

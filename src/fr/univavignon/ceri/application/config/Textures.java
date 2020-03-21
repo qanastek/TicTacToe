@@ -10,13 +10,33 @@ package fr.univavignon.ceri.application.config;
 public class Textures {
 
 	/**
-	 * Kid image
+	 * Cross image
 	 */
-	public final static String KID = "";
+	public final static String CROSS = "../ressources/images/CROSS.png";
 	
 	/**
-	 * Bot image
+	 * Circle image
 	 */
-	public final static String BOT = "";
+	public final static String CIRCLE = "../ressources/images/CIRCLE.png";
+
+	/**
+	 * Kid image
+	 */
+	public final static String KID = "../ressources/images/KID.png";
+	
+	/**
+	 * Bot easy image
+	 */
+	public final static String EASY = "../ressources/images/EASY.png";
+	
+	/**
+	 * Bot medium image
+	 */
+	public final static String MEDIUM = "../ressources/images/MEDIUM.png";
+	
+	/**
+	 * Bot hard image
+	 */
+	public final static String HARD = "../ressources/images/HARD.png";
 
 }

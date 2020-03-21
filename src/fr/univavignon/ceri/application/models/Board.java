@@ -6,6 +6,9 @@ package fr.univavignon.ceri.application.models;
 import java.util.ArrayList;
 import java.util.List;
 
+import fr.univavignon.ceri.application.config.Settings;
+import javafx.scene.paint.ImagePattern;
+
 /**
  * @author Yanis Labrak
  *
@@ -70,8 +73,11 @@ public class Board {
 		// For each Tiles
 		for (Tile tile : tiles) {
 			
-			// Clear It
-			tile.content.setText("");
+			// Clear the image
+			tile.contentImg.setImage(null);
+			
+			// Clear the current piece
+			tile.currentShape = Settings.BLANK;
 		}
 	}
 	
@@ -93,6 +99,14 @@ public class Board {
 	@Override
 	protected Object clone() throws CloneNotSupportedException {
 		return null;
+	}
+
+	/**
+	 * Check if somebody won the game
+	 */
+	public void checkWinner() {
+		// TODO: Check if 3 same X/O in a row
+		// TODO: If yes draw a line		
 	}
 
 }

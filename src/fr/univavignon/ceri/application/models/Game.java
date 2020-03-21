@@ -82,12 +82,7 @@ public class Game {
 	 * Check if we have a winner
 	 */
 	public static void checkWinner() {
-		
-		// If the minimal number of hit as be done
-		if (Game.HIT.get() >= 5) {
-			// TODO: Check if 3 same X/O in a row
-			// TODO: If yes draw a line
-		}
+		Game.getInstance().board.checkWinner();		
 	}
 	
 	/**

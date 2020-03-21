@@ -50,14 +50,14 @@ public class Main extends Application {
 			scene.getStylesheets().add(getClass().getResource("vues/application.css").toExternalForm());
 			
 			// Set the width of the window to the half of the monitor width
-			Settings.WIDTH_BOARD.set(screenBounds.getWidth() * 0.8);
+			Settings.WIDTH_BOARD.set(screenBounds.getWidth() * 0.7);
 			primaryStage.setWidth(Settings.WIDTH_BOARD.get());
-//			primaryStage.setMinWidth(Main.widthApp);
+			primaryStage.setMinWidth(Settings.WIDTH_BOARD.get());
 
 			// Set the height of the window to the half of the monitor height
 			Settings.HEIGHT_BOARD.set(screenBounds.getHeight() * 0.8);
-//			primaryStage.setMinHeight(Main.heigthApp);
 			primaryStage.setHeight(Settings.HEIGHT_BOARD.get());
+			primaryStage.setMinHeight(Settings.HEIGHT_BOARD.get());
 
 			primaryStage.setScene(scene);
 			primaryStage.show();

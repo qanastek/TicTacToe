@@ -9,6 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import java.net.URL;
@@ -18,6 +19,8 @@ import org.controlsfx.control.ToggleSwitch;
 
 import fr.univavignon.ceri.application.Main;
 import fr.univavignon.ceri.application.config.Settings;
+import fr.univavignon.ceri.application.config.Strings;
+import fr.univavignon.ceri.application.config.Textures;
 import fr.univavignon.ceri.application.models.Board;
 import fr.univavignon.ceri.application.models.Game;
 
@@ -28,9 +31,12 @@ public class MainController implements Initializable {
 	
     @FXML
     private Pane gameScene;
-
+    
     @FXML
-    private ImageView currentPlayerIcon;
+    private ImageView player1Img;
+    
+    @FXML
+    private ImageView player2Img;
 
     @FXML
     private Button restart;
@@ -60,7 +66,16 @@ public class MainController implements Initializable {
     private Label player2Turn;
     
     @FXML
+    private Label player1Name;
+    
+    @FXML
+    private Label player2Name;
+    
+    @FXML
     private ImageView playWithImg;
+    
+    @FXML
+    private HBox difficulties;
     
     /**
      * The {@code Game} instance
@@ -111,11 +126,13 @@ public class MainController implements Initializable {
 	        
     	  	// If it's possible to win
 			if (newHit >= 5) {
-				
-				// Check if we have a winner			
-				
+							
+				// Display the board
 				System.out.println("Board");
-				Board.getInstance().displayAsMatrix();					
+				Board.getInstance().displayAsMatrix();	
+
+				// Check if we have a winner
+				Game.checkWinner();
 			}			
 	      }	      
 	    });
@@ -212,9 +229,15 @@ public class MainController implements Initializable {
 				
 				// Change text
 				this.rival.setText("Play with a Bot");
+
+				// Hide difficulties
+				this.difficulties.setVisible(false);
+				
+				// Set bot name
+				this.player1Name.setText("Robot " + Strings.EASY);
 				
 				// Change image
-				this.playWithImg.setImage(new Image(getClass().getResourceAsStream("../ressources/images/bot_bis.png")));
+				this.playWithImg.setImage(new Image(getClass().getResourceAsStream(Textures.EASY)));
 				break;
 
 			// Want to play with a bot
@@ -223,8 +246,11 @@ public class MainController implements Initializable {
 				// Change text
 				this.rival.setText("Play with a friend");
 				
+				// Show difficulties
+				this.difficulties.setVisible(true);
+				
 				// Change image
-				this.playWithImg.setImage(new Image(getClass().getResourceAsStream("../ressources/images/person.png")));
+				this.playWithImg.setImage(new Image(getClass().getResourceAsStream(Textures.KID)));
 				
 				break;
 		}
@@ -242,6 +268,12 @@ public class MainController implements Initializable {
     	
     	System.out.println("easy");
     	
+		// Set bot name
+		this.player1Name.setText("Robot " + Strings.EASY);
+    	
+		// Switch robot image
+		this.player1Img.setImage(new Image(getClass().getResourceAsStream(Textures.EASY)));
+		
     	// Clear the game
     	Game.getInstance().clear();   
     }
@@ -250,6 +282,12 @@ public class MainController implements Initializable {
     void medium(ActionEvent event) {
     	
     	System.out.println("medium");
+    	
+		// Switch robot image
+		this.player1Img.setImage(new Image(getClass().getResourceAsStream(Textures.MEDIUM)));
+    	
+		// Set bot name
+		this.player1Name.setText("Robot " + Strings.MEDIUM);
 
     	// Clear the game
     	Game.getInstance().clear();   
@@ -259,6 +297,12 @@ public class MainController implements Initializable {
     void hard(ActionEvent event) {
     	
     	System.out.println("hard");
+    	
+		// Switch robot image
+		this.player1Img.setImage(new Image(getClass().getResourceAsStream(Textures.HARD)));
+    	
+		// Set bot name
+		this.player1Name.setText("Robot " + Strings.HARD);
 
     	// Clear the game
     	Game.getInstance().clear();   

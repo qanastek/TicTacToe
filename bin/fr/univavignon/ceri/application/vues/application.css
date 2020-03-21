@@ -50,7 +50,7 @@
 	
     -fx-background-radius: 5px 0px 0px 5px;
     -fx-border-radius: 5px 0px 0px 5px;
-    -fx-border-color: #ccc;
+    -fx-border-color: #C14062;
     -fx-border-width: 1; 
     -fx-border-style: solid;
 }
@@ -61,8 +61,8 @@
 	
     -fx-background-radius: 0px 0px 0px 0px;
     -fx-border-radius: 0px 0px 0px 0px;
-    -fx-border-color: #ccc;
-    -fx-border-width: 1; 
+    -fx-border-color: #C14062;
+    -fx-border-width: 1;
     -fx-border-style: solid;
 }
 
@@ -72,9 +72,14 @@
 	
     -fx-background-radius: 0px 5px 5px 0px;
     -fx-border-radius: 0px 5px 5px 0px;
-    -fx-border-color: #ccc;
+    -fx-border-color: #C14062;
     -fx-border-width: 1; 
     -fx-border-style: solid;
+}
+
+.playerName {
+	-fx-font-size: 1.3em;
+	-fx-font-family: 'Helvetica', Arial, sans-serif;
 }
 
 Label {

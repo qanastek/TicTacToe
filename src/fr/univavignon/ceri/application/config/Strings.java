@@ -9,19 +9,6 @@ package fr.univavignon.ceri.application.config;
  */
 public class Strings {
 	
-	/**
-	 * 
-	 */
-	public static final String EASY = "Facile";
-	
-	/**
-	 * 
-	 */
-	public static final String MEDIUM = "Moyen";
-	
-	/**
-	 * 
-	 */
-	public static final String HARD = "Difficile";
+	public static final String EASY = "Easy";
 
 }

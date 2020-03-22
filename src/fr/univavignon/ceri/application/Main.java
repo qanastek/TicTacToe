@@ -32,6 +32,7 @@ public class Main extends Application {
 		
 	@Override
 	public void start(Stage primaryStage) {
+		
 		try {
 
 			// Set the title
@@ -49,7 +50,7 @@ public class Main extends Application {
 			scene = new Scene(layout,layout.getLayoutY(), layout.getLayoutX());
 			scene.getStylesheets().add(getClass().getResource("vues/application.css").toExternalForm());
 			
-			// Set the width of the window to the half of the monitor width
+			// Set the width of the window to the 7/10 of the monitor width
 			Settings.WIDTH_BOARD.set(screenBounds.getWidth() * 0.7);
 			primaryStage.setWidth(Settings.WIDTH_BOARD.get());
 			primaryStage.setMinWidth(Settings.WIDTH_BOARD.get());

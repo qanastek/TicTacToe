@@ -4,7 +4,10 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -12,6 +15,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -234,10 +240,14 @@ public class MainController implements Initializable {
 				this.difficulties.setVisible(false);
 				
 				// Set bot name
-				this.player1Name.setText("Robot " + Strings.EASY);
+				this.player1Name.setText("Friend");
 				
-				// Change image
+				// Change image player 1
+				this.player1Img.setImage(new Image(getClass().getResourceAsStream(Textures.FRIEND)));
+				
+				// Change image button
 				this.playWithImg.setImage(new Image(getClass().getResourceAsStream(Textures.EASY)));
+				
 				break;
 
 			// Want to play with a bot
@@ -249,7 +259,13 @@ public class MainController implements Initializable {
 				// Show difficulties
 				this.difficulties.setVisible(true);
 				
-				// Change image
+				// Set bot name
+				this.player1Name.setText("Robot " + Strings.EASY);
+				
+				// Change image player 1
+				this.player1Img.setImage(new Image(getClass().getResourceAsStream(Textures.EASY)));
+								
+				// Change image button
 				this.playWithImg.setImage(new Image(getClass().getResourceAsStream(Textures.KID)));
 				
 				break;
@@ -264,45 +280,55 @@ public class MainController implements Initializable {
     }
     
     @FXML
-    void easy(ActionEvent event) {
+    void configureAi(ActionEvent event) {
     	
-    	System.out.println("easy");
-    	
-		// Set bot name
-		this.player1Name.setText("Robot " + Strings.EASY);
-    	
-		// Switch robot image
-		this.player1Img.setImage(new Image(getClass().getResourceAsStream(Textures.EASY)));
-		
-    	// Clear the game
-    	Game.getInstance().clear();   
-    }
-    
-    @FXML
-    void medium(ActionEvent event) {
-    	
-    	System.out.println("medium");
-    	
-		// Switch robot image
-		this.player1Img.setImage(new Image(getClass().getResourceAsStream(Textures.MEDIUM)));
-    	
-		// Set bot name
-		this.player1Name.setText("Robot " + Strings.MEDIUM);
+    	System.out.println("configureAi");
 
-    	// Clear the game
-    	Game.getInstance().clear();   
+	    // Load the FXML
+	    Parent layout;
+	    
+		try {
+			
+			layout = FXMLLoader.load(getClass().getResource("ConfigureAI.fxml"));
+			
+			Scene scene = new Scene(layout,layout.getLayoutY(), layout.getLayoutX());
+			scene.getStylesheets().add(getClass().getResource("configureAI.css").toExternalForm());
+			
+			Stage stage = new Stage();
+			
+			// Set the title of the pop-up
+			stage.setTitle("Artificial Inteligence Configuration");
+			
+			// Set the width of the pop-up
+			stage.setWidth(Main.screenBounds.getWidth() * 0.25);
+			stage.setMinWidth(Main.screenBounds.getWidth() * 0.25);
+			
+			// Set the height of the pop-up			
+			stage.setHeight(Main.screenBounds.getHeight() * 0.5);
+			stage.setMinHeight(Main.screenBounds.getHeight() * 0.5);
+			
+			stage.setScene(scene);
+			stage.show();
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
     }
     
     @FXML
-    void hard(ActionEvent event) {
+    void difficulty(ActionEvent event) {
     	
-    	System.out.println("hard");
+    	// Button clicked
+    	Button currentClicked = (Button) event.getSource();
+    	
+    	// Button text content
+    	String difficulty = currentClicked.getText();
     	
 		// Switch robot image
-		this.player1Img.setImage(new Image(getClass().getResourceAsStream(Textures.HARD)));
+		this.player1Img.setImage(new Image(getClass().getResourceAsStream("../ressources/images/" + difficulty.toUpperCase() + ".png")));
     	
-		// Set bot name
-		this.player1Name.setText("Robot " + Strings.HARD);
+		// Set robot name in capitalize
+		this.player1Name.setText("Robot " + difficulty.substring(0,1).toUpperCase() + difficulty.substring(1).toLowerCase());
 
     	// Clear the game
     	Game.getInstance().clear();   

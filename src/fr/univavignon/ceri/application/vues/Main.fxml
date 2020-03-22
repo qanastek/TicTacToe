@@ -17,12 +17,19 @@
          <children>
             <MenuBar VBox.vgrow="ALWAYS">
               <menus>
-                <Menu mnemonicParsing="false" text="⚙ Paramètres">
+                <Menu mnemonicParsing="false" text="⚙ Settings">
                   <items>
-                    <MenuItem mnemonicParsing="false" text="Inteligence Artificiel" />
+                    <MenuItem mnemonicParsing="false" onAction="#configureAi" text="Configure AI">
+                           <graphic>
+                              <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../ressources/images/settings/tools.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic></MenuItem>
                   </items>
                 </Menu>
-                <Menu mnemonicParsing="false" text="Aide ?">
+                <Menu mnemonicParsing="false" text="Help ?">
                   <items>
                     <MenuItem mnemonicParsing="false" text="Règles" />
                   </items>
@@ -107,7 +114,7 @@
                                           </HBox>
                                           <HBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS">
                                              <children>
-                                                <Label fx:id="player1Name" alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="playerName" text="Robot Facile" textAlignment="CENTER" HBox.hgrow="ALWAYS">
+                                                <Label fx:id="player1Name" alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="playerName" text="Easy Robot" textAlignment="CENTER" HBox.hgrow="ALWAYS">
                                                    <HBox.margin>
                                                       <Insets bottom="15.0" top="15.0" />
                                                    </HBox.margin>
@@ -160,7 +167,7 @@
                                           </HBox>
                                           <HBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS">
                                              <children>
-                                                <Label fx:id="player2Name" alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="playerName" text="Joueur" textAlignment="CENTER" HBox.hgrow="ALWAYS">
+                                                <Label fx:id="player2Name" alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="playerName" text="Player" textAlignment="CENTER" HBox.hgrow="ALWAYS">
                                                    <font>
                                                       <Font size="19.0" />
                                                    </font>
@@ -251,7 +258,7 @@
                                  <children>
                                     <HBox fx:id="difficulties" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
                                        <children>
-                                          <Button fx:id="easy" maxHeight="1.7976931348623157E308" mnemonicParsing="false" onAction="#easy" text="easy" textAlignment="CENTER" HBox.hgrow="ALWAYS">
+                                          <Button fx:id="easy" maxHeight="1.7976931348623157E308" mnemonicParsing="false" onAction="#difficulty" text="easy" textAlignment="CENTER" HBox.hgrow="ALWAYS">
                                              <styleClass>
                                                 <String fx:value="easy" />
                                                 <String fx:value="difficultyBtn" />
@@ -260,7 +267,7 @@
                                                 <Cursor fx:constant="HAND" />
                                              </cursor>
                                           </Button>
-                                          <Button fx:id="medium" maxHeight="1.7976931348623157E308" mnemonicParsing="false" onAction="#medium" text="medium" textAlignment="CENTER" HBox.hgrow="ALWAYS">
+                                          <Button fx:id="medium" maxHeight="1.7976931348623157E308" mnemonicParsing="false" onAction="#difficulty" text="medium" textAlignment="CENTER" HBox.hgrow="ALWAYS">
                                              <styleClass>
                                                 <String fx:value="medium" />
                                                 <String fx:value="difficultyBtn" />
@@ -269,7 +276,7 @@
                                                 <Cursor fx:constant="HAND" />
                                              </cursor>
                                           </Button>
-                                          <Button fx:id="hard" maxHeight="1.7976931348623157E308" mnemonicParsing="false" onAction="#hard" text="hard" textAlignment="CENTER" HBox.hgrow="ALWAYS">
+                                          <Button fx:id="hard" maxHeight="1.7976931348623157E308" mnemonicParsing="false" onAction="#difficulty" text="hard" textAlignment="CENTER" HBox.hgrow="ALWAYS">
                                              <styleClass>
                                                 <String fx:value="hard" />
                                                 <String fx:value="difficultyBtn" />

@@ -25,6 +25,11 @@ public class Textures {
 	public final static String KID = "../ressources/images/KID.png";
 	
 	/**
+	 * Friend image
+	 */
+	public final static String FRIEND = "../ressources/images/FRIEND.png";
+	
+	/**
 	 * Bot easy image
 	 */
 	public final static String EASY = "../ressources/images/EASY.png";

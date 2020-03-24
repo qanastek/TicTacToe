@@ -57,7 +57,6 @@ public class Tile extends StackPane {
 
 		this.contentImg = new ImageView();
 		
-		
 		// Rectangle
 		this.shape = new Rectangle();
 		this.shape.widthProperty().bind(Settings.TILE_WIDTH);
@@ -86,7 +85,7 @@ public class Tile extends StackPane {
 			if (event.getButton() == MouseButton.PRIMARY) {
 				
 				// If it's not empty
-				if (!this.currentShape.equals("b")) {
+				if (!this.currentShape.equals("b") || Game.STATUS.get() == false) {
 					return;
 				} else {
 					
@@ -110,9 +109,6 @@ public class Tile extends StackPane {
 					
 					// Increment the hit counter
 					Game.HIT.set(Game.HIT.get() + 1);
-					
-					// Check if somebody win the game after this hit
-					Game.checkWinner();
 					
 				}
 			}

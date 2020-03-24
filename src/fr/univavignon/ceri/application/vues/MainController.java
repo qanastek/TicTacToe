@@ -1,5 +1,6 @@
 package fr.univavignon.ceri.application.vues;
 
+import javafx.beans.property.ListProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -8,6 +9,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -15,10 +18,14 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import org.controlsfx.control.ToggleSwitch;
@@ -29,6 +36,8 @@ import fr.univavignon.ceri.application.config.Strings;
 import fr.univavignon.ceri.application.config.Textures;
 import fr.univavignon.ceri.application.models.Board;
 import fr.univavignon.ceri.application.models.Game;
+import fr.univavignon.ceri.application.services.Threads.EasyTrain;
+import fr.univavignon.ceri.application.services.Threads.RunningThreads;
 
 public class MainController implements Initializable {
 
@@ -88,6 +97,11 @@ public class MainController implements Initializable {
      */
     public static Game GAME = Game.getInstance();
     
+    /**
+     * Elements in the stack pane
+     */
+//	public static ListProperty<Void> STACK_PANE_CONTENT = new ArrayList<Void>();
+    
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		this.initGui();
@@ -111,13 +125,82 @@ public class MainController implements Initializable {
 		
 		// Count hit
 		this.observeHit();
-						
-		/**
-		 * Add the Tile  on the Pane
-		 */;
+		
+		// Game status
+		this.observeGameStatus();
+		
+		// Add the Tiles on the Pane
 		this.gameScene.getChildren().addAll(Board.getTiles());
+		
+		// Add the winning line
+		this.gameScene.getChildren().add(Game.WIN_LINE);
 	}
 	
+	/**
+	 * Observe if the game is ended and display a pop-up
+	 */
+	private void observeGameStatus() {
+		
+		Game.STATUS.addListener(new ChangeListener<Object>() {
+			
+		      @Override
+		      public void changed(ObservableValue<?> observableValue, Object oldValue, Object newValue) {
+		    	  
+		    	  boolean oldStatus = (boolean) oldValue;
+		    	  boolean newStatus = (boolean) newValue;
+		        
+	    	  	// If it's possible to win
+				if (oldStatus == true && newStatus == false) {
+					
+					System.out.println("Stop the game!");
+					
+					/**
+					 * Display an dialog 
+					 */
+					// Display the game modal (who win or equal)
+					// Display also a RESTART button if versus a friend or RETRY versus a robot
+				    
+					try {
+						
+					    // Load the FXML
+				        FXMLLoader layout = new FXMLLoader(getClass().getResource("EndGame.fxml"));
+				        Parent parent = layout.load();
+				        EndGameController dialogController = layout.<EndGameController>getController();
+//				        dialogController.setAppMainObservableList(tvObservableList);
+
+				        Scene scene = new Scene(parent, parent.getLayoutY(), parent.getLayoutX());
+						scene.getStylesheets().add(getClass().getResource("EndGame.css").toExternalForm());
+				        
+				        Stage stage = new Stage();				        
+
+						// Set the title of the pop-up
+						stage.setTitle("");
+				        
+						// Set the width of the pop-up
+						stage.setWidth(Main.screenBounds.getWidth() * 0.25);
+						stage.setMinWidth(Main.screenBounds.getWidth() * 0.25);
+						
+						// Set the height of the pop-up			
+						stage.setHeight(Main.screenBounds.getHeight() * 0.5);
+						stage.setMinHeight(Main.screenBounds.getHeight() * 0.5);
+				        
+						// Don't allow to click on the parent window
+				        stage.initModality(Modality.APPLICATION_MODAL);
+				        stage.setScene(scene);
+				        stage.showAndWait();
+						
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+					
+				} else if (oldStatus == false && newStatus == true) {
+					System.out.println("Restart the game!");
+				}
+				
+		      }	      
+		    });
+	}
+
 	/**
 	 * Observe the player hits
 	 */
@@ -131,14 +214,15 @@ public class MainController implements Initializable {
     	  	int newHit = (int) newValue;
 	        
     	  	// If it's possible to win
-			if (newHit >= 5) {
+			if (newHit >= 5 && Game.STATUS.get() == true) {
+				
+				System.out.println("newHit = " + newHit);
 							
 				// Display the board
 				System.out.println("Board");
 				Board.getInstance().displayAsMatrix();
-				
 
-				// Check if we have a winner
+				// Check if somebody win the game after this hit
 				Game.checkWinner();
 			}			
 	      }	      
@@ -154,6 +238,11 @@ public class MainController implements Initializable {
 
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+								
+				// If the game was stopped
+				if (Game.STATUS.get() == false) {
+					return;
+				}
 				
 				System.out.println("Player changed!");
 

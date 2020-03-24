@@ -7,7 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.univavignon.ceri.application.config.Settings;
+import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Line;
 
 /**
  * @author Yanis Labrak
@@ -15,8 +17,14 @@ import javafx.scene.paint.ImagePattern;
  */
 public class Board {
 	
+	/**
+	 * The instance of the class
+	 */
 	private static Board INSTANCE;
 	
+	/**
+	 * The board which contains the {@code Tile}s
+	 */
 	private static List<ArrayList<Tile>> board;
 	
 	/**
@@ -24,7 +32,8 @@ public class Board {
 	 */
 	private Board() {
 		
-		Board.setBoard(new ArrayList<ArrayList<Tile>>());
+		// Instantiate the board
+		Board.board = new ArrayList<ArrayList<Tile>>();
 
 		// Initialize the board
 		for (int i = 0; i < Settings.TILES_NBR_WIDTH; i++) {
@@ -32,18 +41,23 @@ public class Board {
 			// The row
 			ArrayList<Tile> row = new ArrayList<Tile>();
 			
+			// For each column
 			for (int j = 0; j < Settings.TILES_NBR_WIDTH; j++) {
 				
+				// Create the Tile
 				Tile tile = new Tile();
 				
+				// Change it's position
 				tile.translateYProperty().bind(Settings.TILE_HEIGHT.multiply(i));
 				tile.translateXProperty().bind(Settings.TILE_WIDTH.multiply(j));
 				
 //				tile.setPadding(new Insets(10, 10, 10, 10));
 				
+				// And add it to the row
 				row.add(tile);
 			}
 			
+			// Add the row to the board
 			Board.board.add(row);
 		}
 	}
@@ -151,8 +165,80 @@ public class Board {
 	 * Check if somebody won the game
 	 */
 	public void checkWinner() {
-		// TODO: Check if 3 same X/O in a row
-		// TODO: If yes draw a line		
+		
+		// TODO: Check if 3 same X/O in a row	
+		this.checkRows();
+		this.checkColumn();
+		this.checkDiags();
+		
+		// TODO: Make it really work
+		boolean res = true;
+		
+		if (res == true) {
+			
+			System.out.println("check winner board");
+			
+			Game.STATUS.set(false);
+			
+			// TODO: If yes draw a line	
+			Board.drawWinLine();
+		}
+
+	}
+
+	/**
+	 * Draw the victory line
+	 */
+	private static void drawWinLine() {
+		
+		if (Game.STATUS.get() == false || Game.HIT.get() < 5) {
+			return;
+		}
+		
+		// Anti-aliasing
+		Game.WIN_LINE.setSmooth(true);
+		
+		// Thickness
+		Game.WIN_LINE.setStrokeWidth(12.5);
+		
+		// Color of the fill & stroke
+		Game.WIN_LINE.setFill(Color.web("#fff"));
+		Game.WIN_LINE.setStroke(Color.web("#fff"));
+		
+		// Start position
+		Game.WIN_LINE.startXProperty().bind(Settings.TILE_WIDTH.divide(2.0));
+		Game.WIN_LINE.startYProperty().bind(Settings.TILE_HEIGHT.divide(2.0));
+
+		// End position
+		Game.WIN_LINE.endXProperty().bind(Settings.TILE_WIDTH.multiply(2.5));
+		Game.WIN_LINE.endYProperty().bind(Settings.TILE_HEIGHT.multiply(2.5));
+		
+		// Set visible
+		Game.WIN_LINE.setVisible(true);
+	}
+
+	/**
+	 * 
+	 */
+	private void checkDiags() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	/**
+	 * 
+	 */
+	private void checkColumn() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	/**
+	 * 
+	 */
+	private void checkRows() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

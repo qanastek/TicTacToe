@@ -76,18 +76,18 @@ public class ConfigureAiController implements Initializable {
     	this.progressionEasy.setVisible(true);
     	
     	// If is running stop It else run It
-    	if (RunningThreads.easyTrain != null && RunningThreads.easyTrain.isRunning() == true) {
-        	RunningThreads.easyTrain.cancel();			
+    	if (RunningThreads.EASY_TRAIN != null && RunningThreads.EASY_TRAIN.isRunning() == true) {
+        	RunningThreads.EASY_TRAIN.cancel();			
 		} else {
-			RunningThreads.easyTrain = new EasyTrain();
+			RunningThreads.EASY_TRAIN = new EasyTrain();
 		}
     	
     	// Bind progress
-    	progressBarEasy.progressProperty().bind(RunningThreads.easyTrain.progressProperty());
-    	progressTextEasy.textProperty().bind(RunningThreads.easyTrain.messageProperty());
+    	progressBarEasy.progressProperty().bind(RunningThreads.EASY_TRAIN.progressProperty());
+    	progressTextEasy.textProperty().bind(RunningThreads.EASY_TRAIN.messageProperty());
     	
     	// Run the thread
-    	new Thread(RunningThreads.easyTrain).start();
+    	new Thread(RunningThreads.EASY_TRAIN).start();
     }
     
     @FXML
@@ -99,18 +99,18 @@ public class ConfigureAiController implements Initializable {
     	this.progressionMedium.setVisible(true);
     	
     	// If is running stop It else run It
-    	if (RunningThreads.mediumTrain != null && RunningThreads.mediumTrain.isRunning() == true) {
-    		RunningThreads.mediumTrain.cancel();			
+    	if (RunningThreads.MEDIUM_TRAIN != null && RunningThreads.MEDIUM_TRAIN.isRunning() == true) {
+    		RunningThreads.MEDIUM_TRAIN.cancel();			
     	} else {
-    		RunningThreads.mediumTrain = new MediumTrain();
+    		RunningThreads.MEDIUM_TRAIN = new MediumTrain();
     	}
     	
     	// Bind progress
-    	progressBarMedium.progressProperty().bind(RunningThreads.mediumTrain.progressProperty());
-    	progressTextMedium.textProperty().bind(RunningThreads.mediumTrain.messageProperty());
+    	progressBarMedium.progressProperty().bind(RunningThreads.MEDIUM_TRAIN.progressProperty());
+    	progressTextMedium.textProperty().bind(RunningThreads.MEDIUM_TRAIN.messageProperty());
     	
     	// Run the thread
-    	new Thread(RunningThreads.mediumTrain).start();
+    	new Thread(RunningThreads.MEDIUM_TRAIN).start();
     }
     
     @FXML
@@ -122,18 +122,18 @@ public class ConfigureAiController implements Initializable {
     	this.progressionHard.setVisible(true);
     	
     	// If is running stop It else run It
-    	if (RunningThreads.hardTrain != null && RunningThreads.hardTrain.isRunning() == true) {
-    		RunningThreads.hardTrain.cancel();			
+    	if (RunningThreads.HARD_TRAIN != null && RunningThreads.HARD_TRAIN.isRunning() == true) {
+    		RunningThreads.HARD_TRAIN.cancel();			
     	} else {
-    		RunningThreads.hardTrain = new HardTrain();
+    		RunningThreads.HARD_TRAIN = new HardTrain();
     	}
     	
     	// Bind progress
-    	progressBarHard.progressProperty().bind(RunningThreads.hardTrain.progressProperty());
-    	progressTextHard.textProperty().bind(RunningThreads.hardTrain.messageProperty());
+    	progressBarHard.progressProperty().bind(RunningThreads.HARD_TRAIN.progressProperty());
+    	progressTextHard.textProperty().bind(RunningThreads.HARD_TRAIN.messageProperty());
     	
     	// Run the thread
-    	new Thread(RunningThreads.hardTrain).start();
+    	new Thread(RunningThreads.HARD_TRAIN).start();
     }
 	
 }

@@ -12,16 +12,16 @@ public class RunningThreads {
 	/**
 	 * Train of the easy model
 	 */
-	public static EasyTrain easyTrain;
+	public static EasyTrain EASY_TRAIN;
 	
 	/**
 	 * Train of the medium model
 	 */
-	public static MediumTrain mediumTrain;
+	public static MediumTrain MEDIUM_TRAIN;
 	
 	/**
 	 * Train of the hard model
 	 */
-	public static HardTrain hardTrain;
+	public static HardTrain HARD_TRAIN;
 	
 }

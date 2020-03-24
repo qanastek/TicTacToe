@@ -98,7 +98,7 @@ public class MainController implements Initializable {
 	 */
 	private void initGui() {
 
-		System.out.println("init gui");
+		System.out.println("Initialize the GUI");
 		
 		// Board width
 		this.observeBoardWidth();
@@ -115,7 +115,7 @@ public class MainController implements Initializable {
 		/**
 		 * Add the Tile  on the Pane
 		 */;
-		this.gameScene.getChildren().addAll(MainController.GAME.board.tiles);
+		this.gameScene.getChildren().addAll(Board.getTiles());
 	}
 	
 	/**
@@ -135,7 +135,8 @@ public class MainController implements Initializable {
 							
 				// Display the board
 				System.out.println("Board");
-				Board.getInstance().displayAsMatrix();	
+				Board.getInstance().displayAsMatrix();
+				
 
 				// Check if we have a winner
 				Game.checkWinner();

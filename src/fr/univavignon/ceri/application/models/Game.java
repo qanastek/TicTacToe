@@ -3,6 +3,9 @@
  */
 package fr.univavignon.ceri.application.models;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import fr.univavignon.ceri.application.config.Settings;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -37,25 +40,8 @@ public class Game {
 	/**
 	 * Constructor
 	 */
-	private Game() {
-		
+	private Game() {		
 		this.board = Board.getInstance();
-
-		// Initialize the board
-		for (int i = 0; i < Settings.TILES_NBR_WIDTH; i++) {
-			
-			for (int j = 0; j < Settings.TILES_NBR_WIDTH; j++) {
-				
-				Tile tile = new Tile();
-				
-				tile.translateYProperty().bind(Settings.TILE_HEIGHT.multiply(i));
-				tile.translateXProperty().bind(Settings.TILE_WIDTH.multiply(j));
-				
-//				tile.setPadding(new Insets(10, 10, 10, 10));
-				
-				this.board.tiles.add(tile);
-			}
-		}
 	}
 	
 	/**

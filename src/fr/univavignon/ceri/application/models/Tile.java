@@ -3,10 +3,12 @@
  */
 package fr.univavignon.ceri.application.models;
 
+import java.io.File;
 import java.io.InputStream;
 
 import fr.univavignon.ceri.application.config.Colors;
 import fr.univavignon.ceri.application.config.Settings;
+import fr.univavignon.ceri.application.config.Sounds;
 import fr.univavignon.ceri.application.config.Textures;
 import fr.univavignon.ceri.application.vues.MainController;
 import javafx.animation.FadeTransition;
@@ -16,6 +18,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.StackPane;
+import javafx.scene.media.AudioClip;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
@@ -134,6 +139,12 @@ public class Tile extends StackPane {
 
 		// Insert the image
 		this.contentImg.setImage(new Image(getClass().getResourceAsStream(Textures.CROSS)));
+		// Image anti-aliasing
+		this.contentImg.setSmooth(true);
+
+		// Play a sound effect
+		AudioClip sound = new AudioClip(this.getClass().getResource(Sounds.CLICK_1).toString());
+		sound.play();
 		
 		// Set he size of it
 		this.contentImg.fitWidthProperty().bind(Settings.TILE_WIDTH.divide(1.5));
@@ -153,6 +164,12 @@ public class Tile extends StackPane {
 
 		// Insert the image
 		this.contentImg.setImage(new Image(getClass().getResourceAsStream(Textures.CIRCLE)));
+		// Image anti-aliasing
+		this.contentImg.setSmooth(true);
+
+		// Play a sound effect
+		AudioClip sound = new AudioClip(this.getClass().getResource(Sounds.CLICK_2).toString());
+		sound.play();
 		
 		// Set he size of it
 		this.contentImg.fitWidthProperty().bind(Settings.TILE_WIDTH.divide(1.5));

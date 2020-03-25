@@ -183,7 +183,7 @@ public class Board {
 		 */
 		int winner = 1;		
 		
-		// TODO: Change this bruteforce method
+		// TODO: Change this brute force method
 		if (res == true) {
 			
 			// Increment the winner score
@@ -193,7 +193,6 @@ public class Board {
 			
 			Game.STATUS.set(false);
 			
-			// TODO: If yes draw a line	
 			Board.drawWinLine();
 		}
 

@@ -3,17 +3,12 @@
  */
 package fr.univavignon.ceri.application.models;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import fr.univavignon.ceri.application.config.Settings;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 
 /**

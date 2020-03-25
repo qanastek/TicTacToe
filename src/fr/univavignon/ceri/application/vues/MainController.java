@@ -1,6 +1,5 @@
 package fr.univavignon.ceri.application.vues;
 
-import javafx.beans.property.ListProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -9,8 +8,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -18,26 +15,17 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Line;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
-
-import org.controlsfx.control.ToggleSwitch;
 
 import fr.univavignon.ceri.application.Main;
 import fr.univavignon.ceri.application.config.Settings;
-import fr.univavignon.ceri.application.config.Strings;
 import fr.univavignon.ceri.application.config.Textures;
 import fr.univavignon.ceri.application.models.Board;
 import fr.univavignon.ceri.application.models.Game;
-import fr.univavignon.ceri.application.services.Threads.EasyTrain;
-import fr.univavignon.ceri.application.services.Threads.RunningThreads;
 
 public class MainController implements Initializable {
 
@@ -81,10 +69,10 @@ public class MainController implements Initializable {
     private Label player2Turn;
     
     @FXML
-    private Label player1Name;
+    private Label player1Score;
     
     @FXML
-    private Label player2Name;
+    private Label player2Score;
     
     @FXML
     private ImageView playWithImg;
@@ -114,6 +102,9 @@ public class MainController implements Initializable {
 
 		System.out.println("Initialize the GUI");
 		
+		// Link the gui to the observable
+		this.linkGui();
+		
 		// Board width
 		this.observeBoardWidth();
 
@@ -127,7 +118,7 @@ public class MainController implements Initializable {
 		this.observeHit();
 		
 		// Game status
-		this.observeGameStatus();
+		this.observePlayersScores();
 		
 		// Add the Tiles on the Pane
 		this.gameScene.getChildren().addAll(Board.getTiles());
@@ -137,68 +128,51 @@ public class MainController implements Initializable {
 	}
 	
 	/**
+	 * Link the gui to the observable
+	 */
+	private void linkGui() {
+		
+		// Link player 1 score
+		this.player1Score.textProperty().bind(Game.SCORE_P1.asString());
+
+		// Link player 2 score
+		this.player2Score.textProperty().bind(Game.SCORE_P2.asString());
+	}
+
+	/**
 	 * Observe if the game is ended and display a pop-up
 	 */
-	private void observeGameStatus() {
+	private void observePlayersScores() {
 		
-		Game.STATUS.addListener(new ChangeListener<Object>() {
+		/**
+		 * Player 1 score
+		 */
+		Game.SCORE_P1.addListener(new ChangeListener<Object>() {
 			
 		      @Override
 		      public void changed(ObservableValue<?> observableValue, Object oldValue, Object newValue) {
 		    	  
-		    	  boolean oldStatus = (boolean) oldValue;
-		    	  boolean newStatus = (boolean) newValue;
-		        
-	    	  	// If it's possible to win
-				if (oldStatus == true && newStatus == false) {
-					
-					System.out.println("Stop the game!");
-					
-					/**
-					 * Display an dialog 
-					 */
-					// Display the game modal (who win or equal)
-					// Display also a RESTART button if versus a friend or RETRY versus a robot
-				    
-					try {
-						
-					    // Load the FXML
-				        FXMLLoader layout = new FXMLLoader(getClass().getResource("EndGame.fxml"));
-				        Parent parent = layout.load();
-				        EndGameController dialogController = layout.<EndGameController>getController();
-//				        dialogController.setAppMainObservableList(tvObservableList);
-
-				        Scene scene = new Scene(parent, parent.getLayoutY(), parent.getLayoutX());
-						scene.getStylesheets().add(getClass().getResource("EndGame.css").toExternalForm());
-				        
-				        Stage stage = new Stage();				        
-
-						// Set the title of the pop-up
-						stage.setTitle("");
-				        
-						// Set the width of the pop-up
-						stage.setWidth(Main.screenBounds.getWidth() * 0.25);
-						stage.setMinWidth(Main.screenBounds.getWidth() * 0.25);
-						
-						// Set the height of the pop-up			
-						stage.setHeight(Main.screenBounds.getHeight() * 0.5);
-						stage.setMinHeight(Main.screenBounds.getHeight() * 0.5);
-				        
-						// Don't allow to click on the parent window
-				        stage.initModality(Modality.APPLICATION_MODAL);
-				        stage.setScene(scene);
-				        stage.showAndWait();
-						
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-					
-				} else if (oldStatus == false && newStatus == true) {
-					System.out.println("Restart the game!");
-				}
+		    	  int newScore = (int) newValue;
+		    	  
+		    	  System.out.println("P1 SCORE CHANGE: " + newScore);
 				
-		      }	      
-		    });
+		      }
+		 });
+
+		/**
+		 * Player 2 score
+		 */
+		Game.SCORE_P2.addListener(new ChangeListener<Object>() {
+			
+			@Override
+			public void changed(ObservableValue<?> observableValue, Object oldValue, Object newValue) {
+				
+				int newScore = (int) newValue;
+				
+				System.out.println("P2 SCORE CHANGE: " + newScore);
+				
+			}
+		});
 	}
 
 	/**
@@ -318,6 +292,9 @@ public class MainController implements Initializable {
 	@FXML
     void switchRival(ActionEvent event) {
 		
+		// Clear the game
+		Game.basicClear();
+		
 		switch (this.rival.getText()) {
 		
 			// Want to play with a friend
@@ -328,9 +305,6 @@ public class MainController implements Initializable {
 
 				// Hide difficulties
 				this.difficulties.setVisible(false);
-				
-				// Set bot name
-				this.player1Name.setText("Friend");
 				
 				// Change image player 1
 				this.player1Img.setImage(new Image(getClass().getResourceAsStream(Textures.FRIEND)));
@@ -348,9 +322,6 @@ public class MainController implements Initializable {
 				
 				// Show difficulties
 				this.difficulties.setVisible(true);
-				
-				// Set bot name
-				this.player1Name.setText("Robot " + Strings.EASY);
 				
 				// Change image player 1
 				this.player1Img.setImage(new Image(getClass().getResourceAsStream(Textures.EASY)));
@@ -408,6 +379,9 @@ public class MainController implements Initializable {
     @FXML
     void difficulty(ActionEvent event) {
     	
+		// Clear the game
+		Game.basicClear();
+    	
     	// Button clicked
     	Button currentClicked = (Button) event.getSource();
     	
@@ -416,9 +390,6 @@ public class MainController implements Initializable {
     	
 		// Switch robot image
 		this.player1Img.setImage(new Image(getClass().getResourceAsStream("../ressources/images/" + difficulty.toUpperCase() + ".png")));
-    	
-		// Set robot name in capitalize
-		this.player1Name.setText("Robot " + difficulty.substring(0,1).toUpperCase() + difficulty.substring(1).toLowerCase());
 
     	// Clear the game
     	Game.getInstance().clear();   

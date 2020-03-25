@@ -84,8 +84,16 @@ public class Tile extends StackPane {
 			// If left hand click
 			if (event.getButton() == MouseButton.PRIMARY) {
 				
+				// If it's the end of the game
+				if (Game.STATUS.get() == false) {
+					
+					// New game
+					Game.getInstance().clear();
+					
+					return;
+				}
 				// If it's not empty
-				if (!this.currentShape.equals("b") || Game.STATUS.get() == false) {
+				else if (!this.currentShape.equals("b")) {
 					return;
 				} else {
 					

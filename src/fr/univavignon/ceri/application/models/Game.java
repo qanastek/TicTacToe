@@ -42,6 +42,16 @@ public class Game {
 	public static IntegerProperty HIT;
 	
 	/**
+	 * Score player 1
+	 */
+	public static IntegerProperty SCORE_P1;
+	
+	/**
+	 * Score player 2
+	 */
+	public static IntegerProperty SCORE_P2;
+	
+	/**
 	 * The winning line
 	 */
 	public static Line WIN_LINE;
@@ -68,6 +78,10 @@ public class Game {
 		
 		// Total number of hits
 		Game.HIT = new SimpleIntegerProperty(0);
+		
+		// Players scores
+		Game.SCORE_P1 = new SimpleIntegerProperty(0);
+		Game.SCORE_P2 = new SimpleIntegerProperty(0);
 		
 		// The winning line
 		Game.WIN_LINE = new Line();
@@ -102,6 +116,21 @@ public class Game {
 	}
 	
 	/**
+	 * Basic clear
+	 */
+	public static void basicClear() {
+    	
+    	// Clear player 1 score
+    	Game.SCORE_P1.set(0);
+    	
+    	// Clear player 2 score
+    	Game.SCORE_P2.set(0);
+    	
+    	// Clear the game
+    	Game.getInstance().clear();
+	}
+	
+	/**
 	 * Clear the current game
 	 */
 	public void clear() {
@@ -124,5 +153,32 @@ public class Game {
 		 * Clear the matrix
 		 */
     	Board.getInstance().clear(); 
+	}
+	
+	/**
+	 * Increment the score of the winner
+	 * @param {@code Integer} winner
+	 */
+	public static void incrementWinner(int winner) {
+		
+		// If P1 win
+		if (winner == 1) {
+			
+			Game.SCORE_P1.set(Game.SCORE_P1.get() + 1);
+			// TODO: Add vfx
+		}
+		// If P2 win
+		else if (winner == 2) {
+			
+			Game.SCORE_P2.add(1);	
+			// TODO: Add vfx	
+		}
+		// If par
+		else {
+
+			System.out.println("Par nobody win!");
+			// TODO: Add sfx
+			// TODO: Add vfx
+		}
 	}
 }

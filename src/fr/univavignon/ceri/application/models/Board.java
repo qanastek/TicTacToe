@@ -174,7 +174,20 @@ public class Board {
 		// TODO: Make it really work
 		boolean res = true;
 		
+		/**
+		 * Par => 0
+		 * <br>
+		 * P1 => 1
+		 * <br>
+		 * P2 => 2
+		 */
+		int winner = 1;		
+		
+		// TODO: Change this bruteforce method
 		if (res == true) {
+			
+			// Increment the winner score
+			Game.incrementWinner(winner);
 			
 			System.out.println("check winner board");
 			

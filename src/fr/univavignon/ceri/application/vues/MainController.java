@@ -1,11 +1,13 @@
 package fr.univavignon.ceri.application.vues;
 
+import javafx.animation.FadeTransition;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -16,6 +18,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.net.URL;
@@ -154,8 +157,8 @@ public class MainController implements Initializable {
 		    	  
 		    	  int newScore = (int) newValue;
 		    	  
-		    	  System.out.println("P1 SCORE CHANGE: " + newScore);
-				
+		    	  // Score changed animation
+		    	  MainController.fadeOut(player1Score, 400);
 		      }
 		 });
 
@@ -168,11 +171,26 @@ public class MainController implements Initializable {
 			public void changed(ObservableValue<?> observableValue, Object oldValue, Object newValue) {
 				
 				int newScore = (int) newValue;
-				
-				System.out.println("P2 SCORE CHANGE: " + newScore);
+		    	  
+		    	// Score changed animation
+				MainController.fadeOut(player2Score, 400);
 				
 			}
 		});
+	}
+
+	/**
+	 * Make a fade animation on a {@code Node}
+	 */
+	public static void fadeOut(Node node, int duration) {
+		
+		FadeTransition fade = new FadeTransition();
+		
+		fade.setDuration(Duration.millis(duration));
+		fade.setNode(node);
+		fade.setFromValue(0);
+		fade.setToValue(1);
+		fade.play();
 	}
 
 	/**
@@ -229,7 +247,7 @@ public class MainController implements Initializable {
 				/**
 				 * Vbox
 				 */
-				getVboxPlayer(oldValue).getStyleClass().remove("playerActive");
+				getVboxPlayer(oldValue).getStyleClass().removeAll("playerActive");
 				getVboxPlayer(newValue).getStyleClass().add("playerActive");
 			}
 		});
@@ -269,10 +287,10 @@ public class MainController implements Initializable {
 	VBox getVboxPlayer(String form) {
 		
 		if (form.equals("x")) {
-			return player1Box;
+			return this.player1Box;
 		}
 		
-		return player2Box;
+		return this.player2Box;
 	}
 	
 	/**

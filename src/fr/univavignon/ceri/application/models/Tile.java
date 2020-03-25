@@ -8,6 +8,9 @@ import java.io.InputStream;
 import fr.univavignon.ceri.application.config.Colors;
 import fr.univavignon.ceri.application.config.Settings;
 import fr.univavignon.ceri.application.config.Textures;
+import fr.univavignon.ceri.application.vues.MainController;
+import javafx.animation.FadeTransition;
+import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -17,6 +20,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
+import javafx.util.Duration;
 
 /**
  * A Tile
@@ -127,13 +131,16 @@ public class Tile extends StackPane {
 	 * Draw a cross
 	 */
 	private void drawCross() {		
-		
+
 		// Insert the image
 		this.contentImg.setImage(new Image(getClass().getResourceAsStream(Textures.CROSS)));
 		
 		// Set he size of it
 		this.contentImg.fitWidthProperty().bind(Settings.TILE_WIDTH.divide(1.5));
 		this.contentImg.fitHeightProperty().bind(Settings.TILE_HEIGHT.divide(1.5));
+		
+		// Animation
+		MainController.fadeOut(this.contentImg, 250);
 
 		// Change the current shape on the tile
 		this.currentShape = Settings.CROSS;
@@ -142,7 +149,7 @@ public class Tile extends StackPane {
 	/**
 	 * Draw a cross
 	 */
-	private void drawCircle() {
+	private void drawCircle() {	
 
 		// Insert the image
 		this.contentImg.setImage(new Image(getClass().getResourceAsStream(Textures.CIRCLE)));
@@ -150,7 +157,10 @@ public class Tile extends StackPane {
 		// Set he size of it
 		this.contentImg.fitWidthProperty().bind(Settings.TILE_WIDTH.divide(1.5));
 		this.contentImg.fitHeightProperty().bind(Settings.TILE_HEIGHT.divide(1.5));
-
+		
+		// Animation
+		MainController.fadeOut(this.contentImg, 250);
+		
 		// Change the current shape on the tile
 		this.currentShape = Settings.CIRCLE;
 	}

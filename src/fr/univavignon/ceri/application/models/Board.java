@@ -167,23 +167,18 @@ public class Board {
 	/**
 	 * Check if somebody won the game
 	 */
-	public void checkWinner() {
+	public boolean checkWinner() {
 		
 		// TODO: Check if 3 same X/O in a row	
 		Pair<Integer, String> rows = this.checkRows();
 		
 		// If no winner
-		if (rows == null) {
-			return;
-		} else {
+		if (rows != null) {
 			
 			System.out.println("winner !");
 			
 			// Increment the winner score
 			Game.incrementWinner(rows.getValue());
-			
-			// Stop the game
-			Game.STATUS.set(false);
 			
 			// Y Coordinate
 			Float y = Float.valueOf(rows.getKey());
@@ -194,6 +189,11 @@ public class Board {
 			
 			// Draw the line
 			Board.drawWinLine(from,to);
+			
+			// Stop the game
+			Game.STATUS.set(false);
+			
+			return true;			
 		}
 		
 		this.checkColumn();
@@ -218,17 +218,18 @@ public class Board {
 			// Increment the winner score
 			Game.incrementWinner(winner);
 			
-			// Stop the game
-			Game.STATUS.set(false);
-			
 			// Coordinates
 			Point2D from = new Point2D(0.0,1.0);
 			Point2D to = new Point2D(0.0,1.0);
 			
 			// Draw the line
 			Board.drawWinLine(from,to);
+			
+			// Stop the game
+			Game.STATUS.set(false);
 		}
-
+		
+		return false;
 	}
 
 	/**
@@ -261,16 +262,16 @@ public class Board {
 		Double heightOffset = Settings.TILE_HEIGHT.divide(2.0).doubleValue();
 		
 		// Start position
-		NumberBinding startX = Settings.TILE_WIDTH.multiply(from.getX()).subtract(wideOffset);
-		NumberBinding startY = Settings.TILE_HEIGHT.multiply(from.getY()).subtract(heightOffset);
+		NumberBinding startX = Settings.TILE_WIDTH.multiply(from.getX()).add(wideOffset);
+		NumberBinding startY = Settings.TILE_HEIGHT.multiply(from.getY()).add(heightOffset);
 		
 		// Start position
 		Game.WIN_LINE.startXProperty().bind(startX);
 		Game.WIN_LINE.startYProperty().bind(startY);
 		
 		// Start position
-		NumberBinding endX = Settings.TILE_WIDTH.multiply(to.getX()).subtract(wideOffset);
-		NumberBinding endY = Settings.TILE_HEIGHT.multiply(to.getY()).subtract(heightOffset);
+		NumberBinding endX = Settings.TILE_WIDTH.multiply(to.getX()).add(wideOffset);
+		NumberBinding endY = Settings.TILE_HEIGHT.multiply(to.getY()).add(heightOffset);
 
 		// End position
 		Game.WIN_LINE.endXProperty().bind(endX);

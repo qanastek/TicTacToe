@@ -3,6 +3,7 @@
  */
 package fr.univavignon.ceri.application.models;
 
+import fr.univavignon.ceri.application.config.Settings;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -106,8 +107,17 @@ public class Game {
 	/**
 	 * Check if we have a winner
 	 */
-	public static void checkWinner() {
-		Game.getInstance().board.checkWinner();		
+	public static boolean checkWinner() {
+		
+		boolean win = Game.getInstance().board.checkWinner();
+		
+		if (win == false && Game.HIT.get() >= Math.pow(Settings.TILES_NBR_WIDTH, 2)) {
+			
+			// Stop the game
+			Game.STATUS.set(false);			
+		}
+		
+		return win;		
 	}
 	
 	/**
@@ -156,6 +166,8 @@ public class Game {
 	 */
 	public static void incrementWinner(String winner) {
 		
+		System.out.println("Winner is " + winner + " at the hit " + Game.HIT.get());
+		
 		// If P1 win
 		if (winner.equals("x")) {
 			
@@ -164,8 +176,8 @@ public class Game {
 		}
 		// If P2 win
 		else if (winner.equals("o")) {
-			
-			Game.SCORE_P2.add(1);	
+
+			Game.SCORE_P2.set(Game.SCORE_P2.get() + 1);
 			// TODO: Add vfx	
 		}
 		// If par/draw

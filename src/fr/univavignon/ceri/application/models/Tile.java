@@ -126,7 +126,9 @@ public class Tile extends StackPane {
 					
 					// Increment the hit counter
 					Game.HIT.set(Game.HIT.get() + 1);
-					
+
+					// Check if somebody win the game after this hit
+					Game.checkWinner();
 				}
 			}
 		});

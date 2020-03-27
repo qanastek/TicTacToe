@@ -204,24 +204,9 @@ public class MainController implements Initializable {
 	      public void changed(ObservableValue<?> observableValue, Object oldValue, Object newValue) {
 	    	  
     	  	int newHit = (int) newValue;
-	        
-    	  	// If it's possible to win
-			if (newHit >= 5 && Game.STATUS.get() == true) {
-				
-				// Cannot play anymore
-				if (newHit >= Math.pow(Settings.TILES_NBR_WIDTH, 2)) {
-					
-					System.out.println("Draw");
-					
-					// Stop the game
-					Game.STATUS.set(false);
-					
-					return;
-				}
-
-				// Check if somebody win the game after this hit
-				Game.checkWinner();
-			}			
+    	  	
+    	  	System.out.println("Hit " + newHit);
+			
 	      }	      
 	    });
 	}

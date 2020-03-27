@@ -208,11 +208,16 @@ public class MainController implements Initializable {
     	  	// If it's possible to win
 			if (newHit >= 5 && Game.STATUS.get() == true) {
 				
-				System.out.println("newHit = " + newHit);
-							
-				// Display the board
-				System.out.println("Board");
-				Board.getInstance().displayAsMatrix();
+				// Cannot play anymore
+				if (newHit >= Math.pow(Settings.TILES_NBR_WIDTH, 2)) {
+					
+					System.out.println("Draw");
+					
+					// Stop the game
+					Game.STATUS.set(false);
+					
+					return;
+				}
 
 				// Check if somebody win the game after this hit
 				Game.checkWinner();

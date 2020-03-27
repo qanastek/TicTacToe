@@ -187,4 +187,23 @@ public class Tile extends StackPane {
 		return this.currentShape;
 	}
 
+	/**
+	 * Return the current value as {@code Integer}
+	 * @return {@code Integer}
+	 */
+	public Integer asInteger() {
+		
+		if (this.currentShape.equals("x")) {
+			return 1;			
+		}
+		else if (this.currentShape.equals("o")) {
+			return -1;			
+		}
+		else if (this.currentShape.equals("b")) {
+			return 0;			
+		}
+		
+		return 0;
+	}
+
 }

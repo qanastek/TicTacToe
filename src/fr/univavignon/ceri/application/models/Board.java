@@ -7,9 +7,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.univavignon.ceri.application.config.Settings;
+import javafx.beans.binding.NumberBinding;
+import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Line;
+import javafx.util.Pair;
 
 /**
  * @author Yanis Labrak
@@ -167,8 +170,34 @@ public class Board {
 	public void checkWinner() {
 		
 		// TODO: Check if 3 same X/O in a row	
-		this.checkRows();
+		Pair<Integer, String> rows = this.checkRows();
+		
+		// If no winner
+		if (rows == null) {
+			return;
+		} else {
+			
+			System.out.println("winner !");
+			
+			// Increment the winner score
+			Game.incrementWinner(rows.getValue());
+			
+			// Stop the game
+			Game.STATUS.set(false);
+			
+			// Y Coordinate
+			Float y = Float.valueOf(rows.getKey());
+			
+			// Coordinates
+			Point2D from = new Point2D(0,y);
+			Point2D to = new Point2D(2,y);
+			
+			// Draw the line
+			Board.drawWinLine(from,to);
+		}
+		
 		this.checkColumn();
+		
 		this.checkDiags();
 		
 		// TODO: Make it really work
@@ -181,19 +210,23 @@ public class Board {
 		 * <br>
 		 * P2 => 2
 		 */
-		int winner = 1;		
+		String winner = "x";		
 		
 		// TODO: Change this brute force method
-		if (res == true) {
+		if (res == false) {
 			
 			// Increment the winner score
 			Game.incrementWinner(winner);
 			
-			System.out.println("check winner board");
-			
+			// Stop the game
 			Game.STATUS.set(false);
 			
-			Board.drawWinLine();
+			// Coordinates
+			Point2D from = new Point2D(0.0,1.0);
+			Point2D to = new Point2D(0.0,1.0);
+			
+			// Draw the line
+			Board.drawWinLine(from,to);
 		}
 
 	}
@@ -201,11 +234,17 @@ public class Board {
 	/**
 	 * Draw the victory line
 	 */
-	private static void drawWinLine() {
+	private static void drawWinLine(Point2D from ,Point2D to) {
+		
+		System.out.println(Game.HIT.get());
+		System.out.println(Game.STATUS.get());
 		
 		if (Game.STATUS.get() == false || Game.HIT.get() < 5) {
+			System.out.println("Go out");
 			return;
 		}
+		
+		System.out.println("Draw the line!");
 		
 		// Anti-aliasing
 		Game.WIN_LINE.setSmooth(true);
@@ -217,16 +256,51 @@ public class Board {
 		Game.WIN_LINE.setFill(Color.web("#fff"));
 		Game.WIN_LINE.setStroke(Color.web("#fff"));
 		
+		// Offsets
+		Double wideOffset = Settings.TILE_WIDTH.divide(2.0).doubleValue();
+		Double heightOffset = Settings.TILE_HEIGHT.divide(2.0).doubleValue();
+		
 		// Start position
-		Game.WIN_LINE.startXProperty().bind(Settings.TILE_WIDTH.divide(2.0));
-		Game.WIN_LINE.startYProperty().bind(Settings.TILE_HEIGHT.divide(2.0));
+		NumberBinding startX = Settings.TILE_WIDTH.multiply(from.getX()).subtract(wideOffset);
+		NumberBinding startY = Settings.TILE_HEIGHT.multiply(from.getY()).subtract(heightOffset);
+		
+		// Start position
+		Game.WIN_LINE.startXProperty().bind(startX);
+		Game.WIN_LINE.startYProperty().bind(startY);
+		
+		// Start position
+		NumberBinding endX = Settings.TILE_WIDTH.multiply(to.getX()).subtract(wideOffset);
+		NumberBinding endY = Settings.TILE_HEIGHT.multiply(to.getY()).subtract(heightOffset);
 
 		// End position
-		Game.WIN_LINE.endXProperty().bind(Settings.TILE_WIDTH.multiply(2.5));
-		Game.WIN_LINE.endYProperty().bind(Settings.TILE_HEIGHT.multiply(2.5));
+		Game.WIN_LINE.endXProperty().bind(endX);
+		Game.WIN_LINE.endYProperty().bind(endY);
 		
 		// Set visible
 		Game.WIN_LINE.setVisible(true);
+	}
+	
+	/**
+	 * Return the current matrix as numbers
+	 * @return
+	 */
+	public static List<List<Integer>> matrixAsNumbers() {
+		
+		List<List<Integer>> matrix = new ArrayList<List<Integer>>();
+		
+		for (int i = 0; i < board.size(); i++) {
+			
+			List<Integer> row = new ArrayList<Integer>();
+			
+			for (int j = 0; j < board.get(i).size(); j++) {
+				
+				row.add(board.get(i).get(j).asInteger());
+			}
+			
+			matrix.add(row);
+		}
+		
+		return matrix;
 	}
 
 	/**
@@ -246,11 +320,47 @@ public class Board {
 	}
 
 	/**
-	 * 
+	 * Check if we have a winner in the rows
 	 */
-	private void checkRows() {
-		// TODO Auto-generated method stub
+	private Pair<Integer, String> checkRows() {
 		
+		// Result
+		Pair<Integer, String> res = null;
+		
+		// Current row
+		ArrayList<Tile> row;
+		
+		// For each row
+		for (int i = 0; i < board.size(); i++) {
+			
+			// Collect the row
+			row = board.get(i);
+			
+			// The sum of the row
+			int sum = 0;
+		
+			/**
+			 * Make the sum of the row
+			 *  3 => X
+			 * -3 => O
+			 */
+			for (Tile tile : row) { sum += tile.asInteger(); }
+			
+			// If X or O win
+			if (sum == 3 || sum == -3) {
+				
+				// Winner shape
+				String winner = row.get(0).currentShape;
+				
+				// Create the pair
+				res = new Pair<>(i, winner);
+				
+				// Stop the loop
+				break;
+			}
+		}
+		
+		return res;
 	}
 
 }

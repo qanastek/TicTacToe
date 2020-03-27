@@ -154,21 +154,21 @@ public class Game {
 	 * Increment the score of the winner
 	 * @param {@code Integer} winner
 	 */
-	public static void incrementWinner(int winner) {
+	public static void incrementWinner(String winner) {
 		
 		// If P1 win
-		if (winner == 1) {
+		if (winner.equals("x")) {
 			
 			Game.SCORE_P1.set(Game.SCORE_P1.get() + 1);
 			// TODO: Add vfx
 		}
 		// If P2 win
-		else if (winner == 2) {
+		else if (winner.equals("o")) {
 			
 			Game.SCORE_P2.add(1);	
 			// TODO: Add vfx	
 		}
-		// If par
+		// If par/draw
 		else {
 
 			System.out.println("Par nobody win!");

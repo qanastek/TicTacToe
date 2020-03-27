@@ -1,6 +1,10 @@
 package fr.univavignon.ceri.application.vues;
 
 import javafx.animation.FadeTransition;
+import javafx.animation.Interpolator;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -17,6 +21,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -191,6 +196,21 @@ public class MainController implements Initializable {
 		fade.setFromValue(0);
 		fade.setToValue(1);
 		fade.play();
+	}
+	
+	/**
+	 * Make a fade animation on a {@code Node}
+	 */
+	public static void fadeOutLeftToRight(Line node, int duration) {
+		
+//		Timeline timeline = new Timeline();
+//		
+//		Double end = node.endXProperty().doubleValue();
+//		
+//		KeyValue kv = new KeyValue(node.endXProperty(), end, Interpolator.EASE_IN);
+//		KeyFrame kf = new KeyFrame(Duration.millis(duration), kv);
+//		timeline.getKeyFrames().add(kf);
+//		timeline.play();
 	}
 
 	/**

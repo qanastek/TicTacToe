@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.univavignon.ceri.application.config.Settings;
+import fr.univavignon.ceri.application.vues.MainController;
 import javafx.beans.binding.NumberBinding;
 import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
@@ -172,10 +173,10 @@ public class Board {
 		// TODO: Check if 3 same X/O in a row	
 		Pair<Integer, String> rows = this.checkRows();
 		
-		// If no winner
+		// If winner
 		if (rows != null) {
 			
-			System.out.println("winner !");
+			System.out.println("winner row !");
 			
 			// Increment the winner score
 			Game.incrementWinner(rows.getValue());
@@ -196,7 +197,31 @@ public class Board {
 			return true;			
 		}
 		
-		this.checkColumn();
+		Pair<Integer, String> cols = this.checkColumn();
+
+		// If no winner
+		if (cols != null) {
+			
+			System.out.println("winner col !");
+			
+			// Increment the winner score
+			Game.incrementWinner(cols.getValue());
+			
+			// Y Coordinate
+			Float x = Float.valueOf(cols.getKey());
+			
+			// Coordinates
+			Point2D from = new Point2D(x,0);
+			Point2D to = new Point2D(x,2);
+			
+			// Draw the line
+			Board.drawWinLine(from,to);
+			
+			// Stop the game
+			Game.STATUS.set(false);
+			
+			return true;			
+		}
 		
 		this.checkDiags();
 		
@@ -279,6 +304,9 @@ public class Board {
 		
 		// Set visible
 		Game.WIN_LINE.setVisible(true);
+		
+		// Animate the line
+		MainController.fadeOutLeftToRight(Game.WIN_LINE, 10000);
 	}
 	
 	/**
@@ -313,15 +341,52 @@ public class Board {
 	}
 
 	/**
-	 * 
+	 * Check if we have a winner on the column
 	 */
-	private void checkColumn() {
-		// TODO Auto-generated method stub
+	private Pair<Integer, String> checkColumn() {		
+
+		// Result
+		Pair<Integer, String> res = null;
 		
+		// Current row
+		ArrayList<Tile> row;
+		
+		// For each column
+		for (int i = 0; i < board.size(); i++) {
+			
+			// The sum of the row
+			int sum = 0;
+		
+			/**
+			 * Make the sum of the row
+			 *  3 => X
+			 * -3 => O
+			 */
+			
+			// For each row
+			for (int j = 0; j < board.size(); j++) {
+				sum += board.get(j).get(i).asInteger();
+			}
+			
+			// If X or O win
+			if (sum == 3 || sum == -3) {
+				
+				// Winner shape
+				String winner = board.get(0).get(i).currentShape;
+				
+				// Create the pair
+				res = new Pair<>(i, winner);
+				
+				// Stop the loop
+				break;
+			}
+		}
+		
+		return res;		
 	}
 
 	/**
-	 * Check if we have a winner in the rows
+	 * Check if we have a winner on the rows
 	 */
 	private Pair<Integer, String> checkRows() {
 		

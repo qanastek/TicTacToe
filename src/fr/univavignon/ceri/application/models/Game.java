@@ -166,26 +166,13 @@ public class Game {
 	 */
 	public static void incrementWinner(String winner) {
 		
-		System.out.println("Winner is " + winner + " at the hit " + Game.HIT.get());
-		
 		// If P1 win
-		if (winner.equals("x")) {
-			
+		if (winner.equals("x")) {			
 			Game.SCORE_P1.set(Game.SCORE_P1.get() + 1);
-			// TODO: Add vfx
 		}
 		// If P2 win
 		else if (winner.equals("o")) {
-
 			Game.SCORE_P2.set(Game.SCORE_P2.get() + 1);
-			// TODO: Add vfx	
-		}
-		// If par/draw
-		else {
-
-			System.out.println("Par nobody win!");
-			// TODO: Add sfx
-			// TODO: Add vfx
 		}
 	}
 }

@@ -223,7 +223,38 @@ public class Board {
 			return true;			
 		}
 		
-		this.checkDiags();
+		ArrayList<Object> diags = this.checkDiags();
+
+		// If no winner
+		if (diags != null) {
+			
+			System.out.println("winner diags !");
+			
+			// Increment the winner score
+			Game.incrementWinner((String) diags.get(0));
+			
+			// X Coordinate
+			Float x1 = Float.valueOf((int) diags.get(1));
+			// Y Coordinate
+			Float y1 = Float.valueOf((int) diags.get(2));
+			
+			// X Coordinate
+			Float x2 = Float.valueOf((int) diags.get(3));
+			// Y Coordinate
+			Float y2 = Float.valueOf((int) diags.get(4));
+			
+			// Coordinates
+			Point2D from = new Point2D(x1,y1);
+			Point2D to = new Point2D(x2,y2);
+			
+			// Draw the line
+			Board.drawWinLine(from,to);
+			
+			// Stop the game
+			Game.STATUS.set(false);
+			
+			return true;			
+		}
 		
 		// TODO: Make it really work
 		boolean res = true;
@@ -333,10 +364,69 @@ public class Board {
 	}
 
 	/**
-	 * 
+	 * Check if we have a winner on the diagonals
 	 */
-	private void checkDiags() {
-		// TODO Auto-generated method stub
+	private ArrayList<Object> checkDiags() {
+
+		ArrayList<Object> res = null;
+
+		/**
+		 * First diagonal
+		 */
+		int diag1 = 0;
+		
+		// For each Tile on this diag
+		for (int i = 0; i < Settings.TILES_NBR_WIDTH; i++) {
+			diag1 += Board.matrixAsNumbers().get(i).get(i);
+		}
+		
+		// Check winner
+		if (diag1 == 3 || diag1 == -3) {
+			
+			// Winner shape
+			String winner = board.get(0).get(0).currentShape;
+			
+			// Create the list
+			res = new ArrayList<Object>();
+			res.add(winner);
+			res.add(0);
+			res.add(0);
+			res.add(Settings.TILES_NBR_WIDTH-1);
+			res.add(Settings.TILES_NBR_WIDTH-1);
+			
+			return res;
+		}
+
+		/**
+		 * Second diagonal
+		 */
+		int diag2 = 0;
+
+		// For each Tile on this diag
+		int j = 0;
+		for (int i = Settings.TILES_NBR_WIDTH-1; i >= 0; i--) {
+			diag2 += Board.matrixAsNumbers().get(j).get(i);
+			++j;
+		}
+		
+		// Check winner
+		if (diag2 == 3 || diag2 == -3) {
+			
+			// Winner shape
+			String winner = board.get(0).get(Settings.TILES_NBR_WIDTH-1).currentShape;
+			
+			// Create the list
+			res = new ArrayList<Object>();
+			res.add(winner);
+			res.add(Settings.TILES_NBR_WIDTH-1);
+			res.add(0);
+			res.add(0);
+			res.add(Settings.TILES_NBR_WIDTH-1);
+			
+			return res;
+		}
+
+		return res;
 		
 	}
 

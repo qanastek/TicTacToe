@@ -13,6 +13,7 @@ import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Line;
+import javafx.scene.shape.StrokeLineCap;
 import javafx.util.Pair;
 
 /**
@@ -305,6 +306,7 @@ public class Board {
 		
 		// Anti-aliasing
 		Game.WIN_LINE.setSmooth(true);
+		Game.WIN_LINE.setStrokeLineCap(StrokeLineCap.ROUND);
 		
 		// Thickness
 		Game.WIN_LINE.setStrokeWidth(12.5);

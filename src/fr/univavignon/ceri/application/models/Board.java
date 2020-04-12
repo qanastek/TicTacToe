@@ -267,7 +267,7 @@ public class Board {
 		 * <br>
 		 * P2 => 2
 		 */
-		String winner = "x";		
+		String winner = Settings.CROSS;		
 		
 		// TODO: Change this brute force method
 		if (res == false) {

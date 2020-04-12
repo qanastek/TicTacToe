@@ -26,6 +26,31 @@ public class Settings {
 	 * The blank tile
 	 */
 	public static String BLANK = "b";
+
+	/**
+	 * The bot piece
+	 */
+	public static String BOT_PIECE = Settings.CROSS;
+	
+	/**
+	 * The player piece
+	 */
+	public static String PLAYER_PIECE = Settings.CIRCLE;
+	
+	/**
+	 * Who play first
+	 */
+	public static final String FIRST_PLAYER = PLAYER_PIECE;
+	
+	/**
+	 * Game mode human versus robot
+	 */
+	public static String HUMAN_VS_AI = "ai";
+	
+	/**
+	 * Game mode multiplayers
+	 */
+	public static String MULTIPLAYERS = "multi";
 	
 	/**
 	 * Number of {@code Tile}s on the board width

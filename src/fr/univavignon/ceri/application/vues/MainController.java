@@ -35,6 +35,7 @@ import fr.univavignon.ceri.application.config.Settings;
 import fr.univavignon.ceri.application.config.Textures;
 import fr.univavignon.ceri.application.models.Board;
 import fr.univavignon.ceri.application.models.Game;
+import fr.univavignon.ceri.application.services.Threads.BotPlayEasy;
 
 public class MainController implements Initializable {
 
@@ -134,6 +135,7 @@ public class MainController implements Initializable {
 		
 		// Add the winning line
 		this.gameScene.getChildren().add(Game.WIN_LINE);
+		
 	}
 	
 	/**
@@ -204,6 +206,8 @@ public class MainController implements Initializable {
 	 */
 	public static void fadeOutLeftToRight(Line node, int duration) {
 		
+		// TODO: Clear here
+		
 //		Timeline timeline = new Timeline();
 //		
 //		Double end = node.endXProperty().doubleValue();
@@ -260,6 +264,20 @@ public class MainController implements Initializable {
 				 */
 				getVboxPlayer(oldValue).getStyleClass().removeAll("playerActive");
 				getVboxPlayer(newValue).getStyleClass().add("playerActive");
+				
+//				System.out.println("----------------");
+//				System.out.println(newValue);
+//				System.out.println(Settings.BOT_PIECE);
+//				System.out.println(newValue.equals(Settings.BOT_PIECE) == true);
+//				System.out.println("----------------");
+				
+				// The bot
+				if (newValue.equals(Settings.BOT_PIECE) == true && Game.STATUS.get() == true) {
+
+					// TODO: Play the bot here
+					BotPlayEasy task = new BotPlayEasy();
+					new Thread(task).start();
+				}
 			}
 		});
 	}
@@ -329,6 +347,9 @@ public class MainController implements Initializable {
 			// Want to play with a friend
 			case "Play with a friend":
 				
+				// Set game mode
+				Game.GAME_MODE = Settings.MULTIPLAYERS;
+				
 				// Change text
 				this.rival.setText("Play with a Bot");
 
@@ -346,6 +367,9 @@ public class MainController implements Initializable {
 			// Want to play with a bot
 			case "Play with a Bot":
 
+				// Set game mode
+				Game.GAME_MODE = Settings.HUMAN_VS_AI;
+				
 				// Change text
 				this.rival.setText("Play with a friend");
 				

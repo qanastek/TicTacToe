@@ -60,6 +60,11 @@ public class Game {
 	 * False => Stopped
 	 */
 	public static BooleanProperty STATUS = new SimpleBooleanProperty(true);
+
+	/**
+	 * Current game mode
+	 */
+	public static String GAME_MODE = Settings.HUMAN_VS_AI;
 	
 	/**
 	 * Constructor
@@ -70,7 +75,7 @@ public class Game {
 		this.board = Board.getInstance();
 		
 		// The current player
-		Game.CURRENT_PLAYER = new SimpleStringProperty("x");
+		Game.CURRENT_PLAYER = new SimpleStringProperty(Settings.FIRST_PLAYER);
 		
 		// Total number of hits
 		Game.HIT = new SimpleIntegerProperty(0);
@@ -146,7 +151,8 @@ public class Game {
     	Game.HIT.set(0);
 		
 		// Reset current player to x
-    	Game.CURRENT_PLAYER.set("x");
+    	Game.CURRENT_PLAYER.set(Settings.BLANK);
+    	Game.CURRENT_PLAYER.set(Settings.FIRST_PLAYER);
 		
 		// Hide the winning line
 		Game.WIN_LINE.setVisible(false);
@@ -167,11 +173,11 @@ public class Game {
 	public static void incrementWinner(String winner) {
 		
 		// If P1 win
-		if (winner.equals("x")) {			
+		if (winner.equals(Settings.CROSS)) {			
 			Game.SCORE_P1.set(Game.SCORE_P1.get() + 1);
 		}
 		// If P2 win
-		else if (winner.equals("o")) {
+		else if (winner.equals(Settings.CIRCLE)) {
 			Game.SCORE_P2.set(Game.SCORE_P2.get() + 1);
 		}
 	}

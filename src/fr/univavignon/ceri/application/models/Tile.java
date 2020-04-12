@@ -10,6 +10,7 @@ import fr.univavignon.ceri.application.config.Colors;
 import fr.univavignon.ceri.application.config.Settings;
 import fr.univavignon.ceri.application.config.Sounds;
 import fr.univavignon.ceri.application.config.Textures;
+import fr.univavignon.ceri.application.services.Threads.BotPlayEasy;
 import fr.univavignon.ceri.application.vues.MainController;
 import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
@@ -57,7 +58,7 @@ public class Tile extends StackPane {
 	/**
 	 * Current state
 	 */
-	public String currentShape = "b";
+	public String currentShape = Settings.BLANK;
 	
 	/**
 	 * Constructor
@@ -90,24 +91,41 @@ public class Tile extends StackPane {
 		 */
 		this.setOnMouseClicked(event -> {
 			
+//			System.out.println("Game.CURRENT_PLAYER: " + Game.CURRENT_PLAYER);
+//			System.out.println(Game.GAME_MODE);
+//			System.out.println(Settings.MULTIPLAYERS);
+//			System.out.println(Game.GAME_MODE.equals(Settings.MULTIPLAYERS));
+//			System.out.println();
+//			System.out.println(
+//				((Game.GAME_MODE.equals(Settings.HUMAN_VS_AI) && Game.CURRENT_PLAYER.getValue().equals(Settings.CIRCLE)) ||
+//						Game.GAME_MODE.equals(Settings.MULTIPLAYERS))
+//			);
+		
 			// If left hand click
-			if (event.getButton() == MouseButton.PRIMARY) {
+			if (event.getButton() == MouseButton.PRIMARY)
+			{
+				
+				System.out.println("---- a");
 				
 				// If it's the end of the game
 				if (Game.STATUS.get() == false) {
-					
+
 					// New game
 					Game.getInstance().clear();
 					
 					return;
 				}
 				// If it's not empty
-				else if (!this.currentShape.equals("b")) {
+				else if (!this.currentShape.equals(Settings.BLANK)) {
 					return;
-				} else {
+				}
+				else if ((Game.GAME_MODE.equals(Settings.HUMAN_VS_AI) && 
+							Game.CURRENT_PLAYER.getValue().equals(Settings.CIRCLE)) ||
+							Game.GAME_MODE.equals(Settings.MULTIPLAYERS)
+				) {
 					
 					// If the are currently playing with the cross
-					if (Game.CURRENT_PLAYER.get().equals("x")) {
+					if (Game.CURRENT_PLAYER.get().equals(Settings.CROSS)) {
 						
 						// Draw the cross
 						this.drawCross();
@@ -137,7 +155,7 @@ public class Tile extends StackPane {
 	/**
 	 * Draw a cross
 	 */
-	private void drawCross() {		
+	public void drawCross() {		
 
 		// Insert the image
 		this.contentImg.setImage(new Image(getClass().getResourceAsStream(Textures.CROSS)));
@@ -195,13 +213,13 @@ public class Tile extends StackPane {
 	 */
 	public Integer asInteger() {
 		
-		if (this.currentShape.equals("x")) {
+		if (this.currentShape.equals(Settings.CROSS)) {
 			return 1;			
 		}
-		else if (this.currentShape.equals("o")) {
+		else if (this.currentShape.equals(Settings.CIRCLE)) {
 			return -1;			
 		}
-		else if (this.currentShape.equals("b")) {
+		else if (this.currentShape.equals(Settings.BLANK)) {
 			return 0;			
 		}
 		

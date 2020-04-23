@@ -1,6 +1,8 @@
 package fr.univavignon.ceri.application.vues;
 
 import javafx.animation.FadeTransition;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -47,6 +49,9 @@ public class MainController implements Initializable {
     private ImageView player2Img;
 
     @FXML
+    private Button sound;
+    
+    @FXML
     private Button restart;
 
     @FXML
@@ -85,10 +90,18 @@ public class MainController implements Initializable {
     @FXML
     private HBox difficulties;
     
+    @FXML
+    private ImageView imageSound;
+    
     /**
      * The {@code Game} instance
      */
     public static Game GAME = Game.getInstance();
+    
+    /**
+     * The status of the sound
+     */
+    public static BooleanProperty STATUS_SOUND = new SimpleBooleanProperty(false);
     
     /**
      * Elements in the stack pane
@@ -125,6 +138,9 @@ public class MainController implements Initializable {
 		// Game status
 		this.observePlayersScores();
 		
+		// Observe sound status
+		this.observerSoundStatus();
+		
 		// Add the Tiles on the Pane
 		this.gameScene.getChildren().addAll(Board.getTiles());
 		
@@ -132,7 +148,7 @@ public class MainController implements Initializable {
 		this.gameScene.getChildren().add(Game.WIN_LINE);
 		
 	}
-	
+
 	/**
 	 * Link the gui to the observable
 	 */
@@ -145,6 +161,30 @@ public class MainController implements Initializable {
 		this.player2Score.textProperty().bind(Game.SCORE_P2.asString());
 	}
 
+	
+	/**
+	 * Observe if the sound status change
+	 */
+	private void observerSoundStatus() {
+		
+		MainController.STATUS_SOUND.addListener(new ChangeListener<Object>() {
+			
+		      @Override
+		      public void changed(ObservableValue<?> observableValue, Object oldValue, Object newValue) {
+		    	  
+		    	  boolean newStatus = (boolean) newValue;
+		    	  
+		    	  if (newStatus == false) {
+			    	  // Is set as disabled
+		    		  imageSound.setImage(new Image(getClass().getResourceAsStream(Textures.DISABLED_SOUND)));					
+		    	  } else {
+			    	  // Is set as enabled
+		    		  imageSound.setImage(new Image(getClass().getResourceAsStream(Textures.ENABLED_SOUND)));		
+		    	  }
+		      }
+		 });		
+	}
+	
 	/**
 	 * Observe if the game is ended and display a pop-up
 	 */
@@ -381,11 +421,24 @@ public class MainController implements Initializable {
 		}
     }
 
+	/**
+	 * Restart the game
+     * @param event {@code ActionEvent}
+	 */
     @FXML
     void restart(ActionEvent event) {
     	
     	// Clear the game
     	Game.getInstance().clear();    	
+    }
+    
+    /**
+     * Cut the sound of the game
+     * @param event {@code ActionEvent}
+     */
+    @FXML
+    void sound(ActionEvent event) {
+    	MainController.STATUS_SOUND.set(!MainController.STATUS_SOUND.get());
     }
     
     @FXML

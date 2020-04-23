@@ -152,8 +152,10 @@ public class Tile extends StackPane {
 		this.contentImg.setSmooth(true);
 
 		// Play a sound effect
-		AudioClip sound = new AudioClip(this.getClass().getResource(Sounds.CLICK_1).toString());
-		sound.play();
+		if (MainController.STATUS_SOUND.get() == true) {
+			AudioClip sound = new AudioClip(this.getClass().getResource(Sounds.CLICK_1).toString());
+			sound.play();			
+		}
 		
 		// Set he size of it
 		this.contentImg.fitWidthProperty().bind(Settings.TILE_WIDTH.divide(1.5));
@@ -177,8 +179,10 @@ public class Tile extends StackPane {
 		this.contentImg.setSmooth(true);
 
 		// Play a sound effect
-		AudioClip sound = new AudioClip(this.getClass().getResource(Sounds.CLICK_2).toString());
-		sound.play();
+		if (MainController.STATUS_SOUND.get() == true) {
+			AudioClip sound = new AudioClip(this.getClass().getResource(Sounds.CLICK_2).toString());
+			sound.play();
+		}
 		
 		// Set he size of it
 		this.contentImg.fitWidthProperty().bind(Settings.TILE_WIDTH.divide(1.5));

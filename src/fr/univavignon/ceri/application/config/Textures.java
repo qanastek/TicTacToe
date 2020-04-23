@@ -43,5 +43,15 @@ public class Textures {
 	 * Bot hard image
 	 */
 	public final static String HARD = "../ressources/images/HARD.png";
+	
+	/**
+	 * Disabled sound image
+	 */
+	public final static String DISABLED_SOUND = "../ressources/images/mute_color.png";
+	
+	/**
+	 * Enabled sound image
+	 */
+	public final static String ENABLED_SOUND = "../ressources/images/speaker_color.png";
 
 }

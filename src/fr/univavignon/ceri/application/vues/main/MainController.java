@@ -307,7 +307,7 @@ public class MainController implements Initializable {
 //				System.out.println("----------------");
 				
 				// The bot
-				if (newValue.equals(Settings.BOT_PIECE) == true && Game.STATUS.get() == true) {
+				if (newValue.equals(Settings.BOT_PIECE) == true && Game.STATUS.get() == true && Game.GAME_MODE == Settings.HUMAN_VS_AI) {
 
 					// TODO: Play the bot here
 					BotPlayEasy task = new BotPlayEasy();
@@ -459,8 +459,9 @@ public class MainController implements Initializable {
 			
 			Scene scene = new Scene(layout,layout.getLayoutY(), layout.getLayoutX());
 			scene.getStylesheets().add(getClass().getResource("../configureAi/configureAI.css").toExternalForm());
-			
+						
 			Stage stage = new Stage();
+			Main.STAGES.add(stage);
 			
 			// Set the title of the pop-up
 			stage.setTitle("Artificial Inteligence Configuration");
@@ -501,6 +502,7 @@ public class MainController implements Initializable {
 			scene.getStylesheets().add(getClass().getResource("../help/help.css").toExternalForm());
 			
 			Stage stage = new Stage();
+			Main.STAGES.add(stage);
 			
 			// Set the title of the pop-up
 			stage.setTitle("Help");
@@ -534,7 +536,7 @@ public class MainController implements Initializable {
     	String difficulty = currentClicked.getText();
     	
 		// Switch robot image
-		this.player1Img.setImage(new Image(getClass().getResourceAsStream("../ressources/images/" + difficulty.toUpperCase() + ".png")));
+		this.player1Img.setImage(new Image(getClass().getResourceAsStream("../../ressources/images/" + difficulty.toUpperCase() + ".png")));
 
     	// Clear the game
     	Game.getInstance().clear();   

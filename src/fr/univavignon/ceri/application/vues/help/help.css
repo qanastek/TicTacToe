@@ -1,0 +1,21 @@
+.background {
+	-fx-background-color: #442dad;
+	-fx-border-color: #442dad;
+}
+
+.back {
+	-fx-background-color: #6648c4;
+	-fx-border-color: #6648c4;
+}
+
+.rulesTitle {
+	
+}
+
+Label {
+	-fx-text-fill: white;
+}
+
+Text {
+	-fx-fill: white;
+}

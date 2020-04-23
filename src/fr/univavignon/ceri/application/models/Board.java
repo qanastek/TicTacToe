@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.univavignon.ceri.application.config.Settings;
-import fr.univavignon.ceri.application.vues.MainController;
+import fr.univavignon.ceri.application.vues.main.MainController;
 import javafx.beans.binding.NumberBinding;
 import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;

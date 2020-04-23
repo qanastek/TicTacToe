@@ -1,4 +1,4 @@
-package fr.univavignon.ceri.application.vues;
+package fr.univavignon.ceri.application.vues.configureAi;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

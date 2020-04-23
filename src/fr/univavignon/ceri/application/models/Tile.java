@@ -7,7 +7,7 @@ import fr.univavignon.ceri.application.config.Colors;
 import fr.univavignon.ceri.application.config.Settings;
 import fr.univavignon.ceri.application.config.Sounds;
 import fr.univavignon.ceri.application.config.Textures;
-import fr.univavignon.ceri.application.vues.MainController;
+import fr.univavignon.ceri.application.vues.main.MainController;
 import javafx.geometry.Pos;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;

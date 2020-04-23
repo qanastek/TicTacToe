@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<ScrollPane fitToWidth="true" maxHeight="497.0" maxWidth="517.0" minHeight="497.0" minWidth="517.0" prefHeight="497.0" prefWidth="517.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.univavignon.ceri.application.vues.help.helpController">
+   <content>
+      <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="background" stylesheets="@help.css">
+         <children>
+            <VBox layoutX="2.0" layoutY="2.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="972.0" prefWidth="496.0" styleClass="background" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="1.0">
+               <children>
+                  <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="background">
+                     <children>
+                        <Label styleClass="rulesTitle" text="Règles du jeu:">
+                           <font>
+                              <Font size="42.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <VBox>
+                     <children>
+                        <HBox minHeight="-Infinity">
+                           <children>
+                              <Label styleClass="rulesTitle" text="● Aligne 3 cercle jaune pour gagner." wrapText="true" HBox.hgrow="ALWAYS">
+                                 <font>
+                                    <Font size="28.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                           <padding>
+                              <Insets bottom="5.0" top="5.0" />
+                           </padding>
+                        </HBox>
+                        <HBox minHeight="-Infinity">
+                           <children>
+                              <Label styleClass="rulesTitle" text="● Tu peut a tout moment jouer contre un ordinateur ou un ami en cliquant sur le bouton en bas à droite." wrapText="true" HBox.hgrow="ALWAYS">
+                                 <font>
+                                    <Font size="28.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                           <padding>
+                              <Insets bottom="5.0" top="5.0" />
+                           </padding>
+                        </HBox>
+                        <HBox minHeight="-Infinity">
+                           <children>
+                              <Label styleClass="rulesTitle" text="● Tu peut couper le son du jeu à tout moment en cliquant sur l'icone &quot;mute&quot; en haut à droite" wrapText="true" HBox.hgrow="ALWAYS">
+                                 <font>
+                                    <Font size="28.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                           <padding>
+                              <Insets bottom="5.0" top="5.0" />
+                           </padding>
+                        </HBox>
+                        <HBox minHeight="-Infinity">
+                           <children>
+                              <Label styleClass="rulesTitle" text="● Tu peut recommancer la partie à tout moment en cliquant sur l'icone &quot;refresh&quot; en haut à droite" wrapText="true" HBox.hgrow="ALWAYS">
+                                 <font>
+                                    <Font size="28.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                           <padding>
+                              <Insets bottom="5.0" top="5.0" />
+                           </padding>
+                        </HBox>
+                        <HBox minHeight="-Infinity">
+                           <children>
+                              <Label styleClass="rulesTitle" text="● Tu peut changer la difficulté du robot grâce à l'ensemble de boutons en bas à gauche" wrapText="true" HBox.hgrow="ALWAYS">
+                                 <font>
+                                    <Font size="28.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                           <padding>
+                              <Insets bottom="5.0" top="5.0" />
+                           </padding>
+                        </HBox>
+                        <HBox minHeight="-Infinity">
+                           <children>
+                              <Label styleClass="rulesTitle" text="● Quand une partie est fini tu peut la relancer en cliquant directement sur le plateau de jeu" wrapText="true" HBox.hgrow="ALWAYS">
+                                 <font>
+                                    <Font size="28.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                           <padding>
+                              <Insets bottom="5.0" top="5.0" />
+                           </padding>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </children>
+               <padding>
+                  <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+               </padding>
+            </VBox>
+         </children>
+      </AnchorPane>
+   </content>
+</ScrollPane>

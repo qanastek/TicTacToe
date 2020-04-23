@@ -1,4 +1,4 @@
-package fr.univavignon.ceri.application.vues;
+package fr.univavignon.ceri.application.vues.main;
 
 import javafx.animation.FadeTransition;
 import javafx.beans.property.BooleanProperty;
@@ -441,6 +441,10 @@ public class MainController implements Initializable {
     	MainController.STATUS_SOUND.set(!MainController.STATUS_SOUND.get());
     }
     
+    /**
+     * Open the configuration menu for the AI
+     * @param event {@code ActionEvent}
+     */
     @FXML
     void configureAi(ActionEvent event) {
     	
@@ -451,10 +455,10 @@ public class MainController implements Initializable {
 	    
 		try {
 			
-			layout = FXMLLoader.load(getClass().getResource("ConfigureAI.fxml"));
+			layout = FXMLLoader.load(getClass().getResource("../configureAi/ConfigureAI.fxml"));
 			
 			Scene scene = new Scene(layout,layout.getLayoutY(), layout.getLayoutX());
-			scene.getStylesheets().add(getClass().getResource("configureAI.css").toExternalForm());
+			scene.getStylesheets().add(getClass().getResource("../configureAi/configureAI.css").toExternalForm());
 			
 			Stage stage = new Stage();
 			
@@ -475,7 +479,47 @@ public class MainController implements Initializable {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-    }
+	}
+    
+    /**
+     * Information window
+     * @param event
+     */
+    @FXML
+    void help(ActionEvent event) {
+    	
+    	System.out.println("help");
+
+	    // Load the FXML
+	    Parent layout;
+	    
+		try {
+			
+			layout = FXMLLoader.load(getClass().getResource("../help/Help.fxml"));
+			
+			Scene scene = new Scene(layout,layout.getLayoutY(), layout.getLayoutX());
+			scene.getStylesheets().add(getClass().getResource("../help/help.css").toExternalForm());
+			
+			Stage stage = new Stage();
+			
+			// Set the title of the pop-up
+			stage.setTitle("Help");
+			
+			// Set the width of the pop-up
+			stage.setWidth(Main.screenBounds.getWidth() * 0.25);
+			stage.setMinWidth(Main.screenBounds.getWidth() * 0.25);
+			
+			// Set the height of the pop-up			
+			stage.setHeight(Main.screenBounds.getHeight() * 0.5);
+			stage.setMinHeight(Main.screenBounds.getHeight() * 0.5);
+			
+			stage.setScene(scene);
+			stage.show();
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
     
     @FXML
     void difficulty(ActionEvent event) {

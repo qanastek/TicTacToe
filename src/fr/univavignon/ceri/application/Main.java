@@ -42,10 +42,10 @@ public class Main extends Application {
 		    Main.screenBounds = Screen.getPrimary().getBounds();
 		    
 		    // Load the FXML
-		    Parent layout = FXMLLoader.load(getClass().getResource("vues/Main.fxml"));
+		    Parent layout = FXMLLoader.load(getClass().getResource("vues/main/Main.fxml"));
 			
 			scene = new Scene(layout,layout.getLayoutY(), layout.getLayoutX());
-			scene.getStylesheets().add(getClass().getResource("vues/application.css").toExternalForm());
+			scene.getStylesheets().add(getClass().getResource("vues/main/application.css").toExternalForm());
 			
 			// Set the width of the window to the 7/10 of the monitor width
 			Settings.WIDTH_BOARD.set(screenBounds.getWidth() * 0.7);

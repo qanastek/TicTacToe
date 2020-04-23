@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<models>
+    <medium>
+        <learning_rate>0.1</learning_rate>
+        <epochs>1111111111</epochs>
+        <batch_size>2500</batch_size>
+    </medium>
+    <hard>
+        <learning_rate>0.001</learning_rate>
+        <epochs>20000</epochs>
+        <batch_size>500</batch_size>
+    </hard>
+</models>

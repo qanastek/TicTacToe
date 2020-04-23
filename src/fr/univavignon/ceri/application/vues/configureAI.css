@@ -1,0 +1,34 @@
+.background {
+	-fx-background-color: #442dad;
+	-fx-border-color: #442dad;
+}
+
+.tab-pane *.tab-header-background {
+    -fx-background-color: #6648c4;
+}
+
+.back {
+	-fx-background-color: #6648c4;
+	-fx-border-color: #6648c4;
+}
+
+.tab-pane:focused > .tab-header-area > .headers-region > .tab:selected .focus-indicator {
+    -fx-border-color: #6648c4;
+}
+
+.tab {
+    -fx-focus-color: #6648c4;
+    -fx-faint-focus-color: #6648c4;
+	-fx-background-color: #442dad;
+	-fx-border-color: #442dad;
+}
+
+.btn {
+    -fx-background-color: #ff2267;
+    -fx-background-radius: 5px;
+	-fx-text-fill: white;
+}
+
+Label {
+	-fx-text-fill: white;
+}

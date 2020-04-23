@@ -6,7 +6,6 @@ package fr.univavignon.ceri.application.services;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -22,30 +21,32 @@ public class GenerateDataset {
 	/**
 	 * File content
 	 */
-	public static String FILE_CONTENT="";
+	public static String FILE_CONTENT = "";
 	
 	/**
 	 * This method generate a data-set of winning games  
+	 * @param n {@code Integer} 
 	 */
 	public static void Generate(int n) {
 		
 		int winNb = 0;
 		
-		while (winNb<n) {
+		// Generate n games
+		while (winNb < n) {
+			
 			List<Integer> board = new ArrayList<Integer>();
 			
 			List<List<Integer>> game = new ArrayList<List<Integer>>();
 			
-			for (int i = 0; i < 9; i++) {
-				
-				board.add(0);	
-			}
+			// Initialize the array
+			for (int i = 0; i < 9; i++) { board.add(0);	}
 			
 			int incr = 0;
 			
 			int tour = 1;
 			
-			while (incr<5 || hasWinner(board)==0 && incr < 9) {
+			// If he can win
+			while (incr < 5 || hasWinner(board)==0 && incr < 9) {
 				
 				List<Integer> boardTemp = new ArrayList<Integer>(board);
 			
@@ -67,6 +68,7 @@ public class GenerateDataset {
 				incr+=1;
 			}
 			
+			// If the player 
 			if (hasWinner(board)==1) {
 				
 				adaptData(game,1);
@@ -98,10 +100,12 @@ public class GenerateDataset {
 		
 		final int SIZE = 3;
 		
+		// For each row
 	    for (int i = 0; i < START.length; i++) {
 	    	
 	        int sum = 0;
-	        
+
+			// For each column
 	        for (int j = 0; j < SIZE; j++) {
 	            sum += board.get(START[i] + j * INCR[i]);
 	        }
@@ -119,12 +123,17 @@ public class GenerateDataset {
 	 * @param game {@code List<List<Integer>>} The board
 	 * @param winner {@code Integer} The winner
 	 */
-	public static void adaptData(List<List<Integer>> game,int winner){
+	public static void adaptData(List<List<Integer>> game, int winner){
 		
+		// Foreach row
 		for (int i = 0; i < game.size(); i++) {
 			
+			// Foreach column
 			for (int j = 0; j < game.get(i).size(); j++) {
 			
+				/**
+				 * Put the winner with X all time
+				 */
 				if (winner == 1) {
 					
 					switch (game.get(i).get(j)) {
@@ -172,7 +181,7 @@ public class GenerateDataset {
 	
 	public static void sendData() {
 
-		System.out.println(FILE_CONTENT);
+		System.out.println("Fiel content: " + FILE_CONTENT);
 		
 		BufferedWriter writer;
 		try {
@@ -227,9 +236,8 @@ public class GenerateDataset {
 			 0, 0, 0,
 			-1,-1,-1 
 		));
-		System.out.println(GenerateDataset.hasWinner(board));
+		System.out.println("Winner: " + GenerateDataset.hasWinner(board));
 		
-		GenerateDataset.Generate(1000);
 		
 	}
 	

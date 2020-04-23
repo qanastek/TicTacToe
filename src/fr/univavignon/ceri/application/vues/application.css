@@ -40,7 +40,6 @@
 }
 
 .difficultyBtn:focused {
-    /* -fx-background-color: white !important; */
     -fx-effect: dropshadow(gaussian, rgba(255, 34, 103, 0.5), 10, 0.5, 0.0, 0.0);
 }
 

@@ -28,8 +28,8 @@ public class BotPlayEasy extends Task<Void> {
 			this.randomX = (int) (Math.random() * (Settings.TILES_NBR_WIDTH-0));
 			this.randomY = (int) (Math.random() * (Settings.TILES_NBR_WIDTH-0));
 			
-			System.out.println(this.randomX);
-			System.out.println(this.randomY);
+			System.out.println("random x: " + this.randomX);
+			System.out.println("random y: " + this.randomY);
 			
 			// If the tile is empty
 			if (Board.getBoard().get(this.randomX).get(this.randomY).currentShape.equals(Settings.BLANK)) {				

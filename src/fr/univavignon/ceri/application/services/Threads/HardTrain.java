@@ -3,8 +3,6 @@
  */
 package fr.univavignon.ceri.application.services.Threads;
 
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.concurrent.Task;
 
 /**

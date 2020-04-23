@@ -3,30 +3,19 @@
  */
 package fr.univavignon.ceri.application.models;
 
-import java.io.File;
-import java.io.InputStream;
-
 import fr.univavignon.ceri.application.config.Colors;
 import fr.univavignon.ceri.application.config.Settings;
 import fr.univavignon.ceri.application.config.Sounds;
 import fr.univavignon.ceri.application.config.Textures;
-import fr.univavignon.ceri.application.services.Threads.BotPlayEasy;
 import fr.univavignon.ceri.application.vues.MainController;
-import javafx.animation.FadeTransition;
-import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.StackPane;
 import javafx.scene.media.AudioClip;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Text;
-import javafx.util.Duration;
 
 /**
  * A Tile

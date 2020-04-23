@@ -2,9 +2,6 @@ package fr.univavignon.ceri.application;
 	
 import fr.univavignon.ceri.application.config.Settings;
 import javafx.application.Application;
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 import javafx.stage.Screen;

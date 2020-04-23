@@ -8,11 +8,6 @@ package fr.univavignon.ceri.application.services.Threads;
  *
  */
 public class RunningThreads {
-
-	/**
-	 * Train of the easy model
-	 */
-	public static EasyTrain EASY_TRAIN;
 	
 	/**
 	 * Train of the medium model

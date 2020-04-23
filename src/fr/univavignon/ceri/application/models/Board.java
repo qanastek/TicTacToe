@@ -11,8 +11,6 @@ import fr.univavignon.ceri.application.vues.MainController;
 import javafx.beans.binding.NumberBinding;
 import javafx.geometry.Point2D;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.ImagePattern;
-import javafx.scene.shape.Line;
 import javafx.scene.shape.StrokeLineCap;
 import javafx.util.Pair;
 
@@ -30,7 +28,7 @@ public class Board {
 	/**
 	 * The board which contains the {@code Tile}s
 	 */
-	private static List<ArrayList<Tile>> board;
+	private static List<ArrayList<Tile>> BOARD;
 	
 	/**
 	 * Constructor
@@ -38,7 +36,7 @@ public class Board {
 	private Board() {
 		
 		// Instantiate the board
-		Board.board = new ArrayList<ArrayList<Tile>>();
+		Board.BOARD = new ArrayList<ArrayList<Tile>>();
 
 		// Initialize the board
 		for (int i = 0; i < Settings.TILES_NBR_WIDTH; i++) {
@@ -63,7 +61,7 @@ public class Board {
 			}
 			
 			// Add the row to the board
-			Board.board.add(row);
+			Board.BOARD.add(row);
 		}
 	}
 	
@@ -87,7 +85,7 @@ public class Board {
 	 * @return the board
 	 */
 	public static List<ArrayList<Tile>> getBoard() {
-		return board;
+		return BOARD;
 	}
 
 	/**
@@ -95,7 +93,7 @@ public class Board {
 	 * @param board the board to set
 	 */
 	public static void setBoard(List<ArrayList<Tile>> board) {
-		Board.board = board;
+		Board.BOARD = board;
 	}
 	
 	/**
@@ -294,8 +292,8 @@ public class Board {
 	 */
 	private static void drawWinLine(Point2D from ,Point2D to) {
 		
-		System.out.println(Game.HIT.get());
-		System.out.println(Game.STATUS.get());
+		System.out.println("Game hit: " + Game.HIT.get());
+		System.out.println("Game status: " + Game.STATUS.get());
 		
 		if (Game.STATUS.get() == false || Game.HIT.get() < 5) {
 			System.out.println("Go out");
@@ -350,13 +348,13 @@ public class Board {
 		
 		List<List<Integer>> matrix = new ArrayList<List<Integer>>();
 		
-		for (int i = 0; i < board.size(); i++) {
+		for (int i = 0; i < BOARD.size(); i++) {
 			
 			List<Integer> row = new ArrayList<Integer>();
 			
-			for (int j = 0; j < board.get(i).size(); j++) {
+			for (int j = 0; j < BOARD.get(i).size(); j++) {
 				
-				row.add(board.get(i).get(j).asInteger());
+				row.add(BOARD.get(i).get(j).asInteger());
 			}
 			
 			matrix.add(row);
@@ -386,7 +384,7 @@ public class Board {
 		if (diag1 == 3 || diag1 == -3) {
 			
 			// Winner shape
-			String winner = board.get(0).get(0).currentShape;
+			String winner = BOARD.get(0).get(0).currentShape;
 			
 			// Create the list
 			res = new ArrayList<Object>();
@@ -415,7 +413,7 @@ public class Board {
 		if (diag2 == 3 || diag2 == -3) {
 			
 			// Winner shape
-			String winner = board.get(0).get(Settings.TILES_NBR_WIDTH-1).currentShape;
+			String winner = BOARD.get(0).get(Settings.TILES_NBR_WIDTH-1).currentShape;
 			
 			// Create the list
 			res = new ArrayList<Object>();
@@ -444,7 +442,7 @@ public class Board {
 		ArrayList<Tile> row;
 		
 		// For each column
-		for (int i = 0; i < board.size(); i++) {
+		for (int i = 0; i < BOARD.size(); i++) {
 			
 			// The sum of the row
 			int sum = 0;
@@ -456,15 +454,15 @@ public class Board {
 			 */
 			
 			// For each row
-			for (int j = 0; j < board.size(); j++) {
-				sum += board.get(j).get(i).asInteger();
+			for (int j = 0; j < BOARD.size(); j++) {
+				sum += BOARD.get(j).get(i).asInteger();
 			}
 			
 			// If X or O win
 			if (sum == 3 || sum == -3) {
 				
 				// Winner shape
-				String winner = board.get(0).get(i).currentShape;
+				String winner = BOARD.get(0).get(i).currentShape;
 				
 				// Create the pair
 				res = new Pair<>(i, winner);
@@ -489,10 +487,10 @@ public class Board {
 		ArrayList<Tile> row;
 		
 		// For each row
-		for (int i = 0; i < board.size(); i++) {
+		for (int i = 0; i < BOARD.size(); i++) {
 			
 			// Collect the row
-			row = board.get(i);
+			row = BOARD.get(i);
 			
 			// The sum of the row
 			int sum = 0;

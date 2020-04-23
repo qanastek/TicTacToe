@@ -6,17 +6,17 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="507.0" prefWidth="597.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.univavignon.ceri.application.vues.ConfigureAiController">
+<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="507.0" prefWidth="597.0" styleClass="background" stylesheets="@configureAI.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.univavignon.ceri.application.vues.ConfigureAiController">
    <children>
-      <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="background" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS">
+            <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="background" VBox.vgrow="ALWAYS">
                <children>
-                  <TabPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" tabClosingPolicy="UNAVAILABLE" HBox.hgrow="ALWAYS">
+                  <TabPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="background" tabClosingPolicy="UNAVAILABLE" HBox.hgrow="ALWAYS">
                     <tabs>
-                      <Tab text="Easy">
+                      <Tab text="Medium">
                         <content>
-                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="background">
                                  <children>
                                     <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                        <children>
@@ -27,23 +27,23 @@
                                                       <Insets right="10.0" />
                                                    </HBox.margin>
                                                 </Label>
-                                                <TextField maxHeight="1.7976931348623157E308" maxWidth="-Infinity" HBox.hgrow="ALWAYS" />
+                                                <TextField fx:id="learningRateMedium" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" />
                                              </children>
                                              <VBox.margin>
-                                                <Insets bottom="10.0" top="10.0" />
+                                                <Insets bottom="5.0" top="10.0" />
                                              </VBox.margin>
                                           </HBox>
-                                          <HBox maxHeight="-Infinity" maxWidth="1.7976931348623157E308">
+                                          <HBox maxHeight="-Infinity" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS">
                                              <children>
                                                 <Label maxHeight="1.7976931348623157E308" maxWidth="200.0" text="Epochs:" HBox.hgrow="ALWAYS">
                                                    <HBox.margin>
                                                       <Insets right="10.0" />
                                                    </HBox.margin>
                                                 </Label>
-                                                <TextField maxHeight="1.7976931348623157E308" maxWidth="-Infinity" HBox.hgrow="ALWAYS" />
+                                                <TextField fx:id="epochsMedium" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" />
                                              </children>
                                              <VBox.margin>
-                                                <Insets bottom="10.0" top="10.0" />
+                                                <Insets bottom="10.0" top="5.0" />
                                              </VBox.margin>
                                           </HBox>
                                           <HBox maxHeight="-Infinity" maxWidth="1.7976931348623157E308">
@@ -53,68 +53,25 @@
                                                       <Insets right="10.0" />
                                                    </HBox.margin>
                                                 </Label>
-                                                <TextField maxHeight="1.7976931348623157E308" maxWidth="-Infinity" HBox.hgrow="ALWAYS" />
+                                                <TextField fx:id="batchSizeMedium" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" HBox.hgrow="ALWAYS" />
                                              </children>
                                              <VBox.margin>
-                                                <Insets bottom="10.0" top="10.0" />
+                                                <Insets bottom="10.0" />
                                              </VBox.margin>
                                           </HBox>
-                                          <HBox maxHeight="-Infinity" maxWidth="1.7976931348623157E308">
-                                             <children>
-                                                <Button mnemonicParsing="false" onAction="#trainEasy" text="Train easy" />
-                                             </children>
-                                             <VBox.margin>
-                                                <Insets top="10.0" />
-                                             </VBox.margin>
-                                          </HBox>
-                                          <VBox fx:id="progressionEasy" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" visible="false" VBox.vgrow="ALWAYS">
-                                             <children>
-                                                <HBox maxHeight="-Infinity" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS">
-                                                   <children>
-                                                      <ProgressBar fx:id="progressBarEasy" maxWidth="1.7976931348623157E308" progress="0.68" HBox.hgrow="ALWAYS" />
-                                                   </children>
-                                                   <VBox.margin>
-                                                      <Insets top="15.0" />
-                                                   </VBox.margin>
-                                                </HBox>
-                                                <HBox maxHeight="-Infinity" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS">
-                                                   <children>
-                                                      <Label fx:id="progressTextEasy" alignment="CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" text="0/100 Epochs" textAlignment="CENTER" HBox.hgrow="ALWAYS" />
-                                                   </children>
-                                                </HBox>
-                                             </children>
-                                          </VBox>
-                                       </children>
-                                       <padding>
-                                          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                                       </padding>
-                                    </VBox>
-                                 </children>
-                              </AnchorPane>
-                        </content>
-                      </Tab>
-                      <Tab text="Medium">
-                        <content>
-                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                 <children>
-                                    <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                       <children>
                                           <HBox maxHeight="-Infinity" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS">
                                              <children>
-                                                <Label maxHeight="1.7976931348623157E308" maxWidth="200.0" text="Learning Rate:" HBox.hgrow="ALWAYS">
+                                                <Button mnemonicParsing="false" onAction="#trainMedium" styleClass="btn" text="Train" />
+                                                <Button mnemonicParsing="false" onAction="#resetMedium" styleClass="btn" text="Reset" HBox.hgrow="ALWAYS">
                                                    <HBox.margin>
-                                                      <Insets right="10.0" />
+                                                      <Insets left="10.0" />
                                                    </HBox.margin>
-                                                </Label>
-                                                <TextField maxHeight="1.7976931348623157E308" maxWidth="-Infinity" />
-                                             </children>
-                                             <VBox.margin>
-                                                <Insets bottom="10.0" top="10.0" />
-                                             </VBox.margin>
-                                          </HBox>
-                                          <HBox maxHeight="-Infinity" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS">
-                                             <children>
-                                                <Button mnemonicParsing="false" onAction="#trainMedium" text="Train medium" />
+                                                </Button>
+                                                <Button mnemonicParsing="false" onAction="#generateDataSet" styleClass="btn" text="Generate dataset" HBox.hgrow="ALWAYS">
+                                                   <HBox.margin>
+                                                      <Insets left="10.0" />
+                                                   </HBox.margin>
+                                                </Button>
                                              </children>
                                              <VBox.margin>
                                                 <Insets top="10.0" />
@@ -159,7 +116,7 @@
                                                       <Insets right="10.0" />
                                                    </HBox.margin>
                                                 </Label>
-                                                <TextField maxHeight="1.7976931348623157E308" maxWidth="-Infinity" />
+                                                <TextField fx:id="learningRateHard" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" />
                                              </children>
                                              <VBox.margin>
                                                 <Insets bottom="10.0" top="10.0" />
@@ -167,7 +124,40 @@
                                           </HBox>
                                           <HBox maxHeight="-Infinity" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS">
                                              <children>
-                                                <Button mnemonicParsing="false" onAction="#trainHard" text="Train hard" />
+                                                <Label maxHeight="1.7976931348623157E308" maxWidth="200.0" text="Epochs:" HBox.hgrow="ALWAYS">
+                                                   <HBox.margin>
+                                                      <Insets right="10.0" />
+                                                   </HBox.margin>
+                                                </Label>
+                                                <TextField fx:id="epochsHard" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" />
+                                             </children>
+                                          </HBox>
+                                          <HBox maxHeight="-Infinity" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS">
+                                             <children>
+                                                <Label maxHeight="1.7976931348623157E308" maxWidth="200.0" text="Batch size:" HBox.hgrow="ALWAYS">
+                                                   <HBox.margin>
+                                                      <Insets right="10.0" />
+                                                   </HBox.margin>
+                                                </Label>
+                                                <TextField fx:id="batchSizeHard" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" HBox.hgrow="ALWAYS" />
+                                             </children>
+                                             <VBox.margin>
+                                                <Insets bottom="10.0" top="10.0" />
+                                             </VBox.margin>
+                                          </HBox>
+                                          <HBox maxHeight="-Infinity" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS">
+                                             <children>
+                                                <Button mnemonicParsing="false" onAction="#trainHard" styleClass="btn" text="Train" />
+                                                <Button mnemonicParsing="false" onAction="#resetHard" styleClass="btn" text="Reset">
+                                                   <HBox.margin>
+                                                      <Insets left="10.0" />
+                                                   </HBox.margin>
+                                                </Button>
+                                                <Button mnemonicParsing="false" onAction="#generateDataSet" styleClass="btn" text="Generate dataset" HBox.hgrow="ALWAYS">
+                                                   <HBox.margin>
+                                                      <Insets left="10.0" />
+                                                   </HBox.margin>
+                                                </Button>
                                              </children>
                                              <VBox.margin>
                                                 <Insets top="10.0" />

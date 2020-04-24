@@ -116,6 +116,11 @@ public class MainController implements Initializable {
      */
 	public static StringProperty currentDifficulty = new SimpleStringProperty(Settings.DEFAULT_AI_DIFFICULTY);
 	
+	/**
+	 * The scores style
+	 */
+	public static StringProperty STYLE_SCORES = new SimpleStringProperty(MainController.getStyle());
+	
     /**
      * Elements in the stack pane
      */
@@ -126,7 +131,7 @@ public class MainController implements Initializable {
 		this.initGui();
 	}
 
-    /**
+	/**
 	 * Initialize the GUI
 	 */
 	private void initGui() {
@@ -158,8 +163,7 @@ public class MainController implements Initializable {
 		this.gameScene.getChildren().addAll(Board.getTiles());
 		
 		// Add the winning line
-		this.gameScene.getChildren().add(Game.WIN_LINE);
-		
+		this.gameScene.getChildren().add(Game.WIN_LINE);	
 	}
 
 	/**
@@ -180,6 +184,10 @@ public class MainController implements Initializable {
 		this.easy.setText(Settings.EASY);
 		this.medium.setText(Settings.MEDIUM);
 		this.hard.setText(Settings.HARD);
+		
+		// Scores styles
+		this.player1Score.styleProperty().bind(MainController.STYLE_SCORES);
+		this.player2Score.styleProperty().bind(MainController.STYLE_SCORES);
 	}
 
     /**
@@ -237,9 +245,7 @@ public class MainController implements Initializable {
 			
 		      @Override
 		      public void changed(ObservableValue<?> observableValue, Object oldValue, Object newValue) {
-		    	  
-		    	  int newScore = (int) newValue;
-		    	  
+		    	  		    	  
 		    	  // Score changed animation
 		    	  MainController.fadeOut(player1Score, 400);
 		      }
@@ -252,9 +258,7 @@ public class MainController implements Initializable {
 			
 			@Override
 			public void changed(ObservableValue<?> observableValue, Object oldValue, Object newValue) {
-				
-				int newScore = (int) newValue;
-		    	  
+						    	  
 		    	// Score changed animation
 				MainController.fadeOut(player2Score, 400);
 				
@@ -383,10 +387,17 @@ public class MainController implements Initializable {
 		this.gameScene.heightProperty().addListener(new ChangeListener<Object>() {
 			@Override
 			public void changed(ObservableValue<?> observable, Object oldValue, Object newValue) {
+				
+				// The board size
 				Settings.HEIGHT_BOARD.set((double) newValue);
+				
+				double fontSize = (double) newValue;
+				
+				// The font size
+				MainController.STYLE_SCORES.set(MainController.getStyle(fontSize/5));
 			}			
 		});
-	}
+	}	
 
 	/**
 	 * Observe width changes of the board
@@ -599,4 +610,20 @@ public class MainController implements Initializable {
     	// Clear the game
     	Game.getInstance().clear();   
     }
+    
+    /**
+     * Return the style of the score
+	 * @return
+	 */
+	private static String getStyle() {
+		return "-fx-font-size: 1.3em; -fx-font-family: 'Helvetica', Arial, sans-serif; -fx-font-weight: bold";
+	}
+	
+	/**
+	 * Return the style of the score accordign to the size of the text
+	 * @return
+	 */
+	private static String getStyle(double size) {
+		return "-fx-font-size: " + size + "; -fx-font-family: 'Helvetica', Arial, sans-serif; -fx-font-weight: bold";
+	}
 }

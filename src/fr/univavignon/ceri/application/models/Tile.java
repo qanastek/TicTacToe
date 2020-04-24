@@ -158,7 +158,7 @@ public class Tile extends StackPane {
 		this.contentImg.fitHeightProperty().bind(Settings.TILE_HEIGHT.divide(Settings.PIECE_RATIO));
 		
 		// Animation
-		MainController.fadeOut(this.contentImg, 250);
+		MainController.fadeOut(this.contentImg, 400);
 
 		// Change the current shape on the tile
 		this.currentShape = Settings.CROSS;
@@ -185,7 +185,7 @@ public class Tile extends StackPane {
 		this.contentImg.fitHeightProperty().bind(Settings.TILE_HEIGHT.divide(Settings.PIECE_RATIO));
 		
 		// Animation
-		MainController.fadeOut(this.contentImg, 250);
+		MainController.fadeOut(this.contentImg, 400);
 		
 		// Change the current shape on the tile
 		this.currentShape = Settings.CIRCLE;

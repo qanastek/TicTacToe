@@ -158,23 +158,23 @@ public class Game {
 	 */
 	public void clear() {
 		
-		// Clear hit
-    	Game.HIT.set(0);
-		
 		// Reset current player to x
     	Game.CURRENT_PLAYER.set(Settings.BLANK);
     	Game.CURRENT_PLAYER.set(Settings.FIRST_PLAYER);
 		
 		// Hide the winning line
 		Game.WIN_LINE.setVisible(false);
-    	
-    	// Allow the players to play
-		Game.STATUS.set(true);
 		
 		/**
 		 * Clear the matrix
 		 */
     	Board.getInstance().clear(); 
+		
+		// Clear hit
+    	Game.HIT.set(0);
+    	
+    	// Allow the players to play
+		Game.STATUS.set(true);
 	}
 	
 	/**

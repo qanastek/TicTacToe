@@ -616,7 +616,7 @@ public class MainController implements Initializable {
 	 * @return
 	 */
 	private static String getStyle() {
-		return "-fx-font-size: 1.3em; -fx-font-family: 'Helvetica', Arial, sans-serif; -fx-font-weight: bold";
+		return "-fx-font-size: 1.3em; -fx-font-family: 'Helvetica', Arial, sans-serif; -fx-font-weight: bold; -fx-text-fill: a991f5;";
 	}
 	
 	/**
@@ -624,6 +624,6 @@ public class MainController implements Initializable {
 	 * @return
 	 */
 	private static String getStyle(double size) {
-		return "-fx-font-size: " + size + "; -fx-font-family: 'Helvetica', Arial, sans-serif; -fx-font-weight: bold";
+		return "-fx-font-size: " + size + "; -fx-font-family: 'Helvetica', Arial, sans-serif; -fx-font-weight: bold; -fx-text-fill: a991f5;";
 	}
 }

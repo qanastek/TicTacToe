@@ -269,6 +269,7 @@ public class Board {
 	 */
 	private static void drawWinLine(Point2D from ,Point2D to) {
 				
+		// If can't play or win
 		if (Game.STATUS.get() == false || Game.HIT.get() < 5) { return; }
 		
 		// Anti-aliasing

@@ -154,8 +154,8 @@ public class Tile extends StackPane {
 		}
 		
 		// Set he size of it
-		this.contentImg.fitWidthProperty().bind(Settings.TILE_WIDTH.divide(1.5));
-		this.contentImg.fitHeightProperty().bind(Settings.TILE_HEIGHT.divide(1.5));
+		this.contentImg.fitWidthProperty().bind(Settings.TILE_WIDTH.divide(Settings.PIECE_RATIO));
+		this.contentImg.fitHeightProperty().bind(Settings.TILE_HEIGHT.divide(Settings.PIECE_RATIO));
 		
 		// Animation
 		MainController.fadeOut(this.contentImg, 250);
@@ -181,8 +181,8 @@ public class Tile extends StackPane {
 		}
 		
 		// Set he size of it
-		this.contentImg.fitWidthProperty().bind(Settings.TILE_WIDTH.divide(1.5));
-		this.contentImg.fitHeightProperty().bind(Settings.TILE_HEIGHT.divide(1.5));
+		this.contentImg.fitWidthProperty().bind(Settings.TILE_WIDTH.divide(Settings.PIECE_RATIO));
+		this.contentImg.fitHeightProperty().bind(Settings.TILE_HEIGHT.divide(Settings.PIECE_RATIO));
 		
 		// Animation
 		MainController.fadeOut(this.contentImg, 250);

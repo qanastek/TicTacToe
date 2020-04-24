@@ -5,6 +5,7 @@ package fr.univavignon.ceri.application.config;
 
 import javafx.beans.binding.NumberBinding;
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.value.ObservableNumberValue;
 
 /**
  * @author Yanis Labrak
@@ -106,5 +107,10 @@ public class Settings {
 	 * Tile height
 	 */
 	public static final NumberBinding TILE_HEIGHT = HEIGHT_BOARD.divide(3);
+
+	/**
+	 * Ratio of the piece images
+	 */
+	public static final double PIECE_RATIO = 1.6;
 	
 }

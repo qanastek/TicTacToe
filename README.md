@@ -36,12 +36,6 @@ Here is the procedure to install this software :
        * Add Library > JavaFX SDK
        * Add Library > JRE System Library
 
-## Dependency
-
-The project relies on the following libraries:
-* [ControlsFx](https://mvnrepository.com/artifact/org.controlsfx/controlsfx/8.40.15) : This library is used to add graphical components like ToggleSwitch, Color picker ...
-* [TensorFlow JDK](https://www.tensorflow.org/install/lang_java#download) : This library is used for the machine learning algorithm which allow the "robot" to play itself.
-
 ## Development environment
 * JavaFX
     * Install JavaFX: [Tutorial](https://o7planning.org/fr/10619/installation-de-e-fx-clipse-sur-eclipse)

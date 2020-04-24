@@ -102,6 +102,11 @@ public class MainController implements Initializable {
      * The status of the sound
      */
     public static BooleanProperty STATUS_SOUND = new SimpleBooleanProperty(false);
+
+    /**
+     * The current bot for playing
+     */
+	protected static BotPlayEasy botPlayEasy;
     
     /**
      * Elements in the stack pane
@@ -310,8 +315,8 @@ public class MainController implements Initializable {
 				if (newValue.equals(Settings.BOT_PIECE) == true && Game.STATUS.get() == true && Game.GAME_MODE == Settings.HUMAN_VS_AI) {
 
 					// TODO: Play the bot here
-					BotPlayEasy task = new BotPlayEasy();
-					new Thread(task).start();
+					MainController.botPlayEasy = new BotPlayEasy();
+					new Thread(botPlayEasy).start();
 				}
 			}
 		});

@@ -1,11 +1,14 @@
 package fr.univavignon.ceri.application.vues.configureAi;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.scene.layout.VBox;
 
 import java.io.File;
@@ -77,21 +80,100 @@ public class ConfigureAiController implements Initializable {
 	
 	@FXML
 	private TextField batchSizeHard;
+	
+	/**
+	 * Current learning rate value for medium
+	 */
+	public static StringProperty CURRENT_LEARNING_RATE_MEDIUM = new SimpleStringProperty("");
+	
+	/**
+	 * Current learning rate value for hard
+	 */
+	public static StringProperty CURRENT_LEARNING_RATE_HARD = new SimpleStringProperty("");
+	
+	/**
+	 * Current epochs value for medium
+	 */
+	public static StringProperty CURRENT_EPOCHS_MEDIUM = new SimpleStringProperty("");
+	
+	/**
+	 * Current epochs value for hard
+	 */
+	public static StringProperty CURRENT_EPOCHS_HARD = new SimpleStringProperty("");
+	
+	/**
+	 * Current batch size value for medium
+	 */
+	public static StringProperty CURRENT_BATCH_SIZE_MEDIUM = new SimpleStringProperty("");
+	
+	/**
+	 * Current batch size value for hard
+	 */
+	public static StringProperty CURRENT_BATCH_SIZE_HARD = new SimpleStringProperty("");
+
+	/**
+	 * The thread for the medium training
+	 */
+	public static Thread THREAD_MEDIUM;
+	
+	/**
+	 * The thread for the hard training
+	 */
+	public static Thread THREAD_HARD;
     
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+
+		/**
+		 * Bind the fields to the GUI
+		 */
+		this.bindFields();
 		
-		// Initialize the GUI
+		/**
+		 * Initialize the GUI
+		 */
 		this.initGui();
+		
+		/**
+		 * Add the tool tips
+		 */
+		this.addToolTips();
 	}
 
     /**
+	 * 
+	 */
+	private void addToolTips() {
+		
+		/**
+		 * Learning rate
+		 */
+		Tooltip toolTipLearningRate = new Tooltip("The step size at each iteration while moving toward a minimum of a loss function.");
+		this.learningRateMedium.setTooltip(toolTipLearningRate);
+		this.learningRateHard.setTooltip(toolTipLearningRate);
+		
+		/**
+		 * Epochs
+		 */
+		Tooltip toolTipEpochs = new Tooltip("The number of iterations.");
+		this.epochsMedium.setTooltip(toolTipEpochs);
+		this.epochsHard.setTooltip(toolTipEpochs);
+		
+		/**
+		 * Batch size
+		 */
+		Tooltip toolTipBatchSize = new Tooltip("How much data do you take by epoch.");
+		this.batchSizeMedium.setTooltip(toolTipBatchSize);
+		this.batchSizeHard.setTooltip(toolTipBatchSize);
+	}
+
+	/**
 	 * Initialize the GUI
 	 */
 	private void initGui() {
 		
 		System.out.println("init gui");
-		
+				
 		File file = new File(DefaultModel.FILE_NAME);
 		
 		DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory
@@ -128,18 +210,18 @@ public class ConfigureAiController implements Initializable {
 			 */
 			Element medium = (Element) root.getElementsByTagName("medium").item(0);	
 						
-			this.learningRateMedium.setText(medium.getElementsByTagName(DefaultModel.LEARNING_RATE).item(0).getTextContent());
-			this.epochsMedium.setText(medium.getElementsByTagName(DefaultModel.EPOCHS).item(0).getTextContent());
-			this.batchSizeMedium.setText(medium.getElementsByTagName(DefaultModel.BATCH_SIZE).item(0).getTextContent());
+			ConfigureAiController.CURRENT_LEARNING_RATE_MEDIUM.set(medium.getElementsByTagName(DefaultModel.LEARNING_RATE).item(0).getTextContent());
+			ConfigureAiController.CURRENT_EPOCHS_MEDIUM.set(medium.getElementsByTagName(DefaultModel.EPOCHS).item(0).getTextContent());
+			ConfigureAiController.CURRENT_BATCH_SIZE_MEDIUM.set(medium.getElementsByTagName(DefaultModel.BATCH_SIZE).item(0).getTextContent());
 			
 			/**
 			 * Hard
 			 */
 			Element hard = (Element) root.getElementsByTagName("hard").item(0);	
 			
-			this.learningRateHard.setText(hard.getElementsByTagName(DefaultModel.LEARNING_RATE).item(0).getTextContent());
-			this.epochsHard.setText(hard.getElementsByTagName(DefaultModel.EPOCHS).item(0).getTextContent());
-			this.batchSizeHard.setText(hard.getElementsByTagName(DefaultModel.BATCH_SIZE).item(0).getTextContent());
+			ConfigureAiController.CURRENT_LEARNING_RATE_HARD.set(hard.getElementsByTagName(DefaultModel.LEARNING_RATE).item(0).getTextContent());
+			ConfigureAiController.CURRENT_EPOCHS_HARD.set(hard.getElementsByTagName(DefaultModel.EPOCHS).item(0).getTextContent());
+			ConfigureAiController.CURRENT_BATCH_SIZE_HARD.set(hard.getElementsByTagName(DefaultModel.BATCH_SIZE).item(0).getTextContent());
 			
 		} else {
 			this.loadDefaultsSettings();
@@ -148,6 +230,26 @@ public class ConfigureAiController implements Initializable {
 
 	}
     
+	/**
+	 * Bind the view elements to their values
+	 */
+	private void bindFields() {
+		
+		/**
+		 * Medium
+		 */
+		this.learningRateMedium.textProperty().bindBidirectional(ConfigureAiController.CURRENT_LEARNING_RATE_MEDIUM);
+		this.epochsMedium.textProperty().bindBidirectional(ConfigureAiController.CURRENT_EPOCHS_MEDIUM);
+		this.batchSizeMedium.textProperty().bindBidirectional(ConfigureAiController.CURRENT_BATCH_SIZE_MEDIUM);
+		
+		/**
+		 * Hard
+		 */		
+		this.learningRateHard.textProperty().bindBidirectional(ConfigureAiController.CURRENT_LEARNING_RATE_HARD);
+		this.epochsHard.textProperty().bindBidirectional(ConfigureAiController.CURRENT_EPOCHS_HARD);
+		this.batchSizeHard.textProperty().bindBidirectional(ConfigureAiController.CURRENT_BATCH_SIZE_HARD);		
+	}
+
 	/**
 	 * Load the default settings
 	 */
@@ -186,13 +288,19 @@ public class ConfigureAiController implements Initializable {
      */
     @FXML
     void resetMedium(ActionEvent event) {
-    	
+    	    	
 		/**
 		 * Medium
 		 */
 		this.learningRateMedium.setText(Double.toString(DefaultModel.LEARNING_RATE_MEDIUM));
 		this.epochsMedium.setText(Integer.toString(DefaultModel.EPOCHS_MEDIUM));
 		this.batchSizeMedium.setText(Integer.toString(DefaultModel.BATCH_SIZE_MEDIUM));
+    	
+    	// Stop the thread
+    	ConfigureAiController.THREAD_MEDIUM.interrupt();
+    	
+    	// Set invisible
+    	this.progressionMedium.setVisible(false);
     }
     
     /**
@@ -208,6 +316,12 @@ public class ConfigureAiController implements Initializable {
 		this.learningRateHard.setText(Double.toString(DefaultModel.LEARNING_RATE_HARD));
 		this.epochsHard.setText(Integer.toString(DefaultModel.EPOCHS_HARD));
 		this.batchSizeHard.setText(Integer.toString(DefaultModel.BATCH_SIZE_HARD));
+
+    	// Stop the thread
+    	ConfigureAiController.THREAD_HARD.interrupt();
+    	
+    	// Set invisible
+    	this.progressionHard.setVisible(false);
     }
 
     /**
@@ -237,7 +351,8 @@ public class ConfigureAiController implements Initializable {
     	progressTextMedium.textProperty().bind(RunningThreads.MEDIUM_TRAIN.messageProperty());
     	
     	// Run the thread
-    	new Thread(RunningThreads.MEDIUM_TRAIN).start();
+    	ConfigureAiController.THREAD_MEDIUM = new Thread(RunningThreads.MEDIUM_TRAIN);
+    	ConfigureAiController.THREAD_MEDIUM.start();
     }
 
 	/**
@@ -267,7 +382,8 @@ public class ConfigureAiController implements Initializable {
     	progressTextHard.textProperty().bind(RunningThreads.HARD_TRAIN.messageProperty());
     	
     	// Run the thread
-    	new Thread(RunningThreads.HARD_TRAIN).start();
+    	ConfigureAiController.THREAD_HARD = new Thread(RunningThreads.HARD_TRAIN);
+    	ConfigureAiController.THREAD_HARD.start();
     }
 
     /**

@@ -23,7 +23,7 @@ public class BotPlayEasy extends Task<Void> {
 		
 		System.out.println("THE BOT PLAY");
 		
-		while(true) {
+		while(Game.CURRENT_PLAYER.get().equals(Settings.BOT_PIECE) == true && Game.STATUS.get() == true && Game.GAME_MODE == Settings.HUMAN_VS_AI) {
 			
 			this.randomX = (int) (Math.random() * (Settings.TILES_NBR_WIDTH-0));
 			this.randomY = (int) (Math.random() * (Settings.TILES_NBR_WIDTH-0));

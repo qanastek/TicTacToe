@@ -120,6 +120,7 @@ public class Game {
 			
 			// Stop the game
 			Game.STATUS.set(false);			
+			
 		}
 		
 		return win;		

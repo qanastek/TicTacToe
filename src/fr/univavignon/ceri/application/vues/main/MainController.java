@@ -175,6 +175,11 @@ public class MainController implements Initializable {
 		
 		// Bind toolTips
 		this.addToolTips();
+		
+		// Difficulties
+		this.easy.setText(Settings.EASY);
+		this.medium.setText(Settings.MEDIUM);
+		this.hard.setText(Settings.HARD);
 	}
 
     /**
@@ -339,7 +344,7 @@ public class MainController implements Initializable {
 					
 						case Settings.MEDIUM:
 
-							System.out.println("Difficulty: " + Settings.MEDIUM);
+//							System.out.println("Difficulty: " + Settings.MEDIUM);
 							
 							MainController.botPlayEasy = new BotPlayEasy();
 							new Thread(botPlayEasy).start();
@@ -348,7 +353,7 @@ public class MainController implements Initializable {
 							
 						case Settings.HARD:	
 
-							System.out.println("Difficulty: " + Settings.HARD);
+//							System.out.println("Difficulty: " + Settings.HARD);
 							
 							MainController.botPlayEasy = new BotPlayEasy();
 							new Thread(botPlayEasy).start();
@@ -358,7 +363,7 @@ public class MainController implements Initializable {
 						case Settings.EASY:	
 						default:
 
-							System.out.println("Difficulty: " + Settings.EASY);
+//							System.out.println("Difficulty: " + Settings.EASY);
 							
 							MainController.botPlayEasy = new BotPlayEasy();
 							new Thread(botPlayEasy).start();

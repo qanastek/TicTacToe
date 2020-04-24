@@ -21,21 +21,19 @@ public class BotPlayEasy extends Task<Void> {
 	@Override
 	protected Void call() throws Exception {
 		
-		System.out.println("THE BOT PLAY");
-		
+		/**
+		 * While the current player is the bot, the game is AI vs HUMAN and the game wasn't stopped
+		 */
 		while(Game.CURRENT_PLAYER.get().equals(Settings.BOT_PIECE) == true && Game.STATUS.get() == true && Game.GAME_MODE == Settings.HUMAN_VS_AI) {
-			
+						
+			// Generate coordinates
 			this.randomX = (int) (Math.random() * (Settings.TILES_NBR_WIDTH-0));
 			this.randomY = (int) (Math.random() * (Settings.TILES_NBR_WIDTH-0));
 			
-			System.out.println("random x: " + this.randomX);
-			System.out.println("random y: " + this.randomY);
-			
-			// If the tile is empty
+			// Check if the tile is empty
 			if (Board.getBoard().get(this.randomX).get(this.randomY).currentShape.equals(Settings.BLANK)) {				
 				break;	
-			}
-			
+			}			
 		}
 		
 		return null;
@@ -43,8 +41,6 @@ public class BotPlayEasy extends Task<Void> {
 	
 	@Override
 	protected void succeeded() {
-
-		System.out.println("THE BOT PLAY succeeded");
 		
 		try {
 			Thread.sleep(250);
@@ -60,9 +56,6 @@ public class BotPlayEasy extends Task<Void> {
 
 		// Increment the hit counter
 		Game.HIT.set(Game.HIT.get() + 1);
-
-		// Check if somebody win the game after this hit
-		Game.checkWinner();
 		
 		super.succeeded();
 	}

@@ -114,13 +114,25 @@ public class Game {
 	 */
 	public static boolean checkWinner() {
 		
+		// Check if as winner
 		boolean win = Game.getInstance().board.checkWinner();
 		
+		/**
+		 * If no winner was found and the game is ended
+		 */
 		if (win == false && Game.HIT.get() >= Math.pow(Settings.TILES_NBR_WIDTH, 2)) {
 			
 			// Stop the game
-			Game.STATUS.set(false);			
+			Game.STATUS.set(false);	
 			
+		}
+		/**
+		 * If a winner was found
+		 */
+		else if (win == true) {
+			
+			// Stop the game
+			Game.STATUS.set(false);			
 		}
 		
 		return win;		
@@ -145,8 +157,6 @@ public class Game {
 	 * Clear the current game
 	 */
 	public void clear() {
-		
-		System.out.println("Clear game");
 		
 		// Clear hit
     	Game.HIT.set(0);

@@ -26,6 +26,21 @@ public class Settings {
 	 * The blank tile
 	 */
 	public static String BLANK = "b";
+	
+	/**
+	 * The easy difficulty
+	 */
+	public static final String EASY = "easy";
+	
+	/**
+	 * The medium difficulty
+	 */
+	public static final String MEDIUM = "medium";
+	
+	/**
+	 * The hard difficulty
+	 */
+	public static final String HARD = "hard";
 
 	/**
 	 * The bot piece
@@ -41,6 +56,11 @@ public class Settings {
 	 * Who play first
 	 */
 	public static final String FIRST_PLAYER = PLAYER_PIECE;
+	
+	/**
+	 * Default AI difficulty
+	 */
+	public static final String DEFAULT_AI_DIFFICULTY = Settings.EASY;
 	
 	/**
 	 * Game mode human versus robot

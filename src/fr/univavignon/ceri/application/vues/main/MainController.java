@@ -3,6 +3,8 @@ package fr.univavignon.ceri.application.vues.main;
 import javafx.animation.FadeTransition;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -14,6 +16,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -52,7 +55,7 @@ public class MainController implements Initializable {
     private Button sound;
     
     @FXML
-    private Button restart;
+    private Button restartBtn;
 
     @FXML
     private Button rival;
@@ -107,7 +110,12 @@ public class MainController implements Initializable {
      * The current bot for playing
      */
 	protected static BotPlayEasy botPlayEasy;
-    
+
+    /**
+     * The current difficulty
+     */
+	public static StringProperty currentDifficulty = new SimpleStringProperty(Settings.DEFAULT_AI_DIFFICULTY);
+	
     /**
      * Elements in the stack pane
      */
@@ -164,8 +172,21 @@ public class MainController implements Initializable {
 
 		// Link player 2 score
 		this.player2Score.textProperty().bind(Game.SCORE_P2.asString());
+		
+		// Bind toolTips
+		this.addToolTips();
 	}
 
+    /**
+	 * Bind toolTips to their content
+	 */
+	private void addToolTips() {
+		
+		/**
+		 * Reset
+		 */
+		this.restartBtn.setTooltip(new Tooltip("Restart the game"));
+	}
 	
 	/**
 	 * Observe if the sound status change
@@ -180,9 +201,18 @@ public class MainController implements Initializable {
 		    	  boolean newStatus = (boolean) newValue;
 		    	  
 		    	  if (newStatus == false) {
+
+		    		  // ToolTip
+		    		  sound.setTooltip(new Tooltip("Play sound on click"));
+		    		  
 			    	  // Is set as disabled
-		    		  imageSound.setImage(new Image(getClass().getResourceAsStream(Textures.DISABLED_SOUND)));					
+		    		  imageSound.setImage(new Image(getClass().getResourceAsStream(Textures.DISABLED_SOUND)));				
+		    		  
 		    	  } else {
+
+		    		  // ToolTip
+		    		  sound.setTooltip(new Tooltip("Prevent sound to be played on click"));
+		    		  
 			    	  // Is set as enabled
 		    		  imageSound.setImage(new Image(getClass().getResourceAsStream(Textures.ENABLED_SOUND)));		
 		    	  }
@@ -264,16 +294,15 @@ public class MainController implements Initializable {
 	private void observeHit() {
 
 		Game.HIT.addListener(new ChangeListener<Object>() {
-			
-	      @Override
-	      public void changed(ObservableValue<?> observableValue, Object oldValue, Object newValue) {
-	    	  
-    	  	int newHit = (int) newValue;
-    	  	
-    	  	System.out.println("Hit " + newHit);
-			
-	      }	      
-	    });
+					
+			@Override
+			public void changed(ObservableValue<?> observableValue, Object oldValue, Object newValue) {
+				
+				// Check if somebody win the game after this hit
+				Game.checkWinner();
+				
+			}	      
+		});
 	}
 
 	/**
@@ -290,8 +319,6 @@ public class MainController implements Initializable {
 				if (Game.STATUS.get() == false) {
 					return;
 				}
-				
-				System.out.println("Player changed!");
 
 				/**
 				 * Labels
@@ -304,19 +331,40 @@ public class MainController implements Initializable {
 				 */
 				getVboxPlayer(oldValue).getStyleClass().removeAll("playerActive");
 				getVboxPlayer(newValue).getStyleClass().add("playerActive");
-				
-//				System.out.println("----------------");
-//				System.out.println(newValue);
-//				System.out.println(Settings.BOT_PIECE);
-//				System.out.println(newValue.equals(Settings.BOT_PIECE) == true);
-//				System.out.println("----------------");
-				
+								
 				// The bot
 				if (newValue.equals(Settings.BOT_PIECE) == true && Game.STATUS.get() == true && Game.GAME_MODE == Settings.HUMAN_VS_AI) {
+					
+					switch (MainController.currentDifficulty.get()) {
+					
+						case Settings.MEDIUM:
 
-					// TODO: Play the bot here
-					MainController.botPlayEasy = new BotPlayEasy();
-					new Thread(botPlayEasy).start();
+							System.out.println("Difficulty: " + Settings.MEDIUM);
+							
+							MainController.botPlayEasy = new BotPlayEasy();
+							new Thread(botPlayEasy).start();
+							
+							break;
+							
+						case Settings.HARD:	
+
+							System.out.println("Difficulty: " + Settings.HARD);
+							
+							MainController.botPlayEasy = new BotPlayEasy();
+							new Thread(botPlayEasy).start();
+							
+							break;
+
+						case Settings.EASY:	
+						default:
+
+							System.out.println("Difficulty: " + Settings.EASY);
+							
+							MainController.botPlayEasy = new BotPlayEasy();
+							new Thread(botPlayEasy).start();
+							
+							break;
+					}
 				}
 			}
 		});
@@ -538,10 +586,10 @@ public class MainController implements Initializable {
     	Button currentClicked = (Button) event.getSource();
     	
     	// Button text content
-    	String difficulty = currentClicked.getText();
+    	MainController.currentDifficulty.set(currentClicked.getText());
     	
 		// Switch robot image
-		this.player1Img.setImage(new Image(getClass().getResourceAsStream("../../ressources/images/" + difficulty.toUpperCase() + ".png")));
+		this.player1Img.setImage(new Image(getClass().getResourceAsStream("../../ressources/images/" + MainController.currentDifficulty.get().toUpperCase() + ".png")));
 
     	// Clear the game
     	Game.getInstance().clear();   

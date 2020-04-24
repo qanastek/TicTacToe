@@ -141,7 +141,7 @@ public class ConfigureAiController implements Initializable {
 	}
 
     /**
-	 * 
+	 * Bind toolTips to their content
 	 */
 	private void addToolTips() {
 		

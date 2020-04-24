@@ -79,24 +79,12 @@ public class Tile extends StackPane {
 		 * When we click on the Tile
 		 */
 		this.setOnMouseClicked(event -> {
-			
-//			System.out.println("Game.CURRENT_PLAYER: " + Game.CURRENT_PLAYER);
-//			System.out.println(Game.GAME_MODE);
-//			System.out.println(Settings.MULTIPLAYERS);
-//			System.out.println(Game.GAME_MODE.equals(Settings.MULTIPLAYERS));
-//			System.out.println();
-//			System.out.println(
-//				((Game.GAME_MODE.equals(Settings.HUMAN_VS_AI) && Game.CURRENT_PLAYER.getValue().equals(Settings.CIRCLE)) ||
-//						Game.GAME_MODE.equals(Settings.MULTIPLAYERS))
-//			);
-		
+					
 			// If left hand click
 			if (event.getButton() == MouseButton.PRIMARY)
 			{
 				
-				System.out.println("---- a");
-				
-				// If it's the end of the game
+				// If it's the end of the game, clear it
 				if (Game.STATUS.get() == false) {
 
 					// New game
@@ -108,34 +96,42 @@ public class Tile extends StackPane {
 				else if (!this.currentShape.equals(Settings.BLANK)) {
 					return;
 				}
+				/**
+				 * If AI VS HUMAN but it's the player round = can play
+				 * <br>
+				 * If HUMAN VS HUMAN = can play
+				 */
 				else if ((Game.GAME_MODE.equals(Settings.HUMAN_VS_AI) && 
 							Game.CURRENT_PLAYER.getValue().equals(Settings.CIRCLE)) ||
 							Game.GAME_MODE.equals(Settings.MULTIPLAYERS)
 				) {
+
+					// The next player
+					String nextPlayer;
 					
 					// If the are currently playing with the cross
 					if (Game.CURRENT_PLAYER.get().equals(Settings.CROSS)) {
 						
 						// Draw the cross
 						this.drawCross();
-						
-						// And change to the circle
-						Game.CURRENT_PLAYER.set(Settings.CIRCLE);		
+
+						// The next player
+						nextPlayer = Settings.CIRCLE;
 						
 					} else {
 
 						// Draw the circle
-						this.drawCircle();
+						this.drawCircle();		
 						
-						// And change to the cross
-						Game.CURRENT_PLAYER.set(Settings.CROSS);				
+						// The next player
+						nextPlayer = Settings.CROSS;
 					}
 					
 					// Increment the hit counter
 					Game.HIT.set(Game.HIT.get() + 1);
-
-					// Check if somebody win the game after this hit
-					Game.checkWinner();
+					
+					// And change to the cross
+					Game.CURRENT_PLAYER.set(nextPlayer);
 				}
 			}
 		});

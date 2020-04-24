@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.univavignon.ceri.application.config.Settings;
-import fr.univavignon.ceri.application.vues.main.MainController;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;

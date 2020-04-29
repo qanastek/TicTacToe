@@ -22,17 +22,17 @@ public class Textures {
 	/**
 	 * Kid image
 	 */
-	public final static String KID = "../ressources/images/KID.png";
+	public final static String KID = "../../ressources/images/KID.png";
 	
 	/**
 	 * Friend image
 	 */
-	public final static String FRIEND = "../ressources/images/FRIEND.png";
+	public final static String FRIEND = "../../ressources/images/FRIEND.png";
 	
 	/**
 	 * Bot easy image
 	 */
-	public final static String EASY = "../ressources/images/EASY.png";
+	public final static String EASY = "../../ressources/images/EASY.png";
 	
 	/**
 	 * Bot medium image
@@ -47,11 +47,11 @@ public class Textures {
 	/**
 	 * Disabled sound image
 	 */
-	public final static String DISABLED_SOUND = "../ressources/images/mute_color.png";
+	public final static String DISABLED_SOUND = "../../ressources/images/mute_color.png";
 	
 	/**
 	 * Enabled sound image
 	 */
-	public final static String ENABLED_SOUND = "../ressources/images/speaker_color.png";
+	public final static String ENABLED_SOUND = "../../ressources/images/speaker_color.png";
 
 }

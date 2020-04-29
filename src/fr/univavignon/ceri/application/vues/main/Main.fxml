@@ -60,7 +60,7 @@
                                           <Insets right="10.0" />
                                        </HBox.margin>
                                     </Button>
-                                    <Button fx:id="restart1" mnemonicParsing="false" onAction="#restart" styleClass="refresh">
+                                    <Button fx:id="restartBtn" mnemonicParsing="false" onAction="#restart" styleClass="refresh">
                                        <graphic>
                                           <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                                              <image>

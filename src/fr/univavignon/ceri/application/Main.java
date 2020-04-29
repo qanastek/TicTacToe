@@ -1,11 +1,16 @@
 package fr.univavignon.ceri.application;
 	
+import java.util.ArrayList;
+import java.util.List;
+
 import fr.univavignon.ceri.application.config.Settings;
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -26,6 +31,8 @@ public class Main extends Application {
 	 * Size of the screen
 	 */
 	public static Rectangle2D screenBounds;
+	
+	public static List<Stage> STAGES = new ArrayList<Stage>();
 		
 	@Override
 	public void start(Stage primaryStage) {
@@ -60,11 +67,31 @@ public class Main extends Application {
 			primaryStage.setScene(scene);
 			primaryStage.show();
 			
+			// When the root window 
+			primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+				
+				@Override
+				public void handle(WindowEvent event) {
+					Main.closeOthersWindows();					
+				}
+			});
+			
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
 	}
 	
+	/**
+	 * Close all the opened windows
+	 */
+	public static void closeOthersWindows() {
+		
+		// Close all stages
+		for (Stage stage : Main.STAGES) {
+			stage.close();
+		}
+	}
+
 	public static void main(String[] args) {
 		launch(args);
 	}

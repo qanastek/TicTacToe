@@ -166,10 +166,14 @@ public class Board {
 
 	/**
 	 * Check if somebody won the game
+	 * @return
+	 * true : Winner
+	 * <br>
+	 * false: No winner
 	 */
 	public boolean checkWinner() {
 		
-		// TODO: Check if 3 same X/O in a row	
+		// Check if here is a winner on the lines
 		Pair<Integer, String> rows = this.checkRows();
 		
 		// If winner
@@ -195,7 +199,8 @@ public class Board {
 			
 			return true;			
 		}
-		
+
+		// Check if here is a winner on the columns
 		Pair<Integer, String> cols = this.checkColumn();
 
 		// If no winner
@@ -221,7 +226,8 @@ public class Board {
 			
 			return true;			
 		}
-		
+
+		// Check if here is a winner on the diagonals
 		ArrayList<Object> diags = this.checkDiags();
 
 		// If no winner
@@ -254,36 +260,7 @@ public class Board {
 			
 			return true;			
 		}
-		
-		// TODO: Make it really work
-		boolean res = true;
-		
-		/**
-		 * Par => 0
-		 * <br>
-		 * P1 => 1
-		 * <br>
-		 * P2 => 2
-		 */
-		String winner = Settings.CROSS;		
-		
-		// TODO: Change this brute force method
-		if (res == false) {
-			
-			// Increment the winner score
-			Game.incrementWinner(winner);
-			
-			// Coordinates
-			Point2D from = new Point2D(0.0,1.0);
-			Point2D to = new Point2D(0.0,1.0);
-			
-			// Draw the line
-			Board.drawWinLine(from,to);
-			
-			// Stop the game
-			Game.STATUS.set(false);
-		}
-		
+				
 		return false;
 	}
 
@@ -291,16 +268,9 @@ public class Board {
 	 * Draw the victory line
 	 */
 	private static void drawWinLine(Point2D from ,Point2D to) {
-		
-		System.out.println("Game hit: " + Game.HIT.get());
-		System.out.println("Game status: " + Game.STATUS.get());
-		
-		if (Game.STATUS.get() == false || Game.HIT.get() < 5) {
-			System.out.println("Go out");
-			return;
-		}
-		
-		System.out.println("Draw the line!");
+				
+		// If can't play or win
+		if (Game.STATUS.get() == false || Game.HIT.get() < 5) { return; }
 		
 		// Anti-aliasing
 		Game.WIN_LINE.setSmooth(true);

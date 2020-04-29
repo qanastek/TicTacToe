@@ -3,6 +3,7 @@
  */
 package fr.univavignon.ceri.application.services.Threads;
 
+import fr.univavignon.ceri.application.vues.configureAi.ConfigureAiController;
 import javafx.concurrent.Task;
 
 /**
@@ -20,12 +21,12 @@ public class MediumTrain extends Task<Void> {
 	@Override
 	protected Void call() throws Exception {
 		
-		int max = 200;
+		int max = Integer.parseInt(ConfigureAiController.CURRENT_EPOCHS_MEDIUM.get());
 		
 		for (int i = 0; i <= max; i++) {
             updateProgress(i, max);
             updateMessage(i + "/" + max + " Epochs");
-			Thread.sleep(10);
+			Thread.sleep(0, 1);
 		}
 		
 		return null;

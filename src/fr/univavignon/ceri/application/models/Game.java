@@ -114,9 +114,22 @@ public class Game {
 	 */
 	public static boolean checkWinner() {
 		
+		// Check if as winner
 		boolean win = Game.getInstance().board.checkWinner();
 		
+		/**
+		 * If no winner was found and the game is ended
+		 */
 		if (win == false && Game.HIT.get() >= Math.pow(Settings.TILES_NBR_WIDTH, 2)) {
+			
+			// Stop the game
+			Game.STATUS.set(false);	
+			
+		}
+		/**
+		 * If a winner was found
+		 */
+		else if (win == true) {
 			
 			// Stop the game
 			Game.STATUS.set(false);			
@@ -145,25 +158,23 @@ public class Game {
 	 */
 	public void clear() {
 		
-		System.out.println("Clear game");
-		
-		// Clear hit
-    	Game.HIT.set(0);
-		
 		// Reset current player to x
     	Game.CURRENT_PLAYER.set(Settings.BLANK);
     	Game.CURRENT_PLAYER.set(Settings.FIRST_PLAYER);
 		
 		// Hide the winning line
 		Game.WIN_LINE.setVisible(false);
-    	
-    	// Allow the players to play
-		Game.STATUS.set(true);
 		
 		/**
 		 * Clear the matrix
 		 */
     	Board.getInstance().clear(); 
+		
+		// Clear hit
+    	Game.HIT.set(0);
+    	
+    	// Allow the players to play
+		Game.STATUS.set(true);
 	}
 	
 	/**

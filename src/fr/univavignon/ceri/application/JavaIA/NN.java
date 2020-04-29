@@ -34,9 +34,9 @@ public class NN {
     	//[0.5, 0.0, 1.0, 0.0, 0.0, 1.0, 0.5, 0.5, 0.0]
     	
     	//2
-    	 double[] inputTest = {0.5, 0.0, 0.5, 0.0, 0.0, 1.0, 0.5, 0.5, 0.0}; 
+    	 double[] inputTest = {1.0, 1.0, 0.5, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0}; 
          
-         System.out.println("index "+neuralTest.inputToIndex(inputTest));
+         System.out.println("index "+Arrays.toString(neuralTest.inputToIndex(inputTest)));
     	
     }
     
@@ -74,7 +74,7 @@ public class NN {
         db2 = np.divide(dZ2, m);
 
         //LAYER 1
-        double[][] dZ1 = np.multiply(np.dot(np.T(W2), dZ2), np.subtract(1.0, np.power(A1, 2)));
+        double[][] dZ1 = np.multiply(np.dot(np.T(W2), dZ2), np.subtract(A1, np.power(A1, 2)));
         dW1 = np.divide(np.dot(dZ1, np.T(X)), m);
         db1 = np.divide(dZ1, m);
     }
@@ -116,7 +116,7 @@ public class NN {
     	return 0;
     }
     
-    public int inputToIndex(double[]boardInput) {
+    public int[] inputToIndex(double[]boardInput) {
     	
     	double[][] test =  new double [9][9];
     	 
@@ -136,6 +136,13 @@ public class NN {
          
          System.out.println("Neural Network : ouput "+Arrays.toString(output));
          
-         return NN.compare(boardInput,output);
+         System.out.println(NN.compare(boardInput,output));
+         
+         int[] res = new int[2];
+         
+         res[0]=compare(boardInput,output)/3;
+         res[1]=compare(boardInput,output)%3;
+         
+         return res;
     }
 }

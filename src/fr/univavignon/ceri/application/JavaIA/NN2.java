@@ -63,11 +63,11 @@ public class NN2 {
             double[][] db1 = np.divide(dZ1, m);
 
             // G.D
-            W1 = np.subtract(W1, np.multiply(0.6, dW1));
-            b1 = np.subtract(b1, np.multiply(0.6, db1));
+            W1 = np.subtract(W1, np.multiply(0.1, dW1));
+            b1 = np.subtract(b1, np.multiply(0.1, db1));
 
-            W2 = np.subtract(W2, np.multiply(0.6, dW2));
-            b2 = np.subtract(b2, np.multiply(0.6, db2));
+            W2 = np.subtract(W2, np.multiply(0.1, dW2));
+            b2 = np.subtract(b2, np.multiply(0.1, db2));
 
             if (i % 4000 == 0) {
                 System.out.println("==============");

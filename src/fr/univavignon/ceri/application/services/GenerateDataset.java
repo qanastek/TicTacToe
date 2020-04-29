@@ -22,6 +22,7 @@ public class GenerateDataset {
 	 * File content
 	 */
 	public static String FILE_CONTENT = "";
+	public static String FILE_CONTENT_OUT = "";
 	
 	/**
 	 * This method generate a data-set of winning games  
@@ -81,7 +82,7 @@ public class GenerateDataset {
 				winNb+=1;
 			}
 			
-//			display(game, board);
+			//display(game, board);
 			
 		}
 		
@@ -126,7 +127,7 @@ public class GenerateDataset {
 	public static void adaptData(List<List<Integer>> game, int winner){
 		
 		// Foreach row
-		for (int i = 0; i < game.size(); i++) {
+		for (int i = 0; i < game.size()-1; i++) {
 			
 			// Foreach column
 			for (int j = 0; j < game.get(i).size(); j++) {
@@ -176,19 +177,86 @@ public class GenerateDataset {
 			
 			FILE_CONTENT += "\n";
 		}
+		
+		
+		
+		for (int i = 1; i < game.size(); i++) {
+			
+			// Foreach column
+			for (int j = 0; j < game.get(i).size(); j++) {
+			
+				/**
+				 * Put the winner with X all time
+				 */
+				if (winner == 1) {
+					
+					switch (game.get(i).get(j)) {
+					
+						case 1:
+							FILE_CONTENT_OUT+="x";
+							break;
+							
+						case -1:
+							FILE_CONTENT_OUT+="o";
+							break;
+							
+						case 0:	
+							FILE_CONTENT_OUT+="d";
+							break;
+					}	
+				}
+				else if(winner==-1) {
+					
+					switch (game.get(i).get(j)) {
+					
+						case -1:
+							FILE_CONTENT_OUT+="x";
+							break;
+							
+						case 1:
+							FILE_CONTENT_OUT+="o";
+							break;
+							
+						case 0:	
+							FILE_CONTENT_OUT+="d";
+							break;
+					}
+				}
+				
+				if (j < game.get(i).size()-1) {
+					FILE_CONTENT_OUT += ",";
+				}
+			}
+			
+			FILE_CONTENT_OUT += "\n";
+		}
+		
 //		FILE_CONTENT += "\n";
 	}
 	
 	public static void sendData() {
 
-		System.out.println("Fiel content: " + FILE_CONTENT);
+		System.out.println("File content: " + FILE_CONTENT);
 		
 		BufferedWriter writer;
+		
+		BufferedWriter writer2;
+		
 		try {
 			writer = new BufferedWriter(new FileWriter("data.txt"));
 			writer.write(FILE_CONTENT);
 		    writer.close();
 		    System.out.println("Finished");
+		    
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		try {
+			writer = new BufferedWriter(new FileWriter("dataOut.txt"));
+			writer.write(FILE_CONTENT_OUT);
+		    writer.close();
+		    System.out.println("Finished2");
 		    
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -238,7 +306,7 @@ public class GenerateDataset {
 		));
 		System.out.println("Winner: " + GenerateDataset.hasWinner(board));
 		
-		
+		GenerateDataset.Generate(70);
 	}
 	
 }

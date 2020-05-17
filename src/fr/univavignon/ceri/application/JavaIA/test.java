@@ -1,7 +1,17 @@
 package fr.univavignon.ceri.application.JavaIA;
 
+import java.io.BufferedWriter;
+
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.StringTokenizer;
+
+/**
+ * Obsolete test class that was used to compare the output of the neural network to get its accuracy 
+ * @author Vougeot Valentin
+ * 
+ */
 
 public class test {
 	public static void main(String[] args) {
@@ -13,20 +23,10 @@ public class test {
 		
 		double[][] X = GenerateFromData.dataInput;
         double[][] Y = GenerateFromData.dataOutput;
+        double[][] Y2 = GenerateFromData.dataOutput2;
         
         int m = (int) GenerateFromData.lineCount;
         
-        int[] indexList = new int[m];
-        
-        for (int i = 0; i < X.length; i++) {
-			for (int j = 0; j < X[i].length; j++) {
-				if(X[i][j]!=Y[i][j]) {
-					indexList[i]=j;
-				}
-			}
-		}
-        
-        System.out.println("test "+Arrays.toString(indexList));
         
         NN neuralTest = new NN();
     	
@@ -39,7 +39,7 @@ public class test {
     		System.out.println(Arrays.toString(X[i]));
     		System.out.println(Arrays.toString(Y[i]));
     		System.out.println(neuralTest.inputToIndex(X[i]));
-			if(indexList[i]==neuralTest.inputToIndex(X[i])) {
+			if(Y2[i][0]==(neuralTest.inputToIndex(X[i])[0]*3+neuralTest.inputToIndex(X[i])[1])) {
 				incr++;
 			}
 		}

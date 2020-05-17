@@ -2,6 +2,11 @@ package fr.univavignon.ceri.application.JavaIA;
 
 import java.util.Arrays;
 
+/**
+ * Obsolete neural network class that was used in an early version before getting completely reworked into NN.java
+ * @author Vougeot Valentin
+ * 
+ */
 public class NN2 {
 	
 	public static void main(String[] args) {
@@ -22,7 +27,7 @@ public class NN2 {
 		GenerateFromData.main(args);
     	
 		double[][] X = GenerateFromData.dataInput;
-		double[][] Y = GenerateFromData.dataOutput;
+		double[][] Y = GenerateFromData.dataOutput2;
 
         int m = (int) GenerateFromData.lineCount;
         int nodes = 9;

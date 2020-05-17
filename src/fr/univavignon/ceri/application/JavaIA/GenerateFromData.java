@@ -13,10 +13,11 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
+import javax.rmi.CORBA.Stub;
+
 /**
  * Decode the data-set for the training
  * @author Vougeot Valentin
- * @author Yanis Labrak
  */
 
 public class GenerateFromData {
@@ -26,9 +27,12 @@ public class GenerateFromData {
 	
 	public static double[][] dataInput;
 	public static double[][] dataOutput;
+	public static double[][] dataOutput2;
 	public static long lineCount;
 	
-	
+	/**
+	 * Main class who read the data text file
+	 */
 	public static void GenerateDataset() {
 		
 		BufferedReader reader;
@@ -107,9 +111,68 @@ public class GenerateFromData {
 				line = reader2.readLine();
 			}
 			reader2.close();
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
+		String FILE_CONTENT = "";
+		
+		float temp = 0;
+        
+        int[] indexList = new int[(int)lineCount];
+        
+        /*
+         * look at the difference between input and output data to extract the index of the move and write it in dataOut2.txt
+         */
+        for (int i = 0; i < dataInput.length; i++) {
+			for (int j = 0; j < dataInput[i].length; j++) {
+				if(dataInput[i][j]!=dataOutput[i][j]) {
+					indexList[i]=j;
+				}
+			}
+		}
+        
+        System.out.println("test "+Arrays.toString(indexList)+" "+indexList.length);
+        
+        for (int i = 0; i < indexList.length; i++) {
+        	temp=(float)indexList[i]/10;
+        	FILE_CONTENT+= temp;
+			FILE_CONTENT+="\n";
+		}
+        
+        System.out.println(FILE_CONTENT.length());
+        BufferedWriter writer;
+       
+		
+		try {
+			writer = new BufferedWriter(new FileWriter("dataOut2.txt"));
+			writer.write(FILE_CONTENT);
+		    writer.close();
+		    System.out.println("Finished");
+		    
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		
+		BufferedReader reader3;
+		try {
+			reader3 = new BufferedReader(new FileReader(
+					"dataOut2.txt"));
+			String line = reader3.readLine();
+			
+			int incr=0;
+			while (line != null && incr<lineCount) {
+				//System.out.println(incr);
+				dataOutput2[incr][0]=new Double(line);
+				incr++;
+			}
+			reader3.readLine();
+			reader3.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}	
 	}
 	
 	public static void main(String[] args) {
@@ -117,17 +180,21 @@ public class GenerateFromData {
 		try {
 			lineCount = Files.lines(path).count();
 			
+			
 			dataInput= new double [(int) lineCount][9];
 			dataOutput= new double [(int) lineCount][9];
+			dataOutput2= new double [(int) lineCount][1];
 
 			GenerateDataset();
 			
-			for (int i = 0; i < dataOutput.length; i++) {
-				for (int j = 0; j < dataOutput[i].length; j++) {
-					System.out.print(dataOutput[i][j]+" ");
-				}
-				System.out.println();
-			}
+//			for (int i = 0; i < dataOutput.length; i++) {
+//				for (int j = 0; j < dataOutput[i].length; j++) {
+//					System.out.print(dataOutput[i][j]+" ");
+//				}
+//				System.out.println();
+//			}
+			
+//			System.out.println(dataOutput.length);
 			
 		} catch (IOException e) {
 			e.printStackTrace();

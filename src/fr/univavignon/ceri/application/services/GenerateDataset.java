@@ -14,7 +14,6 @@ import java.util.Random;
 /**
  * Generate the data-set for the training
  * @author Vougeot Valentin
- * @author Yanis Labrak
  */
 public class GenerateDataset {
 	
@@ -234,6 +233,9 @@ public class GenerateDataset {
 //		FILE_CONTENT += "\n";
 	}
 	
+	/**
+	 * Write the data in two txt file
+	 */
 	public static void sendData() {
 
 		System.out.println("File content: " + FILE_CONTENT);

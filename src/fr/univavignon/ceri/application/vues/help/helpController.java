@@ -28,8 +28,8 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
 
+import fr.univavignon.ceri.application.JavaIA.GenerateDataset;
 import fr.univavignon.ceri.application.config.DefaultModel;
-import fr.univavignon.ceri.application.services.GenerateDataset;
 import fr.univavignon.ceri.application.services.Threads.HardTrain;
 import fr.univavignon.ceri.application.services.Threads.MediumTrain;
 import fr.univavignon.ceri.application.services.Threads.RunningThreads;

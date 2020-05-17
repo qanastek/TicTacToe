@@ -1,81 +1,70 @@
-package fr.univavignon.ceri.application.JavaIA;
+package fr.univavignon.ceri.application.ai;
 
 import java.util.Arrays;
 
 /**
- * Neural Network class with all the function to make the neural network works
- * @author Vougeot Valentin
- * 
- * 
- * In the first finish version the neural network was using an input board state represented by a 1*9 matrix to get an output board state (1*9 matrix) containing one more move 
- * In this version the neural network use an input board state to get the index divised by 10 at witch position it would play
- * 
- * the index is divise by 10 in dataOut2.txt because the index is between 0 and 9 but the neural network use the sigmoid activation function so the output must be contained between 0.0 and 1.0
+ * Neural Network (train and predict)
+ * @author Valentin Vougeot
  */
-
-public class NN {
+public class NeuralNetwork {
   
+	// Input data
 	static double[][] X;
+	
+	// Output data
 	static double[][] Y;
+	
+	// Weights
 	static double[][] W1;
 	static double[][] W2;
-	static double[][] b1;
-	static double[][] b2;
+	
+	// Biais
+	static double[][] B1;
+	static double[][] B2;
 
+	// Result of the first layer
 	static double[][] A1;
 	static double[][] A2;
 	
-	static double[][] dW1;
-	static double[][] db1;
-	static double[][] dW2;
-	static double[][] db2;
+	// Back propagation weights
+	static double[][] DW1;
+	static double[][] DW2;
 	
-	static int m;
+	// Back propagation biais
+	static double[][] DB1;
+	static double[][] DB2;
 	
-    public static void main(String[] args) {
-    	
-    	/*
-    	 * Use The GenerateFromData class to adapt the data from data.txt and dataOut.txt and generate dataOut2.txt
-    	 */
-    	GenerateFromData.main(args);
-    	
-    	NN neuralTest = new NN();
-    	
-    	neuralTest.train(50000,0.3);
-    	
-    	//x,o,o,d,o,d,x,x,d
-    	//[1.0, 0.0, 0.0, 0.5, 0.0, 0.5, 1.0, 1.0, 0.5]
-    	//5
-
-    	
-    	//[0.5, 0.0, 0.5, 0.0, 0.0, 1.0, 0.5, 0.5, 0.0]
-    	//[0.5, 0.0, 1.0, 0.0, 0.0, 1.0, 0.5, 0.5, 0.0]
-    	
-    	//2
-    	 double[] inputTest = {1.0, 0.0, 0.0, 0.5, 0.0, 0.5, 1.0, 1.0, 0.5}; 
-         
-         System.out.println("index "+Arrays.toString(neuralTest.inputToIndex(inputTest)));
-    	
-    }
+	// Dataset size
+	static int DATASET_SIZE;
+	
+	// Learning rate
+	static float LEARNING_RATE = 0.5F;
+	
+	// Epochs
+	static int EPOCHS = 50000;
+	
+	// Nodes
+	static int HIDDEN_NODES = 10;
+    
     /*
-     * create a neural network from data.txt and dataOut2.txt
+     * Create a neural network from data.txt and dataOut2.txt
      */
-    public NN() {
-    	X = GenerateFromData.dataInput;
-        Y = GenerateFromData.dataOutput2;
+    public NeuralNetwork(Dataset dataSet) {
+    	
+    	X = dataSet.dataInput;
+        Y = dataSet.dataOutput2;
 
-        m = (int) GenerateFromData.lineCount;
-        int nodes = 3;
+        DATASET_SIZE = (int) dataSet.lineCount;
 
         X = np.T(X); //421*9
         
         Y = np.T(Y); //421*1
 
-        W1 = np.random(nodes, 9); //9*9
-        b1 = new double[nodes][m]; //421*9
+        W1 = np.random(HIDDEN_NODES, 9); //9*9
+        B1 = new double[HIDDEN_NODES][DATASET_SIZE]; //421*9
 
-        W2 = np.random(1, nodes); 
-        b2 = new double[1][m]; 
+        W2 = np.random(1, HIDDEN_NODES); 
+        B2 = new double[1][DATASET_SIZE]; 
     }
     
     /* Function that use the neural network to get an answer for the input 
@@ -83,10 +72,10 @@ public class NN {
      */
     public static void forward(double[][]input) {
     	
-        double[][]Z1 = np.add(np.dot(W1, input), b1);
+        double[][]Z1 = np.add(np.dot(W1, input), B1);
         A1 = np.sigmoid(Z1);
         
-        double[][]Z2 = np.add(np.dot(W2, A1), b2);
+        double[][]Z2 = np.add(np.dot(W2, A1), B2);
         A2 = np.sigmoid(Z2);
     }
     
@@ -95,13 +84,13 @@ public class NN {
     public static void backPropagate() {
         //LAYER 2
         double[][] dZ2 = np.subtract(A2, Y);
-        dW2 = np.divide(np.dot(dZ2, np.T(A1)), m);
-        db2 = np.divide(dZ2, m);
+        DW2 = np.divide(np.dot(dZ2, np.T(A1)), DATASET_SIZE);
+        DB2 = np.divide(dZ2, DATASET_SIZE);
 
         //LAYER 1
         double[][] dZ1 = np.multiply(np.dot(np.T(W2), dZ2), np.subtract(A1, np.power(A1, 2)));
-        dW1 = np.divide(np.dot(dZ1, np.T(X)), m);
-        db1 = np.divide(dZ1, m);
+        DW1 = np.divide(np.dot(dZ1, np.T(X)), DATASET_SIZE);
+        DB1 = np.divide(dZ1, DATASET_SIZE);
     }
     
     /*
@@ -110,11 +99,11 @@ public class NN {
      */
     public static void gradientDescent(double d) {
     	
-    	W1 = np.subtract(W1, np.multiply(d, dW1));
-        b1 = np.subtract(b1, np.multiply(d, db1));
+    	W1 = np.subtract(W1, np.multiply(d, DW1));
+        B1 = np.subtract(B1, np.multiply(d, DB1));
 
-        W2 = np.subtract(W2, np.multiply(d, dW2));
-        b2 = np.subtract(b2, np.multiply(d, db2));
+        W2 = np.subtract(W2, np.multiply(d, DW2));
+        B2 = np.subtract(B2, np.multiply(d, DB2));
     }
     
     /*
@@ -125,17 +114,17 @@ public class NN {
     public void train(int nbCycles,double learningRate) {
         for (int i = 0; i < nbCycles; i++) {
             
-        	NN.forward(X); 
+        	NeuralNetwork.forward(X); 
        
-            double cost = np.cross_entropy(m, Y, A2);
+            double cost = np.cross_entropy(DATASET_SIZE, Y, A2);
         	
-        	NN.backPropagate();
+        	NeuralNetwork.backPropagate();
         	
-        	if (i % 5000 ==0) {
-        		System.out.println("cost : "+cost);
+        	if (i % 5000 == 0) {
+        		System.out.println("cost : " + cost);
         	}
         	
-            NN.gradientDescent(learningRate);
+            NeuralNetwork.gradientDescent(learningRate);
             
         }
     }
@@ -162,7 +151,7 @@ public class NN {
      * @param boardInput {@code double[]} list of 9 double who represent a board state as input
      * @return res {@code int[]} the position (x,y) of the move from the neural network 
      */
-    public int[] inputToIndex(double[]boardInput) {
+    public int[] prediction(double[]boardInput) {
     	
     	double[][] test =  new double [9][1];
     	 
@@ -170,7 +159,7 @@ public class NN {
 			test[j][0]=boardInput[j];
 		}
     	
-    	 NN.forward(test);
+    	 NeuralNetwork.forward(test);
     	 
     	 System.out.println("A2 length"+A2.length+"*"+A2[0].length);
     	 
@@ -198,5 +187,35 @@ public class NN {
 //         res[1]=compare(boardInput,output)%3;
          
          return res;
+    }
+	
+    public static void main(String[] args) {
+    	
+    	/*
+    	 * Generate and get the data-set
+    	 */
+    	Dataset dataSet = new Dataset();
+    	
+    	NeuralNetwork neuralTest = new NeuralNetwork(dataSet);
+    	
+    	neuralTest.train(EPOCHS,LEARNING_RATE);
+    	
+    	//x,o,o,d,o,d,x,x,d
+    	//[1.0, 0.0, 0.0, 0.5, 0.0, 0.5, 1.0, 1.0, 0.5]
+    	//5
+
+    	//[0.5, 0.0, 0.5, 0.0, 0.0, 1.0, 0.5, 0.5, 0.0]
+    	//[0.5, 0.0, 1.0, 0.0, 0.0, 1.0, 0.5, 0.5, 0.0]
+    	
+    	// Test board
+    	// Return 2
+    	 double[] inputTest = {
+			 1.0, 0.0, 0.0,
+			 0.5, 0.0, 0.5,
+			 1.0, 1.0, 0.5
+		}; 
+         
+         System.out.println("index " + Arrays.toString(neuralTest.prediction(inputTest)));
+    	
     }
 }

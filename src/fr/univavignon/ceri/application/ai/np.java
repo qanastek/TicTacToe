@@ -1,4 +1,4 @@
-package fr.univavignon.ceri.application.JavaIA;
+package fr.univavignon.ceri.application.ai;
 
 import java.util.Random;
 

@@ -31,8 +31,8 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
 
+import fr.univavignon.ceri.application.JavaIA.GenerateDataset;
 import fr.univavignon.ceri.application.config.DefaultModel;
-import fr.univavignon.ceri.application.services.GenerateDataset;
 import fr.univavignon.ceri.application.services.Threads.HardTrain;
 import fr.univavignon.ceri.application.services.Threads.MediumTrain;
 import fr.univavignon.ceri.application.services.Threads.RunningThreads;
@@ -279,7 +279,7 @@ public class ConfigureAiController implements Initializable {
     void generateDataSet(ActionEvent event) {
     	
     	// Generate the dataset
-		GenerateDataset.Generate(1000);
+		GenerateDataset.generate(1000);
     }
     
     /**

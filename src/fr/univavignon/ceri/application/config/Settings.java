@@ -113,4 +113,19 @@ public class Settings {
 	 */
 	public static final double PIECE_RATIO = 1.6;
 	
+	/**
+	 * Input file name
+	 */
+	public static final String INPUT_FILE = "data.txt";
+	
+	/**
+	 * Output file name
+	 */
+	public static final String OUTPUT_FILE = "dataOut.txt";
+	
+	/**
+	 * Normalized output file name
+	 */
+	public static final String NORMALIZED_OUTPUT_FILE = "dataOut2.txt";
+	
 }

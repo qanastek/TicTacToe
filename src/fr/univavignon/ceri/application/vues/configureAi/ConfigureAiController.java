@@ -31,10 +31,9 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
 
-import fr.univavignon.ceri.application.JavaIA.GenerateDataset;
+import fr.univavignon.ceri.application.ai.Dataset;
+import fr.univavignon.ceri.application.ai.NeuralNetwork;
 import fr.univavignon.ceri.application.config.DefaultModel;
-import fr.univavignon.ceri.application.services.Threads.HardTrain;
-import fr.univavignon.ceri.application.services.Threads.MediumTrain;
 import fr.univavignon.ceri.application.services.Threads.RunningThreads;
 
 public class ConfigureAiController implements Initializable {
@@ -110,16 +109,6 @@ public class ConfigureAiController implements Initializable {
 	 * Current batch size value for hard
 	 */
 	public static StringProperty CURRENT_BATCH_SIZE_HARD = new SimpleStringProperty("");
-
-	/**
-	 * The thread for the medium training
-	 */
-	public static Thread THREAD_MEDIUM;
-	
-	/**
-	 * The thread for the hard training
-	 */
-	public static Thread THREAD_HARD;
     
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -270,17 +259,6 @@ public class ConfigureAiController implements Initializable {
 		this.batchSizeHard.setText(Integer.toString(DefaultModel.BATCH_SIZE_HARD));
 		
 	}
-
-	/**
-	 * Generate the dataset
-	 * @param event {@code ActionEvent} Event
-	 */
-    @FXML
-    void generateDataSet(ActionEvent event) {
-    	
-    	// Generate the dataset
-		GenerateDataset.generate(1000);
-    }
     
     /**
      * Reset the medium model settings
@@ -297,7 +275,7 @@ public class ConfigureAiController implements Initializable {
 		this.batchSizeMedium.setText(Integer.toString(DefaultModel.BATCH_SIZE_MEDIUM));
     	
     	// Stop the thread
-    	ConfigureAiController.THREAD_MEDIUM.interrupt();
+		RunningThreads.THREAD_MEDIUM.interrupt();
     	
     	// Set invisible
     	this.progressionMedium.setVisible(false);
@@ -318,7 +296,7 @@ public class ConfigureAiController implements Initializable {
 		this.batchSizeHard.setText(Integer.toString(DefaultModel.BATCH_SIZE_HARD));
 
     	// Stop the thread
-    	ConfigureAiController.THREAD_HARD.interrupt();
+    	RunningThreads.THREAD_HARD.interrupt();
     	
     	// Set invisible
     	this.progressionHard.setVisible(false);
@@ -338,12 +316,22 @@ public class ConfigureAiController implements Initializable {
     	
     	// Set visible
     	this.progressionMedium.setVisible(true);
-    	
+
+		// Settings
+		int epochs = Integer.parseInt(ConfigureAiController.CURRENT_EPOCHS_MEDIUM.get());
+		double learningRate = Double.parseDouble(ConfigureAiController.CURRENT_LEARNING_RATE_MEDIUM.get());
+		int hiddenNodes = 9+1;
+		
     	// If is running stop It else run It
     	if (RunningThreads.MEDIUM_TRAIN != null && RunningThreads.MEDIUM_TRAIN.isRunning() == true) {
     		RunningThreads.MEDIUM_TRAIN.cancel();			
     	} else {
-    		RunningThreads.MEDIUM_TRAIN = new MediumTrain();
+    		
+        	// Generate and get the data-set
+        	Dataset dataSet = new Dataset();
+        	
+        	// Train
+    		RunningThreads.MEDIUM_TRAIN = new NeuralNetwork(dataSet,epochs,learningRate,hiddenNodes);
     	}
     	
     	// Bind progress
@@ -351,8 +339,8 @@ public class ConfigureAiController implements Initializable {
     	progressTextMedium.textProperty().bind(RunningThreads.MEDIUM_TRAIN.messageProperty());
     	
     	// Run the thread
-    	ConfigureAiController.THREAD_MEDIUM = new Thread(RunningThreads.MEDIUM_TRAIN);
-    	ConfigureAiController.THREAD_MEDIUM.start();
+    	RunningThreads.THREAD_MEDIUM = new Thread(RunningThreads.MEDIUM_TRAIN);
+    	RunningThreads.THREAD_MEDIUM.start();
     }
 
 	/**
@@ -369,12 +357,23 @@ public class ConfigureAiController implements Initializable {
     	
     	// Set visible
     	this.progressionHard.setVisible(true);
+		
+		// Settings
+		int epochs = Integer.parseInt(ConfigureAiController.CURRENT_EPOCHS_HARD.get());
+		double learningRate = Double.parseDouble(ConfigureAiController.CURRENT_LEARNING_RATE_HARD.get());
+		int hiddenNodes = 9+1;
     	
     	// If is running stop It else run It
     	if (RunningThreads.HARD_TRAIN != null && RunningThreads.HARD_TRAIN.isRunning() == true) {
+    		
     		RunningThreads.HARD_TRAIN.cancel();			
     	} else {
-    		RunningThreads.HARD_TRAIN = new HardTrain();
+    		
+        	// Generate and get the data-set
+        	Dataset dataSet = new Dataset();
+        	
+        	// Train
+    		RunningThreads.HARD_TRAIN = new NeuralNetwork(dataSet,epochs,learningRate,hiddenNodes);
     	}
     	
     	// Bind progress
@@ -382,8 +381,8 @@ public class ConfigureAiController implements Initializable {
     	progressTextHard.textProperty().bind(RunningThreads.HARD_TRAIN.messageProperty());
     	
     	// Run the thread
-    	ConfigureAiController.THREAD_HARD = new Thread(RunningThreads.HARD_TRAIN);
-    	ConfigureAiController.THREAD_HARD.start();
+    	RunningThreads.THREAD_HARD = new Thread(RunningThreads.HARD_TRAIN);
+    	RunningThreads.THREAD_HARD.start();
     }
 
     /**

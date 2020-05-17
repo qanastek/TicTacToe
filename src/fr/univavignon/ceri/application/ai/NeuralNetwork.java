@@ -2,11 +2,14 @@ package fr.univavignon.ceri.application.ai;
 
 import java.util.Arrays;
 
+import javafx.concurrent.Task;
+import javafx.util.Pair;
+
 /**
  * Neural Network (train and predict)
  * @author Valentin Vougeot
  */
-public class NeuralNetwork {
+public class NeuralNetwork extends Task<Void> {
   
 	// Input data
 	static double[][] X;
@@ -38,18 +41,30 @@ public class NeuralNetwork {
 	static int DATASET_SIZE;
 	
 	// Learning rate
-	static float LEARNING_RATE = 0.5F;
+	double LEARNING_RATE = 0.5F;
 	
 	// Epochs
-	static int EPOCHS = 50000;
+	int EPOCHS = 50000;
 	
 	// Nodes
-	static int HIDDEN_NODES = 10;
+	int HIDDEN_NODES = 10;
+	
+	// Current epoch
+	public static int CURRENT_EPOCH = 0;
     
-    /*
-     * Create a neural network from data.txt and dataOut2.txt
-     */
-    public NeuralNetwork(Dataset dataSet) {
+	/**
+	 * Create a neural network from data.txt and dataOut2.txt
+	 * @param dataSet {@code Dataset}
+	 * @param epochs {@code Integer}
+	 * @param learningRate {@code Float}
+	 * @param hiddenNodes {@code Integer}
+	 */
+    public NeuralNetwork(Dataset dataSet, int epochs, double learningRate, int hiddenNodes) {
+    	
+    	// Get parameters
+    	LEARNING_RATE = learningRate;    	
+    	EPOCHS = epochs;    	
+    	HIDDEN_NODES = hiddenNodes;    	
     	
     	X = dataSet.dataInput;
         Y = dataSet.dataOutput2;
@@ -105,6 +120,52 @@ public class NeuralNetwork {
         W2 = np.subtract(W2, np.multiply(d, DW2));
         B2 = np.subtract(B2, np.multiply(d, DB2));
     }
+
+    /**
+     * Training
+     */
+	@Override
+	protected Void call() throws Exception {
+		
+		// For each epoch
+        for (CURRENT_EPOCH = 0; CURRENT_EPOCH <= EPOCHS; CURRENT_EPOCH++) {
+            
+        	NeuralNetwork.forward(X); 
+       
+            double cost = np.cross_entropy(DATASET_SIZE, Y, A2);
+        	
+        	NeuralNetwork.backPropagate();
+    		
+            updateProgress(CURRENT_EPOCH, EPOCHS);
+            updateMessage(CURRENT_EPOCH + "/" + EPOCHS + " Epochs");
+        	
+        	if (CURRENT_EPOCH % (EPOCHS/10) == 0) {
+        		System.out.println("cost : " + cost);
+        	}
+        	
+            NeuralNetwork.gradientDescent(LEARNING_RATE);            
+        }
+        
+		return null;
+	}
+
+	@Override
+	protected void succeeded() {
+		super.succeeded();
+		
+		System.out.println("Finished!");
+        updateMessage("Finished!");
+        
+        double[] inputTest = {
+			 1.0, 0.0, 0.0,
+			 0.5, 0.0, 0.5,
+			 1.0, 1.0, 0.5
+		};
+        
+        Pair<Integer,Integer> hit = this.prediction(inputTest);
+        
+        System.out.println("Coordinates: " + hit.getKey() + "," + hit.getValue());
+	}
     
     /*
      * Function that train the neural network to get the optimal value of weights
@@ -112,21 +173,6 @@ public class NeuralNetwork {
      * @param learningRate {@code double} the learning rate of the neural network
      */
     public void train(int nbCycles,double learningRate) {
-        for (int i = 0; i < nbCycles; i++) {
-            
-        	NeuralNetwork.forward(X); 
-       
-            double cost = np.cross_entropy(DATASET_SIZE, Y, A2);
-        	
-        	NeuralNetwork.backPropagate();
-        	
-        	if (i % 5000 == 0) {
-        		System.out.println("cost : " + cost);
-        	}
-        	
-            NeuralNetwork.gradientDescent(learningRate);
-            
-        }
     }
     
     /*
@@ -151,7 +197,7 @@ public class NeuralNetwork {
      * @param boardInput {@code double[]} list of 9 double who represent a board state as input
      * @return res {@code int[]} the position (x,y) of the move from the neural network 
      */
-    public int[] prediction(double[]boardInput) {
+    public Pair<Integer,Integer> prediction(double[]boardInput) {
     	
     	double[][] test =  new double [9][1];
     	 
@@ -167,15 +213,14 @@ public class NeuralNetwork {
          
          double[] output = A2[0];
          
-         
+         // Get the index
          for (int j = 0; j < output.length; j++) {
- 			output[j] =  Math.round(output[j] *10 * 2) / 2.0;
+ 			output[j] =  Math.round(output[j] * 10 * 2) / 2.0;
  		 }
+                  
+         // Coordinates
+         Pair<Integer,Integer> res = new Pair<Integer,Integer>((int) (output[0]/3), (int) (output[0]%3));
          
-         int[] res = new int[2];
-         
-         res[0]=(int) (output[0]/3);
-         res[1]=(int) (output[0]%3);
          System.out.println("Neural Network : ouput "+Arrays.toString(output));
          
 //         Obsolete part that was used with an early version of the neural network
@@ -191,31 +236,24 @@ public class NeuralNetwork {
 	
     public static void main(String[] args) {
     	
-    	/*
-    	 * Generate and get the data-set
-    	 */
-    	Dataset dataSet = new Dataset();
-    	
-    	NeuralNetwork neuralTest = new NeuralNetwork(dataSet);
-    	
-    	neuralTest.train(EPOCHS,LEARNING_RATE);
-    	
-    	//x,o,o,d,o,d,x,x,d
-    	//[1.0, 0.0, 0.0, 0.5, 0.0, 0.5, 1.0, 1.0, 0.5]
-    	//5
-
-    	//[0.5, 0.0, 0.5, 0.0, 0.0, 1.0, 0.5, 0.5, 0.0]
-    	//[0.5, 0.0, 1.0, 0.0, 0.0, 1.0, 0.5, 0.5, 0.0]
-    	
-    	// Test board
-    	// Return 2
-    	 double[] inputTest = {
-			 1.0, 0.0, 0.0,
-			 0.5, 0.0, 0.5,
-			 1.0, 1.0, 0.5
-		}; 
-         
-         System.out.println("index " + Arrays.toString(neuralTest.prediction(inputTest)));
+//    	/*
+//    	 * Generate and get the data-set
+//    	 */
+//    	Dataset dataSet = new Dataset();
+//    	
+//    	NeuralNetwork neuralTest = new NeuralNetwork(dataSet);
+//    	
+//    	neuralTest.train(EPOCHS,LEARNING_RATE);
+//    	
+//    	//x,o,o,d,o,d,x,x,d
+//    	//[1.0, 0.0, 0.0, 0.5, 0.0, 0.5, 1.0, 1.0, 0.5]
+//    	//5
+//
+//    	//[0.5, 0.0, 0.5, 0.0, 0.0, 1.0, 0.5, 0.5, 0.0]
+//    	//[0.5, 0.0, 1.0, 0.0, 0.0, 1.0, 0.5, 0.5, 0.0]
+//    	
+//    	// Test board
+//    	// Return 2
     	
     }
 }

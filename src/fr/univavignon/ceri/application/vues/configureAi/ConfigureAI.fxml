@@ -67,11 +67,6 @@
                                                       <Insets left="10.0" />
                                                    </HBox.margin>
                                                 </Button>
-                                                <Button mnemonicParsing="false" onAction="#generateDataSet" styleClass="btn" text="Generate dataset" HBox.hgrow="ALWAYS">
-                                                   <HBox.margin>
-                                                      <Insets left="10.0" />
-                                                   </HBox.margin>
-                                                </Button>
                                              </children>
                                              <VBox.margin>
                                                 <Insets top="10.0" />
@@ -149,11 +144,6 @@
                                              <children>
                                                 <Button mnemonicParsing="false" onAction="#trainHard" styleClass="btn" text="Train" />
                                                 <Button mnemonicParsing="false" onAction="#resetHard" styleClass="btn" text="Reset">
-                                                   <HBox.margin>
-                                                      <Insets left="10.0" />
-                                                   </HBox.margin>
-                                                </Button>
-                                                <Button mnemonicParsing="false" onAction="#generateDataSet" styleClass="btn" text="Generate dataset" HBox.hgrow="ALWAYS">
                                                    <HBox.margin>
                                                       <Insets left="10.0" />
                                                    </HBox.margin>

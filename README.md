@@ -31,8 +31,6 @@ Here is the procedure to install this software :
 2. Setup the build path
     1. Source > Add Folder > Choose the src folder
     2. Libraries
-       * Add External Jar > Select [controlsfx-8.40.15.jar](https://mvnrepository.com/artifact/org.controlsfx/controlsfx/8.40.15)
-       * Add External Jar > Select then TensorFlow JDK [libtensorflow-1.14.0.jar](https://www.tensorflow.org/install/lang_java)
        * Add Library > JavaFX SDK
        * Add Library > JRE System Library
 

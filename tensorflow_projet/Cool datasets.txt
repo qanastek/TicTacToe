@@ -1,2 +1,0 @@
-Cars196:
-https://www.tensorflow.org/datasets/catalog/cars196

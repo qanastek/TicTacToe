@@ -24,17 +24,6 @@ import javafx.scene.shape.Rectangle;
 public class Tile extends StackPane {
 	
 	/**
-	 * Content of the {@code Tile} :
-	 * <br>
-	 * null => Blank
-	 * <br>
-	 * x => Cross
-	 * <br>
-	 * o => Round
-	 */
-//	public Text content;
-	
-	/**
 	 * The player piece
 	 */
 	public ImageView contentImg;
@@ -54,6 +43,7 @@ public class Tile extends StackPane {
 	 */
 	public Tile() {
 
+		// Piece image
 		this.contentImg = new ImageView();
 		
 		// Rectangle
